@@ -1,0 +1,34 @@
+.message-confirmation{
+	color: green;
+}
+
+.message-erreur{
+	color: red;
+}
+
+/* table,
+td {
+    border: 1px solid #333;
+} */
+
+/* thead, */
+/* tfoot {
+    background-color: #c0c0c0;
+    color: rgb(255, 255, 255);
+} */
+
+.link-button { 
+     background: none;
+     border: none;
+     color: #1a0dab;
+     text-decoration: underline;
+     cursor: pointer; 
+}
+
+/* .btn-valider{
+	display: inline-block;
+}
+
+.btn-annuler{
+	display: inline-block;
+} */
