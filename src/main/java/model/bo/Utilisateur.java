@@ -31,6 +31,10 @@ public class Utilisateur {
 		this.administrateur = administrateur;
 	}
 	
+	public Utilisateur() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getNoUtilisateur() {
 		return noUtilisateur;
 	}
