@@ -28,7 +28,7 @@ public class Accueil extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+	request.getRequestDispatcher("/WEB-INF/listeVente.jsp").forward(request, response);
 	System.out.println("Début du test");
 
 	System.out.println("Fin du test");

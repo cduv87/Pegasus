@@ -11,6 +11,6 @@
     <%@ include file="./include/head.jsp"%>
 </head>
 <body>
-
+<h1>Test 2</h1>
 </body>
 </html>
