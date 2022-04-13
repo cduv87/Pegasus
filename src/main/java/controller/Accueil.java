@@ -38,11 +38,13 @@ public class Accueil extends HttpServlet {
 	request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	System.out.println("Début du test");
 	try {
-		articleDao.insertArticle(new ArticleVendu(0, "chaise ergonomique", "tout confort, pac cher", LocalDate.of(2020, 10, 25), null, 0, 0, false, null, null));
+		articleDao.insertArticle(new ArticleVendu(0, "chaise ergonomique", "tout confort, pac cher", LocalDate.of(2020, 10, 25), LocalDate.of(2022, 11, 29), 50, 100, true, null, null));
+		articleDao.getArticleById(0);
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
+	
 
 	System.out.println("Fin du test");
 	
