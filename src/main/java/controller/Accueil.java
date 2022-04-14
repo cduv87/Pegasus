@@ -36,6 +36,7 @@ public class Accueil extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	request.getRequestDispatcher("/WEB-INF/listeVente.jsp").forward(request, response);
 	System.out.println("Début du test");
+	
 	//Creation d'un utilisateur en base de donnée.
 	UtilisateurManager utilisateurManager = new UtilisateurManager();
 	try {
@@ -46,13 +47,13 @@ public class Accueil extends HttpServlet {
 	}
 	try {
 		Utilisateur userTest = new Utilisateur();
-		userTest.setPseudo("cduv2");
-		userTest.setNom("Duval2");
-		userTest.setPrenom("Clement2");
-		userTest.setEmail("clement.duval2");
-		userTest.setTelephone("072");
-		userTest.setRue("AA2");
-		userTest.setCodePostal("29590");
+		userTest.setPseudo("PP");
+		userTest.setNom("Perron");
+		userTest.setPrenom("Phileas");
+		userTest.setEmail("phileas.perron");
+		userTest.setTelephone("06");
+		userTest.setRue("PP");
+		userTest.setCodePostal("29000");
 		userTest.setVille("Quimper");
 		userTest.setMotDePasse("motdepasse");
 		userTest.setCredit(100);
@@ -62,13 +63,23 @@ public class Accueil extends HttpServlet {
 		utilisateurManager.ajouterUtilisateur(userTest);
 		System.out.println("Ajout utilisateur réussi");
 
+		
+		//Affichage de tous les utilisateurs de la table Utilisateur
 		System.out.println("DEBUT Affichage de tous les utilisateurs");
 
 		ArrayList<Utilisateur> listeUtilisateurTemp = utilisateurManager.afficherTousUtilisateurs();
 		for (Utilisateur utilisateur : listeUtilisateurTemp) {
-			System.out.println(utilisateur.toString());
+			System.out.println(utilisateur);
 		}
 		System.out.println("FIN Affichage de tous les utilisateurs");
+		
+		
+		//Affichage d'un utilisateur par ID/no_utilisateur
+		System.out.println("DEBUT Affichage d'un les utilisateurs");
+		Utilisateur userTemp = utilisateurManager.afficherUnUtilisateur(4);
+		System.out.println(userTemp);
+		System.out.println("FIN Affichage d'un les utilisateurs");
+
 		
 	} catch (BusinessException e1) {
 		// TODO Auto-generated catch block

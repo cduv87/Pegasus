@@ -22,4 +22,6 @@ public interface UtilisateurDAO {
 	public void add(Utilisateur user) throws SQLException;
 	
 	public ArrayList<Utilisateur> selectAll() throws SQLException;
+	
+	public Utilisateur selectBy(int id) throws SQLException;
 }

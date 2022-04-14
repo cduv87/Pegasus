@@ -30,4 +30,10 @@ public class UtilisateurManager {
 		
 		return this.utilisateurDAO.selectAll();
 	}
+	
+	public Utilisateur afficherUnUtilisateur(int id) throws SQLException {
+//		validation(user);
+
+		return this.utilisateurDAO.selectBy(id);
+	}
 }
