@@ -16,5 +16,15 @@ public class EditVenteServlet extends HttpServlet {
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	 	request.getRequestDispatcher("/WEB-INF/editVente.jsp").forward(request, response);
 	}
- }
+ 
 
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	try {			
+		
+		String date = request.getParameter("date");
+		String heure =request.getParameter("heure");
+		String ingredients=request.getParameter("ingredients");
+		
+		LocalDate dateFinale=LocalDate.parse(date);
+	}
+}

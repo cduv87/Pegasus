@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<h1>Nouvelle vente</h1>
 
 <form action="./editVente" method="">
 
