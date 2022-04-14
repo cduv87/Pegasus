@@ -117,6 +117,15 @@ public class Accueil extends HttpServlet {
 		
 		System.out.println("FIN Modification d'un utilisateur");
 
+		System.out.println("DEBUT test connexion utilisateur");
+		userTest = utilisateurManager.findByPseudoAndPassword("Prout", "Pipi");
+		System.out.println(userTest);
+		userTest = utilisateurManager.findByPseudoAndPassword("Olo", "motdepasse");
+		System.out.println(userTest);
+
+		System.out.println("Fin test connexion utilisateur");
+
+		
 	} catch (BusinessException e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();

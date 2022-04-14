@@ -46,4 +46,16 @@ public class UtilisateurManager {
 	public void modifierUtilisateur(Utilisateur user) throws SQLException {
 		this.utilisateurDAO.update(user);
 	}
+	
+	 public Utilisateur findByPseudoAndPassword(String pseudo, String password) throws SQLException {
+	    	ArrayList<Utilisateur> utilisateurs = utilisateurDAO.selectAll();
+
+	        for (Utilisateur user : utilisateurs) {
+	            if (user.getPseudo().equals(pseudo) && user.getMotDePasse().equals(password)) {
+	                return user;
+	            }
+	        }
+	        return null; // on retourne null si non trouvé
+	    }
+	
 }
