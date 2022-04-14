@@ -18,6 +18,9 @@
 			<div class="container-fluid">
 				<a class="navbar-brand" href="#"><h2 class="text-white">ENI
 						ENCHERES</h2></a>
+						
+				<!--bouton burger pour le header en statut connecté-->
+				
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#mob-navbar"
 					aria-label="Toggle">
