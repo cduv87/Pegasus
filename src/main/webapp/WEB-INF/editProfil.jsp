@@ -8,5 +8,7 @@
 </head>
 <body>
 
+<form action="./editProfil" method="">
+
 </body>
 </html>

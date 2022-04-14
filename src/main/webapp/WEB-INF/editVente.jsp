@@ -8,5 +8,9 @@
 </head>
 <body>
 
+
+<form action="./editVente" method="">
+
+
 </body>
 </html>

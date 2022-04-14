@@ -8,5 +8,8 @@
 </head>
 <body>
 
+<form action="./detailVente" method="">
+
+
 </body>
 </html>
