@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,10 +22,24 @@ public class EditVenteServlet extends HttpServlet {
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	try {			
 		
-		String date = request.getParameter("date");
-		String heure =request.getParameter("heure");
-		String ingredients=request.getParameter("ingredients");
+		String date = request.getParameter("Début de l'enchère");
+		String date2 =request.getParameter("Fin de l'enchère");
 		
-		LocalDate dateFinale=LocalDate.parse(date);
+		LocalDate debutEnchere=LocalDate.parse(date);
+		LocalDate finEnchere=LocalDate.parse(date);
+		
+		
+		
+		/*List<String>= StringToList();
+		
+		Enchere enchere = new Enchere(,,);*/
+		
+		//this.articleManager.add(vente);
+		
+	
+	}catch(Exception e){
+		
+	e.printStackTrace();
+	}
 	}
 }

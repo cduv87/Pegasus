@@ -27,7 +27,7 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
-
+	
 				<a href="connexion" class="btn btn-primary">Se connecter</a>
 				</form>
 			</div>
