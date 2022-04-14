@@ -35,9 +35,9 @@ public class Accueil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	request.getRequestDispatcher("/WEB-INF/listeVente.jsp").forward(request, response);
-	System.out.println("Début du test");
+	System.out.println("Dï¿½but du test");
 	
-	//Creation d'un utilisateur en base de donnée.
+	//Creation d'un utilisateur en base de donnï¿½e.
 	UtilisateurManager utilisateurManager = new UtilisateurManager();
 	try {
 		utilisateurManager.seConnecter();
@@ -61,7 +61,7 @@ public class Accueil extends HttpServlet {
 		userTest.setAdministrateur(administrateur);
 		
 		utilisateurManager.ajouterUtilisateur(userTest);
-		System.out.println("Ajout utilisateur réussi");
+		System.out.println("Ajout utilisateur rï¿½ussi");
 
 		
 		//Affichage de tous les utilisateurs de la table Utilisateur
@@ -81,10 +81,17 @@ public class Accueil extends HttpServlet {
 		System.out.println("FIN Affichage d'un les utilisateurs");
 
 		//Suppression d'un utilisateur par ID/no_utilisateur
+		listeUtilisateurTemp = utilisateurManager.afficherTousUtilisateurs();
+		for (Utilisateur utilisateur : listeUtilisateurTemp) {
+			System.out.println(utilisateur);
+		}
 		System.out.println("DEBUT Suprression d'un utilisateur");
-		utilisateurManager.afficherUnUtilisateur(12);
-		System.out.println(userTemp);
-		System.out.println("FIN Suppression d'un utilisateur");
+		utilisateurManager.effacerUnUtilisateur(12);
+		
+		listeUtilisateurTemp = utilisateurManager.afficherTousUtilisateurs();
+		for (Utilisateur utilisateur : listeUtilisateurTemp) {
+			System.out.println(utilisateur);
+		}		System.out.println("FIN Suppression d'un utilisateur");
 		
 	} catch (BusinessException e1) {
 		// TODO Auto-generated catch block
