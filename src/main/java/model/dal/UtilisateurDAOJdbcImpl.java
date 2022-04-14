@@ -113,6 +113,44 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		}
 	}
 	
+	public void update(Utilisateur user) throws SQLException {
+		Connection cnx = ConnectionProvider.getConnection();
+		String sqlPrepared = "UPDATE utilisateurs";
+		sqlPrepared += " SET pseudo= ? ,";
+		sqlPrepared += " nom=? ,";
+		sqlPrepared += " prenom=? ,";
+		sqlPrepared += " email=? ,";
+		sqlPrepared += " telephone=? ,";
+		sqlPrepared += " rue=? ,";
+		sqlPrepared += " code_postal=? ,";
+		sqlPrepared += " ville=? ,";
+		sqlPrepared += " mot_de_passe=? ,";
+		sqlPrepared += " credit=? ,";
+		sqlPrepared += " administrateur=? ";
+		sqlPrepared += " WHERE no_utilisateur = ? ;";
+		
+		try {
+			PreparedStatement pStmt = cnx.prepareStatement(sqlPrepared);
+			pStmt.setString(1, user.getPseudo());
+			pStmt.setString(2, user.getNom());
+			pStmt.setString(3, user.getPrenom());
+			pStmt.setString(4, user.getEmail());
+			pStmt.setString(5, user.getTelephone());
+			pStmt.setString(6, user.getRue());
+			pStmt.setString(7, user.getCodePostal());
+			pStmt.setString(8, user.getVille());
+			pStmt.setString(9, user.getMotDePasse());
+			pStmt.setInt(10, user.getCredit());
+			pStmt.setBoolean(11, user.isAdministrateur());
+			pStmt.setInt(12, user.getNoUtilisateur());
+			
+			pStmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 //	public ArrayList<Ingredient> detail(int id) throws SQLException {
 //		ArrayList<Ingredient> listeIngredient = new ArrayList<Ingredient>();
 //		Connection cnx = ConnectionProvider.getConnection();
@@ -135,7 +173,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	@Override
 	public void seConnecter() throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
-		System.out.println("Connexion reussie a  la base de donnees");
+		System.out.println("Connexion reussie a la base de donnees");
 	}
 
 	

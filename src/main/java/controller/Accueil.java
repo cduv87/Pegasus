@@ -35,7 +35,7 @@ public class Accueil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	request.getRequestDispatcher("/WEB-INF/listeVente.jsp").forward(request, response);
-	System.out.println("D�but du test");
+	System.out.println("Debut du test");
 	
 	//Creation d'un utilisateur en base de donn�e.
 	UtilisateurManager utilisateurManager = new UtilisateurManager();
@@ -61,7 +61,7 @@ public class Accueil extends HttpServlet {
 		userTest.setAdministrateur(administrateur);
 		
 		utilisateurManager.ajouterUtilisateur(userTest);
-		System.out.println("Ajout utilisateur r�ussi");
+		System.out.println("Ajout utilisateur reussi");
 
 		
 		//Affichage de tous les utilisateurs de la table Utilisateur
@@ -75,24 +75,48 @@ public class Accueil extends HttpServlet {
 		
 		
 		//Affichage d'un utilisateur par ID/no_utilisateur
-		System.out.println("DEBUT Affichage d'un les utilisateurs");
+		System.out.println("DEBUT Affichage d'un utilisateur");
 		Utilisateur userTemp = utilisateurManager.afficherUnUtilisateur(4);
 		System.out.println(userTemp);
-		System.out.println("FIN Affichage d'un les utilisateurs");
+		System.out.println("FIN Affichage d'un utilisateur");
 
-		//Suppression d'un utilisateur par ID/no_utilisateur
+//		System.out.println("DEBUT Suprression d'un utilisateur");
+//		//Suppression d'un utilisateur par ID/no_utilisateur
+//			//On Liste tous les utilisateurs
+//		listeUtilisateurTemp = utilisateurManager.afficherTousUtilisateurs();
+//		for (Utilisateur utilisateur : listeUtilisateurTemp) {
+//			System.out.println(utilisateur);
+//		}
+//			//On supprimer l'utilisateur n°12 dans cet example
+//		utilisateurManager.effacerUnUtilisateur(12);
+//			//On vérifie la suppression en relistant tous les utilisateurs
+//		listeUtilisateurTemp = utilisateurManager.afficherTousUtilisateurs();
+//		for (Utilisateur utilisateur : listeUtilisateurTemp) {
+//			System.out.println(utilisateur);
+//		}		
+//		System.out.println("FIN Suppression d'un utilisateur");
+//		
+		
+		System.out.println("DEBUT modification d'un utilisateur");
+
+		//Test modification d'un utilsateur
+			//On extrait un utilisateur existant de la base
+		userTest = utilisateurManager.afficherUnUtilisateur(1);
+		System.out.println(userTest);
+			//Modification de son code postal
+		userTest.setCodePostal("34000");
+			//Modification en base de donnée
+		utilisateurManager.modifierUtilisateur(userTest);
+			//Syso pour vérirication
+		System.out.println(userTest);
+			//Syso de tous les utilisateurs
 		listeUtilisateurTemp = utilisateurManager.afficherTousUtilisateurs();
 		for (Utilisateur utilisateur : listeUtilisateurTemp) {
 			System.out.println(utilisateur);
-		}
-		System.out.println("DEBUT Suprression d'un utilisateur");
-		utilisateurManager.effacerUnUtilisateur(12);
+		};
 		
-		listeUtilisateurTemp = utilisateurManager.afficherTousUtilisateurs();
-		for (Utilisateur utilisateur : listeUtilisateurTemp) {
-			System.out.println(utilisateur);
-		}		System.out.println("FIN Suppression d'un utilisateur");
-		
+		System.out.println("FIN Modification d'un utilisateur");
+
 	} catch (BusinessException e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
@@ -101,7 +125,6 @@ public class Accueil extends HttpServlet {
 		e1.printStackTrace();
 	}
 	
-	System.out.println("Milieu du test");
 	System.out.println("Fin du test");
 	
 	

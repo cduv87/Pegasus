@@ -26,4 +26,6 @@ public interface UtilisateurDAO {
 	public Utilisateur selectBy(int id) throws SQLException;
 	
 	public void delete(int id) throws SQLException;
+	
+	public void update(Utilisateur user) throws SQLException;
 }

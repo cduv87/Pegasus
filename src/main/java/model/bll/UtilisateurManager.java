@@ -42,4 +42,8 @@ public class UtilisateurManager {
 
 		this.utilisateurDAO.delete(id);
 	}
+	
+	public void modifierUtilisateur(Utilisateur user) throws SQLException {
+		this.utilisateurDAO.update(user);
+	}
 }
