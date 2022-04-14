@@ -21,7 +21,7 @@
 	
 	<form action="./editVente" method="POST">
 	<h1> Article </h1><textarea name="article" placeholder="article" cols="20" rows="1"></textarea><br /><br />
-	<h2> Description </h2><textarea name="ingredients" placeholder="ingrédients" cols="20" rows="20"></textarea><br /><br />	
+	<h2> Description </h2><textarea name="description" placeholder="description cols="20" rows="20"></textarea><br /><br />	
 	<h2> Catégorie </h2><br /><br />
 	<h2> Mise à prix</h2><br /><br />
 		<label>Date : </label>
