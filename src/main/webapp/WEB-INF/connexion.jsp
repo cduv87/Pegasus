@@ -5,11 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Connexion</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-	crossorigin="anonymous">
+<%@ include file="./include/bootstrapLinks.jsp"%>
 </head>
 
 <body>
@@ -25,7 +21,7 @@
 			<div class="col-md-6 mx-20">
 				<div class="card bg-light">
 					<div class="card-body ">
-						<label>Utilisateur : </label> <input type="text" name="username" /><br>
+						<label>Pseudo : </label> <input type="text" name="pseudo" /><br>
 
 						<label>Mot de passe : </label> <input type="password"
 							name="password" /><br>
