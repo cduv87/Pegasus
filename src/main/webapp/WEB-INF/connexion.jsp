@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Connexion</title>
-<%@ include file="./include/bootstrapLinks.jsp"%>
+<%@ include file="./include/bootstrapAndJSTL.jsp"%>
 </head>
 
 <body>

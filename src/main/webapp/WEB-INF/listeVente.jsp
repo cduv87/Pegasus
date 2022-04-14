@@ -6,9 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Page d'acceuil</title>
-<!-- page d'acceuil incluant le header à l'ouverture -->
-<%@ include file="./include/bootstrapLinks.jsp"%>
+<title>Page d'accueil</title>
+<%@ include file="./include/bootstrapAndJSTL.jsp"%>
 </head>
 <body>
 <header>
