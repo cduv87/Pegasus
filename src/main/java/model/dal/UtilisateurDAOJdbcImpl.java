@@ -100,6 +100,19 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		return user;
 	}
 	
+	public void delete(int id) throws SQLException {
+		Connection cnx = ConnectionProvider.getConnection();
+		String sqlPrepared = "DELETE FROM utilisateurs WHERE no_utilisateur = ?";
+		try {
+			PreparedStatement pStmt = cnx.prepareStatement(sqlPrepared);
+			pStmt.setInt(1, id);
+			pStmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 //	public ArrayList<Ingredient> detail(int id) throws SQLException {
 //		ArrayList<Ingredient> listeIngredient = new ArrayList<Ingredient>();
 //		Connection cnx = ConnectionProvider.getConnection();

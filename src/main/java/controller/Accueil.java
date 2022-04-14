@@ -80,6 +80,11 @@ public class Accueil extends HttpServlet {
 		System.out.println(userTemp);
 		System.out.println("FIN Affichage d'un les utilisateurs");
 
+		//Suppression d'un utilisateur par ID/no_utilisateur
+		System.out.println("DEBUT Suprression d'un utilisateur");
+		utilisateurManager.afficherUnUtilisateur(12);
+		System.out.println(userTemp);
+		System.out.println("FIN Suppression d'un utilisateur");
 		
 	} catch (BusinessException e1) {
 		// TODO Auto-generated catch block

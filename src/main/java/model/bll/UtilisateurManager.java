@@ -36,4 +36,10 @@ public class UtilisateurManager {
 
 		return this.utilisateurDAO.selectBy(id);
 	}
+	
+	public void effacerUnUtilisateur(int id)  throws SQLException {
+//		validation(user);
+
+		this.utilisateurDAO.delete(id);
+	}
 }
