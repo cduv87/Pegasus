@@ -27,7 +27,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		PreparedStatement pStmt = cnx.prepareStatement(SELECT_ARTICLE);
 		pStmt.setInt(1, id);
 		ResultSet rs = pStmt.executeQuery();
-		
+		rs.next();
 		Categorie c = this.getCatById(rs.getInt("no_categorie"));
 		//Utilisateur u = UtilisateurDAO.getUserById(rs.getInt("no_utilisateur"));
 		Utilisateur u = null;
@@ -78,6 +78,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		PreparedStatement pStmt = cnx.prepareStatement(SELECT_CATEGORIE);
 		pStmt.setInt(1, id);
 		ResultSet rs = pStmt.executeQuery();
+		rs.next();
 		
 		Categorie c = new Categorie(
 			id,
@@ -90,7 +91,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	}
 
 	@Override
-	public void delete(ArticleVendu a) throws SQLException {
+	public void deleteArticle(ArticleVendu a) throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
 		try {
 			PreparedStatement pStmt = cnx.prepareStatement(DELETE_ARTICLE);
@@ -103,12 +104,14 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	}
 
 	@Override
-	public void update(ArticleVendu a) throws SQLException {
+	public void updateArticle(ArticleVendu a) throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
 
 		try {
 			PreparedStatement pStmt = cnx.prepareStatement(UPDATE_ARTICLE);
 
+			pStmt.setInt(9, a.getNoArticle());
+			
 			pStmt.setString(1, a.getNomArticle());
 			pStmt.setString(2, a.getDescription());
 			pStmt.setDate(3, java.sql.Date.valueOf(a.getDateDebutEncheres()));

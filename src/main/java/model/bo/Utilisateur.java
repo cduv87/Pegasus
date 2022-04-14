@@ -14,6 +14,8 @@ public class Utilisateur {
 	private int credit;
 	private boolean administrateur;
 	
+	public Utilisateur() {}
+	
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
 		super();
@@ -29,10 +31,6 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
-	}
-	
-	public Utilisateur() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getNoUtilisateur() {

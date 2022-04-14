@@ -12,7 +12,7 @@ public interface ArticleDAO {
 
 	void insertArticle(ArticleVendu a) throws SQLException;
 
-	void delete(ArticleVendu a) throws SQLException;
+	void updateArticle(ArticleVendu a) throws SQLException;
 
-	void update(ArticleVendu a) throws SQLException;
+	void deleteArticle(ArticleVendu a) throws SQLException;
 }
