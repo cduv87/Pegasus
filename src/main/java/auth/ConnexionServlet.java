@@ -1,6 +1,8 @@
 package auth;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import model.bo.Utilisateur;
 import model.bll.UtilisateurManager;
 
@@ -34,7 +36,13 @@ public class ConnexionServlet extends HttpServlet {
 		String password = request.getParameter("password");
 
 		// 2 - on va chercher dans notre base d'utilisateur si un utilisateur correspond
-		Utilisateur utilisateur = userManager.findByPseudoAndPassword(pseudo, password);
+		Utilisateur utilisateur = null;
+		try {
+			utilisateur = userManager.findByPseudoAndPassword(pseudo, password);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		// si jamais utilisateur non trouvé
 		if (utilisateur == null) {
