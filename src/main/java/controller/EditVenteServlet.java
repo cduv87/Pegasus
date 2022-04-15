@@ -39,7 +39,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		LocalDate dateDebutEncheres=LocalDate.parse(date);
 		LocalDate dateFinEncheres=LocalDate.parse(date2);
 		
-		Utilisateur utilisateur = ;
+		// il faut créer un constructeur utilisateur (rue,codePostal, ville)
+		Utilisateur utilisateur = new Utilisateur (utilisateur.getRue(),utilisateur.getCodePostal(),utilisateur.getVille()) ;
 		
 		ArticleVendu articleVendu= new ArticleVendu (article,description,categorie,miseAprix,dateDebutEncheres,dateFinEncheres,utilisateur);
 		

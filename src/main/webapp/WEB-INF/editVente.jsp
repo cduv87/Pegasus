@@ -17,6 +17,7 @@
 	<!-- bloc qui affiche l'éventuel message d'erreur -->
 
 	<p class="message-erreur">${messageErreur}</p>
+	
 	<div class="container bg-white text-center py 5">
 
 		<form action="./editVente" method="POST">
@@ -46,22 +47,14 @@
 			<br />
 			<br />
 			<h2>Mise à prix</h2>
-			<input type=text list=prix>
-			<datalist id=prix>
-				<option>
-					<!-- pointe une des enums de prix -->
-				<option>
-					<!-- pointe une des enums de prix -->
-				<option>
-					<!-- pointe une des enums de prix -->
-				<option>
-					<!-- pointe une des enums de prix -->
-			</datalist>
+			<textarea name="aprix" placeholder="prix" cols="5" rows="1"></textarea>
 			<br />
 			<br /> <label>Date : </label> <input type="date"
 				name="Début de l'enchère" /> <br />
 			<br /> <label>Heure : </label> <input type="date"
 				name="Fin de l'enchère" /> <br />
+				
+				
 			<br /> <input type="submit" class="btn btn-success m-5"
 				value="Enregistrer" /> 
 				<a href="./" class="btn btn-danger m-5">annuler</a>
