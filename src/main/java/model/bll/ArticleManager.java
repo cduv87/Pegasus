@@ -10,7 +10,7 @@ public class ArticleManager {
 		private ArticleDAO articleDAO = DAOFactory.getArticleDAO();
 
 		public void add(ArticleVendu article) throws BusinessException {
-			//validation(article);
+			validation(article);
 			try {
 				this.articleDAO.insertArticle(article);
 			} catch (SQLException e) {
@@ -19,8 +19,8 @@ public class ArticleManager {
 			}
 		}
 
-		private void validation(ArticleVendu article)  throws BusinessException{
-			if (article.getDateDebutEncheres().isBefore(article.getDateFinEncheres())) {
+		private void validation(ArticleVendu article) throws BusinessException {
+			if (article.getDateFinEncheres().isBefore(article.getDateDebutEncheres())) {
 				throw new BusinessException("la date du article doit >= ра la date du jour");
 			}
 		}
@@ -32,5 +32,21 @@ public class ArticleManager {
 				e.printStackTrace();
 			}
 			return null;
+		}
+
+		public void delete(ArticleVendu a) {
+			try {
+				this.articleDAO.deleteArticle(a);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		public void update(ArticleVendu a) {
+			try {
+				this.articleDAO.updateArticle(a);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 }
