@@ -3,6 +3,13 @@ package model.bo;
 import java.time.LocalDate;
 
 public class ArticleVendu {
+	@Override
+	public String toString() {
+		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
+				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAPrix="
+				+ miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", categorieArticle="
+				+ categorieArticle + ", utilisateur=" + utilisateur + "]";
+	}
 	private int noArticle;
 	private String nomArticle;
 	private String description;
