@@ -25,8 +25,8 @@
 			<br />
 			<br />
 			<h2>Description</h2>
-			<textarea name="description" placeholder="description cols="
-				20" rows="20"></textarea>
+			<textarea name="description" placeholder="description" cols=
+				"20" rows="20"></textarea>
 			<br />
 			<br />
 			
@@ -46,6 +46,17 @@
 			<br />
 			<br />
 			<h2>Mise à prix</h2>
+			<input type=text list=prix>
+			<datalist id=prix>
+				<option>
+					<!-- pointe une des enums de prix -->
+				<option>
+					<!-- pointe une des enums de prix -->
+				<option>
+					<!-- pointe une des enums de prix -->
+				<option>
+					<!-- pointe une des enums de prix -->
+			</datalist>
 			<br />
 			<br /> <label>Date : </label> <input type="date"
 				name="Début de l'enchère" /> <br />
