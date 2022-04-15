@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.bo.ArticleVendu;
+import model.bo.Categorie;
+import model.bo.Utilisateur;
+
 @WebServlet("/editVente")
 public class EditVenteServlet extends HttpServlet {
 	
@@ -23,20 +27,28 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 	try {			
 		String article = request.getParameter("article");
 		String description = request.getParameter("description");
+		Categorie categorie = request.getParameter("categorie");
+		
+		int miseAprix=request.getParameter("prix");
+		/*List<String>= StringToList();
+		
+		*/
 		String date = request.getParameter("Début de l'enchère");
 		String date2 =request.getParameter("Fin de l'enchère");
 		
-		LocalDate debutEnchere=LocalDate.parse(date);
-		LocalDate finEnchere=LocalDate.parse(date2);
+		LocalDate dateDebutEncheres=LocalDate.parse(date);
+		LocalDate dateFinEncheres=LocalDate.parse(date2);
 		
+		Utilisateur utilisateur = ;
 		
+		ArticleVendu articleVendu= new ArticleVendu (article,description,categorie,miseAprix,dateDebutEncheres,dateFinEncheres,utilisateur);
 		
-		/*List<String>= StringToList();
+	
+		//Appel de la BLL
 		
-		Enchere enchere = new Enchere(,,);*/
+		this.ArticleManager.add(articleVendu);
 		
-		//this.articleManager.add(vente);
-		
+		//Insertion
 	
 	}catch(Exception e){
 		
