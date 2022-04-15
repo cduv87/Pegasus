@@ -29,6 +29,17 @@ public class ArticleVendu {
 		this.categorieArticle = categorieArticle;
 		this.utilisateur = utilisateur;
 	}
+	public ArticleVendu(String nomArticle, String description,Categorie categorieArticle,int miseAPrix, LocalDate dateDebutEncheres,
+			LocalDate dateFinEncheres, 
+			Utilisateur utilisateur) {
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.categorieArticle = categorieArticle;
+		this.miseAPrix = miseAPrix;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.utilisateur = utilisateur;
+	}
 	
 	public int getNoArticle() {
 		return noArticle;

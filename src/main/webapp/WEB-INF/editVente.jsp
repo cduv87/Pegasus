@@ -63,7 +63,8 @@
 			<br /> <label>Heure : </label> <input type="date"
 				name="Fin de l'enchère" /> <br />
 			<br /> <input type="submit" class="btn btn-success m-5"
-				value="valider" /> <a href="./" class="btn btn-danger m-5">annuler</a>
+				value="Enregistrer" /> 
+				<a href="./" class="btn btn-danger m-5">annuler</a>
 		</form>
 	</div>
 
