@@ -14,8 +14,10 @@ public class Utilisateur {
 	private int credit;
 	private boolean administrateur;
 	
+
 	public Utilisateur() {}
 	
+
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
 		super();
@@ -32,7 +34,7 @@ public class Utilisateur {
 		this.credit = credit;
 		this.administrateur = administrateur;
 	}
-			
+
 	public int getNoUtilisateur() {
 		return noUtilisateur;
 	}
@@ -105,4 +107,14 @@ public class Utilisateur {
 	public void setAdministrateur(boolean administrateur) {
 		this.administrateur = administrateur;
 	}
+
+	@Override
+	public String toString() {
+		return "Utilisateur noUtilisateur=" + noUtilisateur + ", pseudo=" + pseudo + ", nom=" + nom + ", prenom="
+				+ prenom + ", email=" + email + ", telephone=" + telephone + ", rue=" + rue + ", codePostal="
+				+ codePostal + ", ville=" + ville + ", motDePasse=" + motDePasse + ", credit=" + credit
+				+ ", administrateur=" + administrateur + "";
+	}
+	
+	
 }
