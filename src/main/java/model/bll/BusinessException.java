@@ -15,4 +15,5 @@ public class BusinessException extends Exception {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
+
 }
