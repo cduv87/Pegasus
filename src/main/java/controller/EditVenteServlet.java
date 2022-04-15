@@ -21,12 +21,13 @@ public class EditVenteServlet extends HttpServlet {
 
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	try {			
-		
+		String article = request.getParameter("article");
+		String description = request.getParameter("description");
 		String date = request.getParameter("Début de l'enchère");
 		String date2 =request.getParameter("Fin de l'enchère");
 		
 		LocalDate debutEnchere=LocalDate.parse(date);
-		LocalDate finEnchere=LocalDate.parse(date);
+		LocalDate finEnchere=LocalDate.parse(date2);
 		
 		
 		
