@@ -46,7 +46,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 	
 		//Appel de la BLL
 		
-		this.ArticleManager.add(articleVendu);
+		this.articleManager.add(articleVendu);
 		
 		//Insertion
 	
