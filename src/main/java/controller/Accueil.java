@@ -31,6 +31,7 @@ public class Accueil extends HttpServlet {
 
 	//Creation d'un utilisateur en base de donnee.
 	try {
+		test.testEffacerTousRetraits();
 		test.testEffacerToutesEncheres();
 		test.testEffacerTousArticles();
 		test.testEffacerToutesCategories();
@@ -40,6 +41,8 @@ public class Accueil extends HttpServlet {
 		test.testAjouterLesCategories();
 		test.testAjouterArticleVendu();
 		test.testAjoutEnchere();
+		test.testAjoutRetrait(1);
+		
 		
 		test.testAfficherTousUtilisateurs();
 		test.testAfficherToutesCategories();

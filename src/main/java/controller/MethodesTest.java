@@ -14,10 +14,12 @@ import model.bll.ArticleManager;
 import model.bll.BusinessException;
 import model.bll.CategorieManager;
 import model.bll.EnchereManager;
+import model.bll.RetraitManager;
 import model.bll.UtilisateurManager;
 import model.bo.ArticleVendu;
 import model.bo.Categorie;
 import model.bo.Enchere;
+import model.bo.Retrait;
 import model.bo.Utilisateur;
 
 public class MethodesTest {
@@ -25,6 +27,7 @@ public class MethodesTest {
 	ArticleManager articleManager = new ArticleManager();
 	EnchereManager enchereManager = new EnchereManager();
 	CategorieManager categorieManager = new CategorieManager();
+	RetraitManager retraitManager = new RetraitManager();
 
 	public MethodesTest() {
 	}
@@ -70,6 +73,13 @@ public class MethodesTest {
 			}
 			;
 		}
+	
+	public void testEffacerTousRetraits()throws SQLException, BusinessException {
+		System.out.println("DEBUT test supression tous retraits");
+		retraitManager.effacterTousRetraits();
+		System.out.println("Fin test supression tous retrairs");
+		System.out.println();
+	}
 
 	public Boolean testAjouterUnUtilisateur() throws BusinessException {
 		System.out.println("Test ajout de 4 utilisateurs");
@@ -195,8 +205,22 @@ public class MethodesTest {
 		enchereManager.ajouterEnchere(enchere_temp);
 		System.out.println("FIN Test ajout d'une enchere");
 		System.out.println();
-
 	}
+	
+		public void testAjoutRetrait(int id) throws SQLException {
+			System.out.println("DEBUT Test ajout d'un retrait");
+			ArticleVendu a = articleManager.afficherUnArticle(id);
+			Utilisateur user = utilisateurManager.afficherUnUtilisateur(a.getNoArticle());
+			Retrait retrait_temp = new Retrait();
+			retrait_temp.setNo_article(a.getNoArticle());
+			retrait_temp.setRue(user.getRue());
+			retrait_temp.setCode_postal(user.getCodePostal());
+			retrait_temp.setVille(user.getVille());
+			System.out.println(retrait_temp);
+//			retraitManager.ajouterRetrait(retrait_temp);
+			System.out.println("FIN Test ajout d'un retrait");
+			System.out.println();
+		}
 
 	public Boolean testAfficherTousUtilisateurs() throws BusinessException {
 		System.out.println("DEBUT Test affichage de TOUS les utilisateurs");
