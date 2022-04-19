@@ -31,12 +31,11 @@ public class EditVenteServlet extends HttpServlet {
 			String article = request.getParameter("article");
 			String description = request.getParameter("description");
 			//En attente DAO ;   En attente  de l'énumération
-			//Categorie categorie = request.getParameter("categorie");
+			
+		//	Categorie categorie =  Integer.valueOf(request.getParameter("categorie"));
 
-			int miseAprix=request.getParameter("prix");
-			/*List<String>= StringToList();
-
-			 */
+			int miseAprix=  Integer.valueOf(request.getParameter("prix"));
+		
 			String date = request.getParameter("Début de l'enchère");
 			String date2 =request.getParameter("Fin de l'enchère");
 
@@ -44,9 +43,9 @@ public class EditVenteServlet extends HttpServlet {
 			LocalDate dateFinEncheres=LocalDate.parse(date2);
 
 			// il faut créer un constructeur utilisateur (rue,codePostal, ville)
-			//	Utilisateur utilisateur = new Utilisateur (utilisateur.getRue(),utilisateur.getCodePostal(),utilisateur.getVille()) ;
+			Utilisateur utilisateur = new Utilisateur () ;// utilisateur.getNoUtilisateur(),
 
-			ArticleVendu articleVendu= new ArticleVendu (article,description,categorie,miseAprix,dateDebutEncheres,dateFinEncheres,utilisateur);
+			ArticleVendu articleVendu= new ArticleVendu (article,description,categorie,miseAprix,dateDebutEncheres,dateFinEncheres, utilisateur.getNoUtilisateur());
 
 
 			//Appel de la BLL
