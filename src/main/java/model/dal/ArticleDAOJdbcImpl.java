@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
+import model.bll.UtilisateurManager;
 import model.bo.ArticleVendu;
 import model.bo.Categorie;
 import model.bo.Utilisateur;
@@ -21,7 +23,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	private final static String SELECT_CATEGORIE = "select * from categories where no_categorie=?;";
 	private final static String UPDATE_ARTICLE = "UPDATE articles_vendus SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?, no_utilisateur=?, no_categorie=? where no_article=?;";
 	private final static String DELETE_ARTICLE = "DELETE FROM articles_vendus WHERE no_article=?";
-	
+	private final static String SELECT_ARTICLE_ALL = "select * from articles_vendus;";
+
 	@Override
 	public ArticleVendu getArticleById(int id) throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
@@ -149,6 +152,52 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	public void truncateCategorie() throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
 		String sql = "DELETE FROM categories DBCC CHECKIDENT ('ENCHERES.dbo.CATEGORIES', RESEED, 0)";
+		try {
+			Statement stm = cnx.createStatement();
+			stm.executeUpdate(sql);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public ArrayList<ArticleVendu> getArticles() throws SQLException {
+		Connection cnx = ConnectionProvider.getConnection();
+		PreparedStatement pStmt = cnx.prepareStatement(SELECT_ARTICLE_ALL);
+		ResultSet rs = pStmt.executeQuery();
+			
+		ArrayList<ArticleVendu> articles = new ArrayList<ArticleVendu>();
+		UtilisateurManager utilisateurDAO = new UtilisateurManager();
+		
+		while(rs.next()) {
+			Categorie c = this.getCategorieById(rs.getInt("no_categorie"));
+			Utilisateur u = utilisateurDAO.afficherUnUtilisateur(rs.getInt("no_utilisateur"));
+			
+			articles.add(
+				new ArticleVendu(
+					rs.getInt("no_article"),
+					rs.getString("nom_article"),
+					rs.getString("description"),
+					rs.getDate("date_debut_encheres").toLocalDate(),
+					rs.getDate("date_fin_encheres").toLocalDate(),
+					rs.getInt("prix_initial"),
+					rs.getInt("prix_vente"),
+					false,
+					c,
+					u
+				)
+			);
+		}
+		
+		cnx.close();
+		
+		return articles;
+	}
+	
+	public void truncateArticles() throws SQLException {
+		Connection cnx = ConnectionProvider.getConnection();
+		String sql = "DELETE FROM articles_vendus DBCC CHECKIDENT ('ENCHERES.dbo.ARTICLES_VENDUS', RESEED, 0)";
 		try {
 			Statement stm = cnx.createStatement();
 			stm.executeUpdate(sql);

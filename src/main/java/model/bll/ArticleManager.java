@@ -1,6 +1,7 @@
 package model.bll;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import model.bo.ArticleVendu;
 import model.bo.Categorie;
@@ -35,6 +36,15 @@ public class ArticleManager {
 			return null;
 		}
 
+		public ArrayList<ArticleVendu> getAll() {
+			try {
+				return this.articleDAO.getArticles();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
 		public void delete(ArticleVendu a) {
 			try {
 				this.articleDAO.deleteArticle(a);
@@ -72,4 +82,13 @@ public class ArticleManager {
 			}
 			return null;
 		}
+		
+		public void truncateArticles() throws SQLException{
+			try {
+				this.articleDAO.truncateArticles();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 }

@@ -37,6 +37,7 @@ public class Accueil extends HttpServlet {
 
 	//Creation d'un utilisateur en base de donnee.
 	try {
+		test.testEffacerTousArticles();
 		test.testEffacerTousUtilisateurs();
 		test.testEffacerToutesCategories();
 		test.testAjouterUnUtilisateur();
@@ -46,6 +47,7 @@ public class Accueil extends HttpServlet {
 //		test.testAfficherUnUtilisateur();
 		test.testAfficherUneCategorie(2);
 		test.testAfficherUnArticle(1);
+		test.testAfficherTousArticles();
 //		test.testEffacerUnUtilisateur();
 //		test.testModifierUtilisateur();
 //		test.testConnexionUtilisateur();

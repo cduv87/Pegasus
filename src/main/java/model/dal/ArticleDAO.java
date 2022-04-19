@@ -1,6 +1,7 @@
 package model.dal;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import model.bo.ArticleVendu;
 import model.bo.Categorie;
@@ -19,5 +20,9 @@ public interface ArticleDAO {
 	void insertCategorie(Categorie c) throws SQLException;
 
 	void truncateCategorie() throws SQLException;
+	
+	ArrayList<ArticleVendu> getArticles() throws SQLException;
+	
+	void truncateArticles() throws SQLException;
 	
 }

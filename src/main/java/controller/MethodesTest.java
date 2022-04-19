@@ -303,8 +303,34 @@ public class MethodesTest {
 	}
 	
 	public void testAfficherUnArticle(int id) {
+		System.out.println("DEBUT Affichage d'un article");
+
 		ArticleVendu article_temp = articleManager.getById(id);
 		System.out.println(article_temp.toString());
+		System.out.println("FIN Affichage d'un article");
+
+	}
+	
+	public void testAfficherTousArticles() {
+		System.out.println("DEBUT Affichage de tous les articles");
+
+		ArrayList<ArticleVendu> listeArticles = articleManager.getAll();
+		for (ArticleVendu articlesVendu : listeArticles) {
+			System.out.println(articlesVendu);
+		}
+		System.out.println("FIN Affichage de tous les articles");
+
+	}
+	
+	public void testEffacerTousArticles() throws SQLException {
+		System.out.println("DEBUT Suppression de tous les articles");
+		articleManager.truncateArticles();
+		ArrayList<ArticleVendu> listeArticles = articleManager.getAll();
+		for (ArticleVendu articlesVendu : listeArticles) {
+			System.out.println(articlesVendu);
+		}
+		System.out.println("DEBUT Suppression de tous les articles");
+
 	}
 	
 }
