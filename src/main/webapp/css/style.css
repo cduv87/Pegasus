@@ -32,3 +32,11 @@ td {
 .btn-annuler{
 	display: inline-block;
 } */
+
+#col {
+  column-count: 2;
+}
+
+#marginco {
+  margin: 20px 30px 20px;
+}
