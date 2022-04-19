@@ -13,9 +13,9 @@ public interface CategorieDAOInterface {
 	
 	public Categorie selectBy(int id) throws SQLException;
 	
-	public void delete(int id) throws SQLException;
-	
 	public void update(Categorie c) throws SQLException;
+	
+	public void delete(int id) throws SQLException;
 	
 	public void truncate() throws SQLException;
 }

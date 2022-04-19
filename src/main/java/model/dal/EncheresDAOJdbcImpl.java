@@ -16,9 +16,9 @@ import model.bo.Utilisateur;
 public class EncheresDAOJdbcImpl implements EncheresDAOInterface {
 	private final static String INSERT_ENCHERE = "INSERT INTO encheres (date_enchere, montant_enchere, no_article, no_utilisateur) values(?,?,?,?);";
 	private final static String SELECT_ENCHERE_ALL = "SELECT * FROM encheres;";
-	private final static String SELECT_ENCHERE = "SELECT * FROM encheres where no_enchere=?;";
+	private final static String SELECT_ENCHERE = "SELECT * FROM encheres WHERE no_enchere=?;";
+	private final static String UPDATE_ENCHERE = "UPDATE encheres SET date_enchere=? , montant_enchere=? WHERE no_enchere=?;";
 	private final static String DELETE_ENCHERE = "DELETE FROM encheres WHERE no_article=?";
-	private final static String UPDATE_ENCHERE = "UPDATE encheres SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?, no_utilisateur=?, no_categorie=? where no_article=?;";
 	private final static String TRUNCATE_ENCHERE ="DELETE FROM encheres DBCC CHECKIDENT ('ENCHERES.dbo.ENCHERES', RESEED, 0)";
 	@Override
 	public void add(Enchere e) throws SQLException {
@@ -90,6 +90,28 @@ public class EncheresDAOJdbcImpl implements EncheresDAOInterface {
 	}
 
 	@Override
+	public void update(Enchere e) throws SQLException {
+		Connection cnx = ConnectionProvider.getConnection();
+
+		try {
+			PreparedStatement pStmt = cnx.prepareStatement(UPDATE_ENCHERE);
+
+			pStmt.setInt(3, e.getNoEnchere());
+			
+			pStmt.setDate(1, java.sql.Date.valueOf(e.getDateEnchere()));
+			pStmt.setInt(2, e.getMontant_enchere());
+//			pStmt.setInt(3, e.getArticle().getNoArticle());
+//			pStmt.setInt(4, e.getUtilisateur().getNoUtilisateur());
+			pStmt.executeUpdate();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		
+		cnx.close();
+	}
+	
+	@Override
 	public void delete(int id) throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
 		try {
@@ -99,29 +121,6 @@ public class EncheresDAOJdbcImpl implements EncheresDAOInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		cnx.close();
-	}
-
-
-	@Override
-	public void update(Enchere e) throws SQLException {
-		Connection cnx = ConnectionProvider.getConnection();
-
-		try {
-			PreparedStatement pStmt = cnx.prepareStatement(UPDATE_ENCHERE);
-
-			pStmt.setInt(5, e.getNoEnchere());
-			
-			pStmt.setDate(1, java.sql.Date.valueOf(e.getDateEnchere()));
-			pStmt.setInt(2, e.getMontant_enchere());
-			pStmt.setInt(3, e.getArticle().getNoArticle());
-			pStmt.setInt(4, e.getUtilisateur().getNoUtilisateur());
-			pStmt.executeUpdate();
-
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
-		
 		cnx.close();
 	}
 

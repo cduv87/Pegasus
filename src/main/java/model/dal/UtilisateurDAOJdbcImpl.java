@@ -15,9 +15,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 	
 	private final static String INSERT_USER = "INSERT INTO utilisateurs(pseudo,nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?);";
 	private final static String SELECT_USER_ALL = "SELECT * FROM utilisateurs;";
-	private final static String SELECT_USER = "SELECT * FROM articles_vendus where no_article=?;";
-	private final static String UPDATE_USER = "UPDATE articles_vendus SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?, no_utilisateur=?, no_categorie=? where no_article=?;";
-	private final static String DELETE_USER = "DELETE FROM articles_vendus WHERE no_article=?";
+	private final static String SELECT_USER = "SELECT * FROM utilisateurs WHERE no_utilisateur = ?";
+	private final static String UPDATE_USER = "UPDATE utilisateurs SET pseudo= ? , nom=? , prenom=? , email=? , telephone=? , rue=? , code_postal=? , ville=? , mot_de_passe=? , credit=? , administrateur=? WHERE no_utilisateur = ? ;";
+	private final static String DELETE_USER = "DELETE FROM utilisateurs WHERE no_utilisateur = ?";
 	private final static String TRUNCATE_USER = "DELETE FROM utilisateurs DBCC CHECKIDENT ('ENCHERES.dbo.UTILISATEURS', RESEED, 0)";
 	
 	public void add(Utilisateur user) throws SQLException{
@@ -52,7 +52,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 	
 			ResultSet rs = pStmt.executeQuery();
 			try {
-
 			while (rs.next()) {
 				Utilisateur user = new Utilisateur();
 				user.setNoUtilisateur(rs.getInt("no_utilisateur"));
@@ -79,9 +78,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 	public Utilisateur selectBy(int id) throws SQLException {
 		Utilisateur user = new Utilisateur();
 		Connection cnx = ConnectionProvider.getConnection();
-		String sqlPrepared = "SELECT * FROM utilisateurs WHERE no_utilisateur = ?";
 		try {
-			PreparedStatement pStmt = cnx.prepareStatement(sqlPrepared);
+			PreparedStatement pStmt = cnx.prepareStatement(SELECT_USER);
 			pStmt.setInt(1, id);
 			ResultSet rs = pStmt.executeQuery();
 			rs.next();
@@ -97,44 +95,16 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 			user.setMotDePasse(rs.getString("mot_de_passe"));
 			user.setCredit(rs.getInt("credit"));
 			user.setAdministrateur(rs.getBoolean("administrateur"));
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return user;
 	}
 	
-	public void delete(int id) throws SQLException {
-		Connection cnx = ConnectionProvider.getConnection();
-		String sqlPrepared = "DELETE FROM utilisateurs WHERE no_utilisateur = ?";
-		try {
-			PreparedStatement pStmt = cnx.prepareStatement(sqlPrepared);
-			pStmt.setInt(1, id);
-			pStmt.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public void update(Utilisateur user) throws SQLException {
-		Connection cnx = ConnectionProvider.getConnection();
-		String sqlPrepared = "UPDATE utilisateurs";
-		sqlPrepared += " SET pseudo= ? ,";
-		sqlPrepared += " nom=? ,";
-		sqlPrepared += " prenom=? ,";
-		sqlPrepared += " email=? ,";
-		sqlPrepared += " telephone=? ,";
-		sqlPrepared += " rue=? ,";
-		sqlPrepared += " code_postal=? ,";
-		sqlPrepared += " ville=? ,";
-		sqlPrepared += " mot_de_passe=? ,";
-		sqlPrepared += " credit=? ,";
-		sqlPrepared += " administrateur=? ";
-		sqlPrepared += " WHERE no_utilisateur = ? ;";
-		
+		Connection cnx = ConnectionProvider.getConnection();		
 		try {
-			PreparedStatement pStmt = cnx.prepareStatement(sqlPrepared);
+			PreparedStatement pStmt = cnx.prepareStatement(UPDATE_USER);
 			pStmt.setString(1, user.getPseudo());
 			pStmt.setString(2, user.getNom());
 			pStmt.setString(3, user.getPrenom());
@@ -147,7 +117,17 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 			pStmt.setInt(10, user.getCredit());
 			pStmt.setBoolean(11, user.isAdministrateur());
 			pStmt.setInt(12, user.getNoUtilisateur());
-			
+			pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void delete(int id) throws SQLException {
+		Connection cnx = ConnectionProvider.getConnection();
+		try {
+			PreparedStatement pStmt = cnx.prepareStatement(DELETE_USER);
+			pStmt.setInt(1, id);
 			pStmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -157,10 +137,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 	
 	public void truncate() throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
-		String sql = "DELETE FROM utilisateurs DBCC CHECKIDENT ('ENCHERES.dbo.UTILISATEURS', RESEED, 0)";
 		try {
-			Statement stm = cnx.createStatement();
-			stm.executeUpdate(sql);
+			PreparedStatement pStmt = cnx.prepareStatement(TRUNCATE_USER);
+			pStmt.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -173,6 +152,5 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 		System.out.println("Connexion reussie a la base de donnees");
 	}
 
-	
-	}
+}
 

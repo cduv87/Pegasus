@@ -12,9 +12,9 @@ public interface EncheresDAOInterface {
 	
 	public Enchere selectBy(int id) throws SQLException;
 	
-	public void delete(int id) throws SQLException;
-	
 	public void update(Enchere e) throws SQLException;
 	
+	public void delete(int id) throws SQLException;
+		
 	public void truncate() throws SQLException;
 }

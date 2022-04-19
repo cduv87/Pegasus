@@ -13,9 +13,9 @@ public class CategorieDAOJdbcImpl implements CategorieDAOInterface{
 
 	private final static String INSERT_CATEGORIE = "INSERT INTO categories (libelle) values(?);";
 	private final static String SELECT_ARTICLE_ALL = "SELECT * FROM categories;";
-	private final static String SELECTBY_CATEGORIE = "SELECT * FROM categories where no_categorie=?;";
-	private final static String DELETE_CATEGORIE = "DELETE FROM categories WHERE no_categorie=?";
+	private final static String SELECT_CATEGORIE = "SELECT * FROM categories where no_categorie=?;";
 	private final static String UPDATE_CATEGORIE = "UPDATE categories SET libelle=? where no_categorie=?;";
+	private final static String DELETE_CATEGORIE = "DELETE FROM categories WHERE no_categorie=?";
 	private final static String TRUNCATE_CATEGORIE = "DELETE FROM categories DBCC CHECKIDENT ('ENCHERES.dbo.CATEGORIES', RESEED, 0)";
 
 
@@ -52,7 +52,6 @@ public class CategorieDAOJdbcImpl implements CategorieDAOInterface{
 				)
 			);
 		}
-		
 		cnx.close();
 		
 		return listeCategories;
@@ -61,7 +60,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAOInterface{
 	@Override
 	public Categorie selectBy(int id) throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
-		PreparedStatement pStmt = cnx.prepareStatement(SELECTBY_CATEGORIE);
+		PreparedStatement pStmt = cnx.prepareStatement(SELECT_CATEGORIE);
 		pStmt.setInt(1, id);
 		ResultSet rs = pStmt.executeQuery();
 		rs.next();
@@ -74,20 +73,6 @@ public class CategorieDAOJdbcImpl implements CategorieDAOInterface{
 		cnx.close();
 		
 		return c;
-	}
-	
-	
-	@Override
-	public void delete(int id) throws SQLException {
-		Connection cnx = ConnectionProvider.getConnection();
-		try {
-			PreparedStatement pStmt = cnx.prepareStatement(DELETE_CATEGORIE);
-			pStmt.setInt(1, id);
-			pStmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		cnx.close();
 	}
 
 	@Override
@@ -106,6 +91,19 @@ public class CategorieDAOJdbcImpl implements CategorieDAOInterface{
 			ex.printStackTrace();
 		}
 		
+		cnx.close();
+	}
+	
+	@Override
+	public void delete(int id) throws SQLException {
+		Connection cnx = ConnectionProvider.getConnection();
+		try {
+			PreparedStatement pStmt = cnx.prepareStatement(DELETE_CATEGORIE);
+			pStmt.setInt(1, id);
+			pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		cnx.close();
 	}
 

@@ -21,7 +21,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAOInterface {
 	private final static String INSERT_ARTICLE = "INSERT INTO articles_vendus (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) values(?,?,?,?,?,?,?,?);";
 	private final static String SELECT_ARTICLE_ALL = "SELECT * FROM articles_vendus;";
 	private final static String SELECT_ARTICLE = "SELECT * FROM articles_vendus where no_article=?;";
-	private final static String UPDATE_ARTICLE = "UPDATE articles_vendus SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?, no_utilisateur=?, no_categorie=? where no_article=?;";
+	private final static String UPDATE_ARTICLE = "UPDATE articles_vendus SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=? WHERE no_article=? ;";
 	private final static String DELETE_ARTICLE = "DELETE FROM articles_vendus WHERE no_article=?";
 	private final static String TRUNCATE_ARTICLE = "DELETE FROM articles_vendus DBCC CHECKIDENT ('ENCHERES.dbo.ARTICLES_VENDUS', RESEED, 0)";
 	
@@ -111,7 +111,34 @@ public class ArticleDAOJdbcImpl implements ArticleDAOInterface {
 		
 		return a;
 	}
-	
+
+	@Override
+	public void update(ArticleVendu a) throws SQLException {
+		Connection cnx = ConnectionProvider.getConnection();
+		UtilisateurManager utilisateurManager = new UtilisateurManager();
+		CategorieManager categorieManager = new CategorieManager();
+		try {
+			PreparedStatement pStmt = cnx.prepareStatement(UPDATE_ARTICLE);
+
+			pStmt.setInt(7, a.getNoArticle());
+			
+			pStmt.setString(1, a.getNomArticle());
+			pStmt.setString(2, a.getDescription());
+			pStmt.setDate(3, java.sql.Date.valueOf(a.getDateDebutEncheres()));
+			pStmt.setDate(4, java.sql.Date.valueOf(a.getDateFinEncheres()));
+			pStmt.setInt(5, a.getMiseAPrix());
+			pStmt.setInt(6, a.getPrixVente());
+//			pStmt.setInt(7, a.getUtilisateur().getNoUtilisateur());
+//			pStmt.setInt(8, a.getCategorieArticle().getNoCategorie());
+			
+			pStmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		cnx.close();
+	}
 	
 	@Override
 	public void delete(int id) throws SQLException {
@@ -123,32 +150,6 @@ public class ArticleDAOJdbcImpl implements ArticleDAOInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		cnx.close();
-	}
-
-	@Override
-	public void update(ArticleVendu a) throws SQLException {
-		Connection cnx = ConnectionProvider.getConnection();
-
-		try {
-			PreparedStatement pStmt = cnx.prepareStatement(UPDATE_ARTICLE);
-
-			pStmt.setInt(9, a.getNoArticle());
-			
-			pStmt.setString(1, a.getNomArticle());
-			pStmt.setString(2, a.getDescription());
-			pStmt.setDate(3, java.sql.Date.valueOf(a.getDateDebutEncheres()));
-			pStmt.setDate(4, java.sql.Date.valueOf(a.getDateFinEncheres()));
-			pStmt.setInt(5, a.getMiseAPrix());
-			pStmt.setInt(6, a.getPrixVente());
-			pStmt.setInt(7, a.getUtilisateur().getNoUtilisateur());
-			pStmt.setInt(8, a.getCategorieArticle().getNoCategorie());
-			pStmt.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
 		cnx.close();
 	}
 	
