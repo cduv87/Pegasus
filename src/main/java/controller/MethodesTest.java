@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;import javax.swing.text.DefaultEditorKit.InsertContentAction;
 
@@ -289,8 +290,22 @@ public class MethodesTest {
 		System.out.println(categorie_temp.toString());
 	}
 	
-	public void testAjouterArticleVendu() {
+	public void testAjouterArticleVendu() throws SQLException, BusinessException {
 		ArticleVendu article_temp = new ArticleVendu();
+		article_temp.setNomArticle("PS5");
+		article_temp.setDescription("Une console");
+		article_temp.setDateDebutEncheres(LocalDate.of(2022,04,19));
+		article_temp.setDateFinEncheres(LocalDate.of(2022,05,19));
+		article_temp.setMiseAPrix(500);
+		article_temp.setUtilisateur(utilisateurManager.afficherUnUtilisateur(1));
+		article_temp.setCategorieArticle(articleManager.getCategorieById(1));
+		articleManager.add(article_temp);
 	}
+	
+	public void testAfficherUnArticle(int id) {
+		ArticleVendu article_temp = articleManager.getById(id);
+		System.out.println(article_temp.toString());
+	}
+	
 }
 

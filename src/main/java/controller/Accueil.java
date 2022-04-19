@@ -39,11 +39,13 @@ public class Accueil extends HttpServlet {
 	try {
 		test.testEffacerTousUtilisateurs();
 		test.testEffacerToutesCategories();
-//		test.testAjouterUnUtilisateur();
+		test.testAjouterUnUtilisateur();
 		test.testAjouterLesCategories();
+		test.testAjouterArticleVendu();
 //		test.testAfficherTousUtilisateurs();
 //		test.testAfficherUnUtilisateur();
 		test.testAfficherUneCategorie(2);
+		test.testAfficherUnArticle(1);
 //		test.testEffacerUnUtilisateur();
 //		test.testModifierUtilisateur();
 //		test.testConnexionUtilisateur();
