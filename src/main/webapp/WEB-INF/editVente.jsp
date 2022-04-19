@@ -54,7 +54,12 @@
 			<br /> <label>Heure : </label> <input type="date"
 				name="Fin de l'enchère" /> <br />
 				
+		<!-- Utilisation de l'EL pour récupérer les informations de l'utilisateur connecté  -->
+		
 		<h1>Retrait</h1>	
+				Rue : ${utilisateurConnecte.rue}<br/>
+				Code Postal : ${utilisateurConnecte.codePostal}<br/>
+				Ville : ${utilisateurConnecte.ville}<br/>
 				
 			<br /> <input type="submit" class="btn btn-success m-5"
 				value="Enregistrer" /> 
