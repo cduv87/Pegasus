@@ -32,7 +32,7 @@ public class EditVenteServlet extends HttpServlet {
 			String description = request.getParameter("description");
 			//En attente DAO ;   En attente  de l'énumération
 			
-		//	Categorie categorie =  Integer.valueOf(request.getParameter("categorie"));
+			//Categorie categorie =  Integer.valueOf(request.getParameter("categorie"));
 
 			int miseAprix=  Integer.valueOf(request.getParameter("prix"));
 		
@@ -44,8 +44,9 @@ public class EditVenteServlet extends HttpServlet {
 
 			// il faut créer un constructeur utilisateur (rue,codePostal, ville)
 			Utilisateur utilisateur = new Utilisateur () ;// utilisateur.getNoUtilisateur(),
-
-			ArticleVendu articleVendu= new ArticleVendu (article,description,categorie,miseAprix,dateDebutEncheres,dateFinEncheres, utilisateur.getNoUtilisateur());
+			
+			// création de l'instance articleVendu
+			ArticleVendu articleVendu= new ArticleVendu (article,description,/*categorie,*/miseAprix,dateDebutEncheres,dateFinEncheres, utilisateur.getNoUtilisateur());
 
 
 			//Appel de la BLL
@@ -60,8 +61,8 @@ public class EditVenteServlet extends HttpServlet {
 		}
 
 
-		// je délègue l'affichage de la réponse à la JSP
-		request.getRequestDispatcher("/WEB-INF/editVente.jsp").forward(request, response);
+		// j'enregistre la vente et retour page à la JSP d'acceuil 
+		request.getRequestDispatcher("/WEB-INF/listeVente.jsp").forward(request, response);
 
 	}
 

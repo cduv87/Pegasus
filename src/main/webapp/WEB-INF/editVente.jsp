@@ -36,18 +36,14 @@
 			<br />
 			
 			<!-- Combobox pour lister les catégories (ENUM) -->
-			<h2>Catégorie</h2>
-			<input type=text list=categories>
-			<datalist id=categories>
-				<option>
-					<!-- pointe une des enums de categories -->
-				<option>
-					<!-- pointe une des enums de categories -->
-				<option>
-					<!-- pointe une des enums de categories -->
-				<option>
-					<!-- pointe une des enums de categories -->
-			</datalist>
+			<label for="Categorie">Catégorie :</label>
+    <select name="categorie id="categorie">
+        <option value="all" selected>Toutes</option>
+        <option value="informatique">Informatique</option>
+        <option value="ameublement">Ameublement</option>
+        <option value="vetement">Vêtement</option>
+        <option value="sportLoisirs">Sport &amp; Loisirs</option>
+    </select>
 			<br />
 			<br />
 			<h2>Mise à prix</h2>

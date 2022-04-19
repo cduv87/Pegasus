@@ -48,6 +48,16 @@ public class ArticleVendu {
 		this.utilisateur = utilisateur;
 	}
 	
+	public ArticleVendu(String article, String description, int miseAprix, LocalDate dateDebutEncheres,
+			LocalDate dateFinEncheres2, int noUtilisateur) {
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.miseAPrix = miseAPrix;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.utilisateur = utilisateur;
+		// TODO supprimer ce constructeur
+	}
 	public int getNoArticle() {
 		return noArticle;
 	}
