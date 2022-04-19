@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.bll.ArticleManager;
 import model.bo.ArticleVendu;
 import model.bo.Categorie;
 import model.bo.Utilisateur;
 
 @WebServlet("/editVente")
 public class EditVenteServlet extends HttpServlet {
+	private ArticleManager articleManager = new ArticleManager();
 	
 	 public EditVenteServlet() {}
 
@@ -27,7 +29,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 	try {			
 		String article = request.getParameter("article");
 		String description = request.getParameter("description");
-		Categorie categorie = request.getParameter("categorie");
+		//En attente DAO ;   En attente  de l'énumération
+		//Categorie categorie = request.getParameter("categorie");
 		
 		int miseAprix=request.getParameter("prix");
 		/*List<String>= StringToList();
@@ -40,7 +43,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		LocalDate dateFinEncheres=LocalDate.parse(date2);
 		
 		// il faut créer un constructeur utilisateur (rue,codePostal, ville)
-		Utilisateur utilisateur = new Utilisateur (utilisateur.getRue(),utilisateur.getCodePostal(),utilisateur.getVille()) ;
+	//	Utilisateur utilisateur = new Utilisateur (utilisateur.getRue(),utilisateur.getCodePostal(),utilisateur.getVille()) ;
 		
 		ArticleVendu articleVendu= new ArticleVendu (article,description,categorie,miseAprix,dateDebutEncheres,dateFinEncheres,utilisateur);
 		
