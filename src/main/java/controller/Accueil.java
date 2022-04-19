@@ -54,7 +54,7 @@ public class Accueil extends HttpServlet {
 		
 //		test.testEffacerUnUtilisateur();
 		
-//		test.testModifierUtilisateur();
+		test.testModifierUtilisateur(2);
 		
 //		test.testConnexionUtilisateur();
 //		test.testImport();

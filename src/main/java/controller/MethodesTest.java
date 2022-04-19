@@ -194,12 +194,12 @@ public class MethodesTest {
 		}
 	}
 
-	public Boolean testModifierUtilisateur() throws SQLException, BusinessException {
+	public Boolean testModifierUtilisateur(int id) throws SQLException, BusinessException {
 		System.out.println("DEBUT Test modification d'un utilisateur");
 		try {
 			// Test modification d'un utilsateur
 			// On extrait un utilisateur existant de la base
-			Utilisateur userTest = utilisateurManager.afficherUnUtilisateur(3);
+			Utilisateur userTest = utilisateurManager.afficherUnUtilisateur(id);
 			System.out.println(userTest);
 			// Modification de son code postal
 			userTest.setCodePostal("34000");
@@ -207,15 +207,9 @@ public class MethodesTest {
 			utilisateurManager.modifierUtilisateur(userTest);
 			// Syso pour vérirication
 			System.out.println(userTest);
-			// Syso de tous les utilisateurs
-			ArrayList<Utilisateur> listeUtilisateurTemp = utilisateurManager.afficherTousUtilisateurs();
-			for (Utilisateur utilisateur : listeUtilisateurTemp) {
-				System.out.println(utilisateur);
-			}
-			;
+			
 			System.out.println("FIN Test modification d'un utilisateur");
 			System.out.println();
-
 
 			return true;
 		} catch (SQLException e1) {
@@ -412,6 +406,7 @@ public class MethodesTest {
 		Enchere e = enchereManager.afficherUneEnchere(1);
 		System.out.println(e);
 		System.out.println("FIN affichage d'une enchere");
+		System.out.println();
 
 	}
 	
