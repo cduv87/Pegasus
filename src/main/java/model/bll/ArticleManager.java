@@ -5,16 +5,16 @@ import java.util.ArrayList;
 
 import model.bo.ArticleVendu;
 import model.bo.Categorie;
-import model.dal.ArticleDAO;
-import model.dal.DAOFactory;
+import model.dal.ArticleDAOInterface;
+import model.dal.ArticleDAOFactory;
 
 public class ArticleManager {
-		private ArticleDAO articleDAO = DAOFactory.getArticleDAO();
+		private ArticleDAOInterface articleDAOInterface = ArticleDAOFactory.getArticleDAO();
 
-		public void add(ArticleVendu article) throws BusinessException {
+		public void ajouterUnArticle(ArticleVendu article) throws BusinessException {
 			validation(article);
 			try {
-				this.articleDAO.insertArticle(article);
+				this.articleDAOInterface.add(article);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				throw new BusinessException("erreur SQL lors de l'insertion en base de donnée");
@@ -27,65 +27,44 @@ public class ArticleManager {
 			}
 		}
 
-		public ArticleVendu getById(int id) {
+		public ArticleVendu afficherUnArticle(int id) {
 			try {
-				return this.articleDAO.getArticleById(id);
+				return this.articleDAOInterface.selectBy(id);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			return null;
 		}
 
-		public ArrayList<ArticleVendu> getAll() {
+		public ArrayList<ArticleVendu> afficherTousArticles() {
 			try {
-				return this.articleDAO.getArticles();
+				return this.articleDAOInterface.selectAll();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			return null;
 		}
 		
-		public void delete(ArticleVendu a) {
+		public void effacerUnArticle(int id) {
 			try {
-				this.articleDAO.deleteArticle(a);
+				this.articleDAOInterface.delete(id);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 
-		public void update(ArticleVendu a) {
+		public void modifierUnArticle(ArticleVendu a) {
 			try {
-				this.articleDAO.updateArticle(a);
+				this.articleDAOInterface.update(a);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 		
-		public void insertCategorie(Categorie c) throws BusinessException {
-			try {
-				this.articleDAO.insertCategorie(c);
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new BusinessException("erreur SQL lors de l'insertion en base de donnée");
-			}
-		}
 		
-		public void truncateCategorie() throws SQLException {
-			articleDAO.truncateCategorie();
-		}
-		
-		public Categorie getCategorieById(int id) {
+		public void effacerTousArticles() throws SQLException{
 			try {
-				return this.articleDAO.getCategorieById(id);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
-		
-		public void truncateArticles() throws SQLException{
-			try {
-				this.articleDAO.truncateArticles();
+				this.articleDAOInterface.truncate();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

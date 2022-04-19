@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import model.bll.CategorieManager;
 import model.bll.UtilisateurManager;
 import model.bo.ArticleVendu;
 import model.bo.Categorie;
@@ -16,7 +17,7 @@ import model.bo.Utilisateur;
 /**
  * Implémentation des fonctionnalités de mon interface RepasDAO avec JDBC (en base de donnée)
  */
-public class ArticleDAOJdbcImpl implements ArticleDAO {
+public class ArticleDAOJdbcImpl implements ArticleDAOInterface {
 	private final static String INSERT_ARTICLE = "INSERT INTO articles_vendus (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) values(?,?,?,?,?,?,?,?);";
 	private final static String SELECT_ARTICLE_ALL = "SELECT * FROM articles_vendus;";
 	private final static String SELECT_ARTICLE = "SELECT * FROM articles_vendus where no_article=?;";
@@ -24,10 +25,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	private final static String DELETE_ARTICLE = "DELETE FROM articles_vendus WHERE no_article=?";
 	private final static String TRUNCATE_ARTICLE = "DELETE FROM articles_vendus DBCC CHECKIDENT ('ENCHERES.dbo.ARTICLES_VENDUS', RESEED, 0)";
 	
-	private final static String INSERT_CATEGORIE = "INSERT INTO categories (libelle) values(?);";
-	private final static String SELECT_CATEGORIE = "SELECT * FROM categories where no_categorie=?;";
 	@Override
-	public void insertArticle(ArticleVendu a) throws SQLException {
+	public void add(ArticleVendu a) throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
 		PreparedStatement pStmt = cnx.prepareStatement(INSERT_ARTICLE,Statement.RETURN_GENERATED_KEYS);
 		
@@ -49,17 +48,18 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	}
 	
 	@Override
-	public ArrayList<ArticleVendu> getArticles() throws SQLException {
+	public ArrayList<ArticleVendu> selectAll() throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
 		PreparedStatement pStmt = cnx.prepareStatement(SELECT_ARTICLE_ALL);
 		ResultSet rs = pStmt.executeQuery();
 			
 		ArrayList<ArticleVendu> articles = new ArrayList<ArticleVendu>();
-		UtilisateurManager utilisateurDAO = new UtilisateurManager();
+		UtilisateurManager utilisateurManager = new UtilisateurManager();
+		CategorieManager categorieManager = new CategorieManager();
 		
 		while(rs.next()) {
-			Categorie c = this.getCategorieById(rs.getInt("no_categorie"));
-			Utilisateur u = utilisateurDAO.afficherUnUtilisateur(rs.getInt("no_utilisateur"));
+			Categorie c = categorieManager.afficherUneCategorie(rs.getInt("no_categorie"));
+			Utilisateur u = utilisateurManager.afficherUnUtilisateur(rs.getInt("no_utilisateur"));
 			
 			articles.add(
 				new ArticleVendu(
@@ -83,13 +83,14 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	}
 	
 	@Override
-	public ArticleVendu getArticleById(int id) throws SQLException {
+	public ArticleVendu selectBy(int id) throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
+		CategorieManager categorieManager = new CategorieManager();
 		PreparedStatement pStmt = cnx.prepareStatement(SELECT_ARTICLE);
 		pStmt.setInt(1, id);
 		ResultSet rs = pStmt.executeQuery();
 		rs.next();
-		Categorie c = this.getCategorieById(rs.getInt("no_categorie"));
+		Categorie c = categorieManager.afficherUneCategorie(rs.getInt("no_categorie"));
 		//Utilisateur u = UtilisateurDAO.getUserById(rs.getInt("no_utilisateur"));
 		Utilisateur u = null;
 		
@@ -113,7 +114,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	
 	
 	@Override
-	public void deleteArticle(int id) throws SQLException {
+	public void delete(int id) throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
 		try {
 			PreparedStatement pStmt = cnx.prepareStatement(DELETE_ARTICLE);
@@ -126,7 +127,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	}
 
 	@Override
-	public void updateArticle(ArticleVendu a) throws SQLException {
+	public void update(ArticleVendu a) throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
 
 		try {
@@ -151,7 +152,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		cnx.close();
 	}
 	
-	public void truncateArticles() throws SQLException {
+	public void truncate() throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
 		try {
 			PreparedStatement pStmt = cnx.prepareStatement(TRUNCATE_ARTICLE);
@@ -162,51 +163,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		}
 	}
 	
-	@Override
-	public void insertCategorie(Categorie c) throws SQLException {
-		Connection cnx = ConnectionProvider.getConnection();
-		PreparedStatement pStmt = cnx.prepareStatement(INSERT_CATEGORIE,Statement.RETURN_GENERATED_KEYS);
-		
-		pStmt.setString(1, c.getLibelle());
-		
-		pStmt.executeUpdate();
-
-		ResultSet rs = pStmt.getGeneratedKeys();
-		if (rs.next())
-			c.setNoCategorie(rs.getInt(1));
-		
-		cnx.close();
-	}
 	
-	@Override
-	public Categorie getCategorieById(int id) throws SQLException {
-		Connection cnx = ConnectionProvider.getConnection();
-		PreparedStatement pStmt = cnx.prepareStatement(SELECT_CATEGORIE);
-		pStmt.setInt(1, id);
-		ResultSet rs = pStmt.executeQuery();
-		rs.next();
-		
-		Categorie c = new Categorie(
-			id,
-			rs.getString("libelle")
-		);
-		
-		cnx.close();
-		
-		return c;
-	}
-	
-	public void truncateCategorie() throws SQLException {
-		Connection cnx = ConnectionProvider.getConnection();
-		String sql = "DELETE FROM categories DBCC CHECKIDENT ('ENCHERES.dbo.CATEGORIES', RESEED, 0)";
-		try {
-			Statement stm = cnx.createStatement();
-			stm.executeUpdate(sql);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	
 }

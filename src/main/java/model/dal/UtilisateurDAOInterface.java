@@ -7,7 +7,7 @@ import model.bo.Utilisateur;
 /**
  * Interface : définit les fonctionnalités qu'on cherche à avoir
  */
-public interface UtilisateurDAO {
+public interface UtilisateurDAOInterface {
 	/*
 	 * Je veux pouvoir ajouter un avis
 	 */

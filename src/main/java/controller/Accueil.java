@@ -10,11 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.bll.BusinessException;
-import model.bll.UtilisateurManager;
-
-
-
-
 
 
 /**
@@ -33,26 +28,34 @@ public class Accueil extends HttpServlet {
 
 	System.out.println("Debut du test");
 	MethodesTest test = new MethodesTest();
-	UtilisateurManager utilisateurManager = new UtilisateurManager();
 
 	//Creation d'un utilisateur en base de donnee.
 	try {
-		test.effacerToutesEncheres();
+		test.testEffacerToutesEncheres();
 		test.testEffacerTousArticles();
-		test.testEffacerTousUtilisateurs();
 		test.testEffacerToutesCategories();
+		test.testEffacerTousUtilisateurs();
+		
 		test.testAjouterUnUtilisateur();
 		test.testAjouterLesCategories();
 		test.testAjouterArticleVendu();
 		test.testAjoutEnchere();
-//		test.testAfficherTousUtilisateurs();
-//		test.testAfficherUnUtilisateur();
+		
+		test.testAfficherTousUtilisateurs();
+		test.testAfficherToutesCategories();
+		test.testAfficherTousArticles();
+		test.testAfficherToutesEncheres();
+
+
+		test.testAfficherUnUtilisateur(4);
 		test.testAfficherUneCategorie(2);
 		test.testAfficherUnArticle(1);
-		test.testAfficherTousArticles();
-		test.afficherToutesEncheres();
+		test.testAfficherUneEnchere(1);
+		
 //		test.testEffacerUnUtilisateur();
+		
 //		test.testModifierUtilisateur();
+		
 //		test.testConnexionUtilisateur();
 //		test.testImport();
 		

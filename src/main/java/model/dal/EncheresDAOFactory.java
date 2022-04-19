@@ -2,7 +2,7 @@ package model.dal;
 
 public abstract class EncheresDAOFactory {
 
-	public static EncheresDAO getEncheresDAO() {
+	public static EncheresDAOInterface getEncheresDAO() {
 		return new EncheresDAOJdbcImpl();
 	}
 }

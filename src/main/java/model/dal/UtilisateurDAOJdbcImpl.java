@@ -11,12 +11,15 @@ import model.bo.Utilisateur;
 /**
  * Implémentation des fonctionnalités de mon interface AvisDAO avec JDBC (en base de donnée)
  */
-public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
+public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 	
-	// on définit notre requête SQL d'insertion avec des ? qu'on remplira par la suite
 	private final static String INSERT_USER = "INSERT INTO utilisateurs(pseudo,nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?);";
-//	private final static String INSERT_INGREDIENT = "insert into Ingredient(nom, id_repas) values(?,?);";
-
+	private final static String SELECT_USER_ALL = "SELECT * FROM utilisateurs;";
+	private final static String SELECT_USER = "SELECT * FROM articles_vendus where no_article=?;";
+	private final static String UPDATE_USER = "UPDATE articles_vendus SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?, no_utilisateur=?, no_categorie=? where no_article=?;";
+	private final static String DELETE_USER = "DELETE FROM articles_vendus WHERE no_article=?";
+	private final static String TRUNCATE_USER = "DELETE FROM utilisateurs DBCC CHECKIDENT ('ENCHERES.dbo.UTILISATEURS', RESEED, 0)";
+	
 	public void add(Utilisateur user) throws SQLException{
 		Connection cnx = ConnectionProvider.getConnection();
 		
@@ -45,10 +48,11 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	public ArrayList<Utilisateur> selectAll() throws SQLException {
 		ArrayList<Utilisateur> listeUtilisateurs = new ArrayList<Utilisateur>();
 		Connection cnx = ConnectionProvider.getConnection();
-		String sql = "SELECT * FROM utilisateurs;";
-		try {
-			Statement state = cnx.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-			ResultSet rs = state.executeQuery(sql);
+		PreparedStatement pStmt = cnx.prepareStatement(SELECT_USER_ALL);
+	
+			ResultSet rs = pStmt.executeQuery();
+			try {
+
 			while (rs.next()) {
 				Utilisateur user = new Utilisateur();
 				user.setNoUtilisateur(rs.getInt("no_utilisateur"));

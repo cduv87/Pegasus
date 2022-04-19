@@ -8,7 +8,7 @@ public abstract class UtilisateurDAOFactory {
 	/**
 	 * Cette méthode sert à éviter le : AvisDAO avisDAO = new AvisDAOJdbcImpl() dans la couche BLL
 	 */
-	public static UtilisateurDAO getUtilisateurDAO() {
+	public static UtilisateurDAOInterface getUtilisateurDAO() {
 		return new UtilisateurDAOJdbcImpl();
 	}
 }

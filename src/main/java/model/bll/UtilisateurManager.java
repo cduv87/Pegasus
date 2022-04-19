@@ -10,51 +10,51 @@ import java.util.Scanner;
 
 import controller.CsvUploader;
 import model.bo.Utilisateur;
-import model.dal.UtilisateurDAO;
+import model.dal.UtilisateurDAOInterface;
 import model.dal.UtilisateurDAOFactory;
 
 public class UtilisateurManager {
 
-	private UtilisateurDAO utilisateurDAO = UtilisateurDAOFactory.getUtilisateurDAO();
+	private UtilisateurDAOInterface utilisateurDAOInterface = UtilisateurDAOFactory.getUtilisateurDAO();
 
 	public void seConnecter() throws SQLException {
 //		validation(user);
 		
-		this.utilisateurDAO.seConnecter();;
+		this.utilisateurDAOInterface.seConnecter();;
 	}
 	
 	
 	public void ajouterUtilisateur(Utilisateur user) throws BusinessException, SQLException {
 //		validation(user);
 		
-		this.utilisateurDAO.add(user);
+		this.utilisateurDAOInterface.add(user);
 	}
 	
 	
 	public ArrayList<Utilisateur> afficherTousUtilisateurs() throws BusinessException, SQLException {
 //		validation(user);
 		
-		return this.utilisateurDAO.selectAll();
+		return this.utilisateurDAOInterface.selectAll();
 	}
 	
 	public Utilisateur afficherUnUtilisateur(int id) throws SQLException {
 //		validation(user);
 
-		return this.utilisateurDAO.selectBy(id);
+		return this.utilisateurDAOInterface.selectBy(id);
 	}
 	
 	public void effacerUnUtilisateur(int id)  throws SQLException {
 //		validation(user);
 
-		this.utilisateurDAO.delete(id);
+		this.utilisateurDAOInterface.delete(id);
 	}
 	
 	public void modifierUtilisateur(Utilisateur user) throws SQLException {
-		this.utilisateurDAO.update(user);
+		this.utilisateurDAOInterface.update(user);
 	}
 	
 	 public Utilisateur findByPseudoAndPassword(String pseudo, String password) throws SQLException {
-	    	ArrayList<Utilisateur> utilisateurs = utilisateurDAO.selectAll();
+	    	ArrayList<Utilisateur> utilisateurs = utilisateurDAOInterface.selectAll();
 
 	        for (Utilisateur user : utilisateurs) {
 	            if (user.getPseudo().equals(pseudo) && user.getMotDePasse().equals(password)) {
@@ -65,7 +65,7 @@ public class UtilisateurManager {
 	    }
 	 
 	 public void effacerTousUtilisateurs() throws SQLException{
-		 this.utilisateurDAO.truncate();
+		 this.utilisateurDAOInterface.truncate();
 	 }
 	 
 	 public  ArrayList<Utilisateur> creerListeUtilisateur() throws BusinessException, SQLException, IOException {

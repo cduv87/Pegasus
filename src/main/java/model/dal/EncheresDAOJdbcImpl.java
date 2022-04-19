@@ -10,17 +10,16 @@ import java.util.ArrayList;
 import model.bll.ArticleManager;
 import model.bll.UtilisateurManager;
 import model.bo.ArticleVendu;
-import model.bo.Categorie;
 import model.bo.Enchere;
 import model.bo.Utilisateur;
 
-public class EncheresDAOJdbcImpl implements EncheresDAO {
+public class EncheresDAOJdbcImpl implements EncheresDAOInterface {
 	private final static String INSERT_ENCHERE = "INSERT INTO encheres (date_enchere, montant_enchere, no_article, no_utilisateur) values(?,?,?,?);";
-	private final static String SELECT_ENCHERE = "SELECT * FROM encheres where no_enchere=?;";
-	private final static String UPDATE_ENCHERE = "UPDATE encheres SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?, no_utilisateur=?, no_categorie=? where no_article=?;";
-	private final static String DELETE_ENCHERE = "DELETE FROM encheres WHERE no_article=?";
 	private final static String SELECT_ENCHERE_ALL = "SELECT * FROM encheres;";
-
+	private final static String SELECT_ENCHERE = "SELECT * FROM encheres where no_enchere=?;";
+	private final static String DELETE_ENCHERE = "DELETE FROM encheres WHERE no_article=?";
+	private final static String UPDATE_ENCHERE = "UPDATE encheres SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?, no_utilisateur=?, no_categorie=? where no_article=?;";
+	private final static String TRUNCATE_ENCHERE ="DELETE FROM encheres DBCC CHECKIDENT ('ENCHERES.dbo.ENCHERES', RESEED, 0)";
 	@Override
 	public void add(Enchere e) throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
@@ -51,7 +50,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 		ResultSet rs = pStmt.executeQuery();
 
 		while (rs.next()) {
-			ArticleVendu a = articleManager.getById(rs.getInt("no_article"));
+			ArticleVendu a = articleManager.afficherUnArticle(rs.getInt("no_article"));
 			Utilisateur u = utilisateurManager.afficherUnUtilisateur(rs.getInt("no_utilisateur"));
 
 			listeEnchere.add(new Enchere(
@@ -76,7 +75,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 		pStmt.setInt(1, id);
 		ResultSet rs = pStmt.executeQuery();
 		rs.next();
-		ArticleVendu a = articleManager.getById(rs.getInt("no_article"));
+		ArticleVendu a = articleManager.afficherUnArticle(rs.getInt("no_article"));
 		Utilisateur u = utilisateurManager.afficherUnUtilisateur(rs.getInt("no_utilisateur"));
 
 		Enchere e = new Enchere(id, 
@@ -129,10 +128,9 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 	@Override
 	public void truncate() throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
-		String sql = "DELETE FROM encheres DBCC CHECKIDENT ('ENCHERES.dbo.ENCHERES', RESEED, 0)";
 		try {
-			Statement stm = cnx.createStatement();
-			stm.executeUpdate(sql);
+			PreparedStatement pStmt = cnx.prepareStatement(TRUNCATE_ENCHERE);
+			pStmt.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();

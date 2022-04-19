@@ -12,6 +12,7 @@ import javax.swing.text.DefaultEditorKit.InsertContentAction;
 
 import model.bll.ArticleManager;
 import model.bll.BusinessException;
+import model.bll.CategorieManager;
 import model.bll.EnchereManager;
 import model.bll.UtilisateurManager;
 import model.bo.ArticleVendu;
@@ -23,6 +24,7 @@ public class MethodesTest {
 	UtilisateurManager utilisateurManager = new UtilisateurManager();
 	ArticleManager articleManager = new ArticleManager();
 	EnchereManager enchereManager = new EnchereManager();
+	CategorieManager categorieManager = new CategorieManager();
 
 	public MethodesTest() {
 	}
@@ -32,6 +34,8 @@ public class MethodesTest {
 		try {
 			utilisateurManager.seConnecter();
 			System.out.println("FIN Test connexion base de donnee");
+			System.out.println();
+
 
 			return true;
 		} catch (SQLException e) {
@@ -104,6 +108,8 @@ public class MethodesTest {
 			utilisateurManager.ajouterUtilisateur(userTest4);
 
 			System.out.println("FIN Test ajout de 4 utilisateurs");
+			System.out.println();
+
 
 			return true;
 		} catch (SQLException e1) {
@@ -124,6 +130,8 @@ public class MethodesTest {
 				System.out.println(utilisateur);
 			}
 			System.out.println("FIN Test affichage de TOUS les utilisateurs");
+			System.out.println();
+
 			return true;
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
@@ -132,14 +140,16 @@ public class MethodesTest {
 		}
 	}
 
-	public Boolean testAfficherUnUtilisateur() throws SQLException {
+	public Boolean testAfficherUnUtilisateur(int id) throws SQLException {
 		System.out.println("DEBUT Test Affichage d'un utilisateur");
 
 		try {
 			// Affichage d'un utilisateur par ID/no_utilisateur
-			Utilisateur userTemp = utilisateurManager.afficherUnUtilisateur(3);
+			Utilisateur userTemp = utilisateurManager.afficherUnUtilisateur(id);
 			System.out.println(userTemp);
 			System.out.println("FIN Test affichage d'un utilisateur");
+			System.out.println();
+
 
 			return true;
 
@@ -173,6 +183,8 @@ public class MethodesTest {
 			}
 
 			System.out.println("FIN Test Suprression d'un utilisateur");
+			System.out.println();
+
 
 			return true;
 		} catch (SQLException e1) {
@@ -202,6 +214,8 @@ public class MethodesTest {
 			}
 			;
 			System.out.println("FIN Test modification d'un utilisateur");
+			System.out.println();
+
 
 			return true;
 		} catch (SQLException e1) {
@@ -219,6 +233,8 @@ public class MethodesTest {
 			userTest = utilisateurManager.findByPseudoAndPassword("Olo", "motdepasse");
 			System.out.println("Résultat attendu utilisateur : " + userTest);
 			System.out.println("FIN Test Connexion d'utilisateur reussi");
+			System.out.println();
+
 
 			return true;
 		} catch (SQLException e1) {
@@ -243,6 +259,8 @@ public class MethodesTest {
 		}
 		;
 		System.out.println("FIN import d'une liste utilisateurs");
+		System.out.println();
+
 	}
 
 	public void testEffacerTousUtilisateurs() throws SQLException, BusinessException {
@@ -250,6 +268,8 @@ public class MethodesTest {
 		System.out.println("DEBUT test supression tous utilisateurs");
 		utilisateurManager.effacerTousUtilisateurs();
 		System.out.println("Fin test supression tous utilisateurs");
+		System.out.println();
+
 		// Affichage la liste de tous les utilisateurs
 		ArrayList<Utilisateur> listeUtilisateurTemp = utilisateurManager.afficherTousUtilisateurs();
 		for (Utilisateur utilisateur : listeUtilisateurTemp) {
@@ -262,20 +282,21 @@ public class MethodesTest {
 		System.out.println("DEBUT Test ajout des catégories");
 		Categorie c1 = new Categorie();
 		c1.setLibelle("Informatique");
-		articleManager.insertCategorie(c1);
+		categorieManager.ajouterUneCategorie(c1);
 
 		Categorie c2 = new Categorie();
 		c2.setLibelle("Ameublement");
-		articleManager.insertCategorie(c2);
+		categorieManager.ajouterUneCategorie(c2);
 
 		Categorie c3 = new Categorie();
 		c3.setLibelle("Vetement");
-		articleManager.insertCategorie(c3);
+		categorieManager.ajouterUneCategorie(c3);
 
 		Categorie c4 = new Categorie();
 		c4.setLibelle("Sport&Loisir");
-		articleManager.insertCategorie(c4);
+		categorieManager.ajouterUneCategorie(c4);
 		System.out.println("FIN Test ajout des catégories");
+		System.out.println();
 
 		return true;
 	}
@@ -283,21 +304,29 @@ public class MethodesTest {
 	public void testEffacerToutesCategories() throws SQLException, BusinessException {
 //		Test de suppression de tous les utilisateurs
 		System.out.println("DEBUT test supression toutes les categories");
-		articleManager.truncateCategorie();
+		categorieManager.effacterToutesCategories();
 		System.out.println("FIN test supression toutes les categories");
-		// Affichage la liste de tous les utilisateurs
-		ArrayList<Utilisateur> listeUtilisateurTemp = utilisateurManager.afficherTousUtilisateurs();
-		for (Utilisateur utilisateur : listeUtilisateurTemp) {
-			System.out.println(utilisateur);
-		}
-		;
+		System.out.println();
 	}
 
-	public void testAfficherUneCategorie(int id) {
+	public void testAfficherToutesCategories() throws SQLException  {
 		System.out.println("DEBUT Test affichage de TOUTES les catagories");
-		Categorie categorie_temp = articleManager.getCategorieById(id);
-		System.out.println(categorie_temp.toString());
+		ArrayList<Categorie> listeCategories = categorieManager.afficherToutesCategories();
+		for (Categorie categorie : listeCategories) {
+			System.out.println(categorie);
+		}
 		System.out.println("FIN Test affichage de TOUTES les catagories");
+		System.out.println();
+
+
+	}
+	
+	public void testAfficherUneCategorie(int id) throws SQLException {
+		System.out.println("DEBUT Test affichage d'une  catagorie");
+		Categorie categorie_temp = categorieManager.afficherUneCategorie(id);
+		System.out.println(categorie_temp.toString());
+		System.out.println("FIN Test affichage d'une  catagorie");
+		System.out.println();
 
 	}
 
@@ -311,40 +340,44 @@ public class MethodesTest {
 		article_temp.setDateFinEncheres(LocalDate.of(2022, 05, 19));
 		article_temp.setMiseAPrix(500);
 		article_temp.setUtilisateur(utilisateurManager.afficherUnUtilisateur(1));
-		article_temp.setCategorieArticle(articleManager.getCategorieById(1));
-		articleManager.add(article_temp);
+		article_temp.setCategorieArticle(categorieManager.afficherUneCategorie(1));
+		articleManager.ajouterUnArticle(article_temp);
 		System.out.println("FIN Test ajout d'un article");
+		System.out.println();
 
 	}
 
 	public void testAfficherUnArticle(int id) {
 		System.out.println("DEBUT Affichage d'un article");
 
-		ArticleVendu article_temp = articleManager.getById(id);
+		ArticleVendu article_temp = articleManager.afficherUnArticle(id);
 		System.out.println(article_temp.toString());
 		System.out.println("FIN Affichage d'un article");
+		System.out.println();
 
 	}
 
 	public void testAfficherTousArticles() {
 		System.out.println("DEBUT Affichage de tous les articles");
 
-		ArrayList<ArticleVendu> listeArticles = articleManager.getAll();
+		ArrayList<ArticleVendu> listeArticles = articleManager.afficherTousArticles();
 		for (ArticleVendu articlesVendu : listeArticles) {
 			System.out.println(articlesVendu);
 		}
 		System.out.println("FIN Affichage de tous les articles");
+		System.out.println();
 
 	}
 
 	public void testEffacerTousArticles() throws SQLException {
 		System.out.println("DEBUT Suppression de tous les articles");
-		articleManager.truncateArticles();
-		ArrayList<ArticleVendu> listeArticles = articleManager.getAll();
+		articleManager.effacerTousArticles();
+		ArrayList<ArticleVendu> listeArticles = articleManager.afficherTousArticles();
 		for (ArticleVendu articlesVendu : listeArticles) {
 			System.out.println(articlesVendu);
 		}
 		System.out.println("FIN Suppression de tous les articles");
+		System.out.println();
 
 	}
 
@@ -354,14 +387,15 @@ public class MethodesTest {
 		Enchere enchere_temp = new Enchere();
 		enchere_temp.setDateEnchere(LocalDate.of(2022, 04, 01));
 		enchere_temp.setMontant_enchere(100);
-		enchere_temp.setArticle(articleManager.getById(1));
+		enchere_temp.setArticle(articleManager.afficherUnArticle(1));
 		enchere_temp.setUtilisateur(utilisateurManager.afficherUnUtilisateur(2));
 		enchereManager.ajouterEnchere(enchere_temp);
 		System.out.println("FIN Test ajout d'une enchere");
+		System.out.println();
 
 	}
 
-	public void afficherToutesEncheres() throws SQLException {
+	public void testAfficherToutesEncheres() throws SQLException {
 		System.out.println("DEBUT affichage de TOUTES les enchere");
 
 		ArrayList<Enchere> listeEnchere = enchereManager.afficherToutesEncheres();
@@ -369,13 +403,23 @@ public class MethodesTest {
 			System.out.println(enchere);
 		}
 		System.out.println("FIN affichage de TOUTES les enchere");
+		System.out.println();
 
 	}
 	
-	public void effacerToutesEncheres() throws SQLException {
+	public void testAfficherUneEnchere(int id) throws SQLException {
+		System.out.println("DEBUT affichage d'une enchere");
+		Enchere e = enchereManager.afficherUneEnchere(1);
+		System.out.println(e);
+		System.out.println("FIN affichage d'une enchere");
+
+	}
+	
+	public void testEffacerToutesEncheres() throws SQLException {
 		System.out.println("DEBUT suppression de TOUTES les enchere");
 		enchereManager.effacterToutesEncheres();
 		System.out.println("FIN suppression de TOUTES les enchere");
+		System.out.println();
 
 	}
 }

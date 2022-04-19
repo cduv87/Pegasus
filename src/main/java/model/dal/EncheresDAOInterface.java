@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import model.bo.Enchere;
 
-public interface EncheresDAO {
+public interface EncheresDAOInterface {
 	public void add(Enchere e) throws SQLException;
 	
 	public ArrayList<Enchere> selectAll() throws SQLException;
