@@ -21,6 +21,7 @@ public class EditProfilServlet extends HttpServlet {
 
 	private UtilisateurManager userManager = new UtilisateurManager();
 	private Utilisateur utilisateur = new Utilisateur();
+	private Utilisateur connecte = new Utilisateur();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -33,8 +34,9 @@ public class EditProfilServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("METHODE POST");
-
-		Utilisateur connecte = new Utilisateur();
+		System.out.println("connecté debut post : " + connecte);
+		System.out.println("utilisateur debut post : " + utilisateur);
+		
 		HttpSession session = request.getSession();
 		;
 		String messageErreur = null;
@@ -65,7 +67,7 @@ public class EditProfilServlet extends HttpServlet {
 		motDePasse2 = request.getParameter("mdp2");
 		motDePasseActu = request.getParameter("mdpactu");
 		
-		System.out.println("mdp1 : " + motDePasse1 + "mdp2 : " + motDePasse2);
+		System.out.println("mdp1 : " + motDePasse1 + "/ mdp2 : " + motDePasse2);
 		if (! motDePasse1.equals(motDePasse2)) {
 			request.setAttribute("erreur", "Vous avez inséré des mots de passe différents");
 			this.doGet(request, response);
@@ -81,13 +83,13 @@ public class EditProfilServlet extends HttpServlet {
 		utilisateur.setVille(ville);
 		utilisateur.setMotDePasse(motDePasse1);
 
-
+		System.out.println("session.gettattribute : " + session.getAttribute("utilisateurConnecte"));
 		if (session.getAttribute("utilisateurConnecte") != null) {
 			connecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
 			System.out.println(connecte);
 			String mdpUser = connecte.getMotDePasse();
-			System.out.println("mdp session actuelle" +mdpUser);
-			System.out.println("mdp entré" +motDePasseActu);
+			System.out.println("mdp session actuelle : " +mdpUser);
+			System.out.println("mdp ancien saisie : " +motDePasseActu);
 			if (! mdpUser.equals(motDePasseActu)) {
 				System.out.println("erreur ancien mot de passe mauvais");
 				request.setAttribute("erreur", "Votre ancien mot de passe n'est pas le bon");
