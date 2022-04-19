@@ -3,6 +3,7 @@ package model.bll;
 import java.sql.SQLException;
 
 import model.bo.ArticleVendu;
+import model.bo.Categorie;
 import model.dal.ArticleDAO;
 import model.dal.DAOFactory;
 
@@ -21,7 +22,7 @@ public class ArticleManager {
 
 		private void validation(ArticleVendu article) throws BusinessException {
 			if (article.getDateFinEncheres().isBefore(article.getDateDebutEncheres())) {
-				throw new BusinessException("la date du article doit >= ‡† la date du jour");
+				throw new BusinessException("la date du article doit >= a la date du jour");
 			}
 		}
 
@@ -48,5 +49,27 @@ public class ArticleManager {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		}
+		
+		public void insertCategorie(Categorie c) throws BusinessException {
+			try {
+				this.articleDAO.insertCategorie(c);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new BusinessException("erreur SQL lors de l'insertion en base de donn√©e");
+			}
+		}
+		
+		public void truncateCategorie() throws SQLException {
+			articleDAO.truncateCategorie();
+		}
+		
+		public Categorie getCategorieById(int id) {
+			try {
+				return this.articleDAO.getCategorieById(id);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return null;
 		}
 }

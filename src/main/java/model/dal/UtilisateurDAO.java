@@ -28,4 +28,7 @@ public interface UtilisateurDAO {
 	public void delete(int id) throws SQLException;
 	
 	public void update(Utilisateur user) throws SQLException;
+	
+	public void truncate() throws SQLException;
+
 }

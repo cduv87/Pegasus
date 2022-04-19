@@ -17,7 +17,7 @@ public class ArticleVendu {
 	private LocalDate dateFinEncheres;
 	private int miseAPrix;
 	private int prixVente;
-	private boolean etatVente;//pas trouvé dans table sql
+	private boolean etatVente;//pas trouvï¿½ dans table sql
 	private Categorie categorieArticle;
 	private Utilisateur utilisateur;
 	
@@ -48,6 +48,9 @@ public class ArticleVendu {
 		this.utilisateur = utilisateur;
 	}
 	
+	public ArticleVendu() {
+		super();
+	}
 	public int getNoArticle() {
 		return noArticle;
 	}
