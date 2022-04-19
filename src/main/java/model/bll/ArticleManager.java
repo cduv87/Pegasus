@@ -1,6 +1,7 @@
 package model.bll;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import model.bo.ArticleVendu;
 import model.dal.ArticleDAO;
@@ -48,5 +49,14 @@ public class ArticleManager {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		}
+
+		public List<ArticleVendu> getAll() {
+			try {
+				return this.articleDAO.getArticles();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return null;
 		}
 }
