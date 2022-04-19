@@ -17,6 +17,7 @@ import model.bo.Utilisateur;
 
 @WebServlet("/editVente")
 public class EditVenteServlet extends HttpServlet {
+	
 	private ArticleManager articleManager = new ArticleManager();
 
 	public EditVenteServlet() {}
@@ -30,7 +31,6 @@ public class EditVenteServlet extends HttpServlet {
 		try {			
 			String article = request.getParameter("article");
 			String description = request.getParameter("description");
-			//En attente DAO ;   En attente  de l'énumération
 			
 			//Categorie categorie =  Integer.valueOf(request.getParameter("categorie"));
 
@@ -38,7 +38,6 @@ public class EditVenteServlet extends HttpServlet {
 		
 			String date = request.getParameter("Début de l'enchère");
 			String date2 =request.getParameter("Fin de l'enchère");
-
 			LocalDate dateDebutEncheres=LocalDate.parse(date);
 			LocalDate dateFinEncheres=LocalDate.parse(date2);
 
@@ -54,7 +53,8 @@ public class EditVenteServlet extends HttpServlet {
 			this.articleManager.add(articleVendu);
 
 			//Insertion
-
+			// Message de confirmation d'ajout d'article
+			response.getWriter().println("Nouvel article en vent: "+articleVendu);
 		}
 		catch (BusinessException e){ 
 			request.setAttribute("messageErreur", e.getMessage());

@@ -25,11 +25,11 @@
 	<div class="container bg-white text-center py 5">
 
 		<form action="./editVente" method="POST">
-			<h1>Article</h1>
+			<label for="article">Article :</label>
 			<textarea name="article" placeholder="article" cols="20" rows="1"></textarea>
 			<br />
 			<br />
-			<h2>Description</h2>
+			<label for="description">Description :</label>
 			<textarea name="description" placeholder="description" cols=
 				"20" rows="20"></textarea>
 			<br />
@@ -46,7 +46,7 @@
     </select>
 			<br />
 			<br />
-			<h2>Mise à prix</h2>
+			<label for="prix">Mise à prix:</label>
 			<textarea name="prix" placeholder="prix" cols="5" rows="1"></textarea>
 			<br />
 			<br /> <label>Début de l'enchère : </label> <input type="date"
@@ -64,9 +64,9 @@
 				Ville : ${utilisateurConnecte.ville}<br/>
 				</c:when>
 			<c:otherwise>
-				Rue : <br/>
-				Code Postal : <br/>
-				Ville : <br/>
+				Rue : ${null} <br/>
+				Code Postal : ${null} <br/>
+				Ville : ${null} <br/>
 			</c:otherwise>
 			</c:choose>
 				
