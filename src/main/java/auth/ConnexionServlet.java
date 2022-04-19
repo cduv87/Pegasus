@@ -2,10 +2,8 @@ package auth;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
 import model.bo.Utilisateur;
 import model.bll.UtilisateurManager;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
