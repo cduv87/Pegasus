@@ -47,13 +47,14 @@
 			<br />
 			<br />
 			<h2>Mise à prix</h2>
-			<textarea name="aprix" placeholder="prix" cols="5" rows="1"></textarea>
+			<textarea name="prix" placeholder="prix" cols="5" rows="1"></textarea>
 			<br />
 			<br /> <label>Date : </label> <input type="date"
 				name="Début de l'enchère" /> <br />
 			<br /> <label>Heure : </label> <input type="date"
 				name="Fin de l'enchère" /> <br />
 				
+		<h1>Retrait</h1>	
 				
 			<br /> <input type="submit" class="btn btn-success m-5"
 				value="Enregistrer" /> 
