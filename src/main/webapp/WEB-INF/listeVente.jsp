@@ -16,6 +16,7 @@
 <%@ include file="./include/nav-connection-status.jsp"%>
 </header>
 <h1>Test 2</h1>
+<a href="./editVente" class="btn btn-danger m-5">editVent</a><!-- à supprimer -->
 
 
 

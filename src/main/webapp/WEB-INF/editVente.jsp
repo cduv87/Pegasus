@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Nouvelle vente</title>
 <%@ include file="./include/bootstrapAndJSTL.jsp"%>
 <%@ include file="./include/nav.jsp"%>
 </head>
@@ -37,7 +37,7 @@
 			
 			<!-- Combobox pour lister les catégories (ENUM) -->
 			<label for="Categorie">Catégorie :</label>
-    <select name="categorie id="categorie">
+    <select name="categorie" id="categorie">
         <option value="all" selected>Toutes</option>
         <option value="informatique">Informatique</option>
         <option value="ameublement">Ameublement</option>
@@ -56,10 +56,19 @@
 				
 		<!-- Utilisation de l'EL pour récupérer les informations de l'utilisateur connecté  -->
 		
-		<h1>Retrait</h1>	
+		<h1>Retrait</h1>
+		<c:choose>
+			<c:when test="${utilisateurConnecte != null}">	
 				Rue : ${utilisateurConnecte.rue}<br/>
 				Code Postal : ${utilisateurConnecte.codePostal}<br/>
 				Ville : ${utilisateurConnecte.ville}<br/>
+				</c:when>
+			<c:otherwise>
+				Rue : <br/>
+				Code Postal : <br/>
+				Ville : <br/>
+			</c:otherwise>
+			</c:choose>
 				
 			<br /> <input type="submit" class="btn btn-success m-5"
 				value="Enregistrer" /> 
