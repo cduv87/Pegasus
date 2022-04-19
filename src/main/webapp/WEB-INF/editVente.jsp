@@ -49,9 +49,9 @@
 			<h2>Mise à prix</h2>
 			<textarea name="prix" placeholder="prix" cols="5" rows="1"></textarea>
 			<br />
-			<br /> <label>Date : </label> <input type="date"
+			<br /> <label>Début de l'enchère : </label> <input type="date"
 				name="Début de l'enchère" /> <br />
-			<br /> <label>Heure : </label> <input type="date"
+			<br /> <label>Fin de l'enchère : </label> <input type="date"
 				name="Fin de l'enchère" /> <br />
 				
 		<!-- Utilisation de l'EL pour récupérer les informations de l'utilisateur connecté  -->
