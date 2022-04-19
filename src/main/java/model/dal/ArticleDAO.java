@@ -15,7 +15,7 @@ public interface ArticleDAO {
 
 	void updateArticle(ArticleVendu a) throws SQLException;
 
-	void deleteArticle(ArticleVendu a) throws SQLException;
+	void deleteArticle(int id) throws SQLException;
 	
 	void insertCategorie(Categorie c) throws SQLException;
 

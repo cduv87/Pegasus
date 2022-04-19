@@ -37,17 +37,20 @@ public class Accueil extends HttpServlet {
 
 	//Creation d'un utilisateur en base de donnee.
 	try {
+		test.effacerToutesEncheres();
 		test.testEffacerTousArticles();
 		test.testEffacerTousUtilisateurs();
 		test.testEffacerToutesCategories();
 		test.testAjouterUnUtilisateur();
 		test.testAjouterLesCategories();
 		test.testAjouterArticleVendu();
+		test.testAjoutEnchere();
 //		test.testAfficherTousUtilisateurs();
 //		test.testAfficherUnUtilisateur();
 		test.testAfficherUneCategorie(2);
 		test.testAfficherUnArticle(1);
 		test.testAfficherTousArticles();
+		test.afficherToutesEncheres();
 //		test.testEffacerUnUtilisateur();
 //		test.testModifierUtilisateur();
 //		test.testConnexionUtilisateur();
