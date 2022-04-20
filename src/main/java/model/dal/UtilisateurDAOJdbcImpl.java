@@ -43,6 +43,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 		if (rs.next()) {
 			user.setNoUtilisateur(rs.getInt(1));
 		}
+		
+		cnx.close();
 	}
 
 	public ArrayList<Utilisateur> selectAll() throws SQLException {
@@ -72,6 +74,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+			
+		cnx.close();
 		return listeUtilisateurs;
 	}
 	
@@ -98,6 +102,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		cnx.close();
 		return user;
 	}
 	
@@ -121,6 +127,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		cnx.close();
 	}
 	
 	public void delete(int id) throws SQLException {
@@ -144,12 +152,16 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		cnx.close();
 	}
 	
 	@Override
 	public void seConnecter() throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
 		System.out.println("Connexion reussie a la base de donnees");
+		
+		cnx.close();
 	}
 
 }

@@ -135,6 +135,8 @@ public class EncheresDAOJdbcImpl implements EncheresDAOInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		cnx.close();
 	}
 
 }

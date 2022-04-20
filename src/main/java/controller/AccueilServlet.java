@@ -26,6 +26,7 @@ import model.dal.ConnectionProvider;
 import model.bll.ArticleManager;
 import model.bll.BusinessException;
 import model.bll.CategorieManager;
+import model.bll.EnchereManager;
 import model.bo.ArticleVendu;
 import model.bo.Categorie;
 import model.bo.Utilisateur;
@@ -43,8 +44,9 @@ public class AccueilServlet extends HttpServlet {
 	
 	private static boolean[] filtre = {false,false,false,false};
 	
-	private ArticleManager articleManager = new ArticleManager();
-	private CategorieManager categorieManager = new CategorieManager();
+	private static ArticleManager articleManager = new ArticleManager();
+	private static CategorieManager categorieManager = new CategorieManager();
+	private static EnchereManager enchereManager = new EnchereManager();
 
     public AccueilServlet() {
         super();
@@ -65,16 +67,23 @@ public class AccueilServlet extends HttpServlet {
 				filtre[2] = (request.getParameter("filtreMesVentesNonDebutees")==null?false:true);
 				filtre[3] = (request.getParameter("filtreMesVentesTerminees")==null?false:true);
 			}
+			for (Boolean f : filtre) {
+				System.out.print(f+",");
+			}
+			System.out.println();
+			System.out.println(((Utilisateur)session.getAttribute("utilisateurConnecte")).getNoUtilisateur());
+			request.setAttribute("donneesCartels", recupererDonneesCartels(request.getParameter("filtreTexte"),Integer.parseInt(request.getParameter("filtreCategorie")),filtre,(Utilisateur)session.getAttribute("utilisateurConnecte")));
+		} else {
+			request.setAttribute("donneesCartels", recupererDonneesCartels(request.getParameter("filtreTexte"),Integer.parseInt(request.getParameter("filtreCategorie")),null,null));
 		}
 		
-		request.setAttribute("donneesCartels", recupererDonneesCartels(request.getParameter("filtreTexte"),Integer.parseInt(request.getParameter("filtreCategorie"))));
 		request.setAttribute("nomsCategorie", categorieManager.afficherToutesCategories());
 		
 		request.getRequestDispatcher("/WEB-INF/listeVente.jsp").forward(request, response);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("donneesCartels", recupererDonneesCartels("",0));
+		request.setAttribute("donneesCartels", recupererDonneesCartels("",0,null,null));
 		request.setAttribute("nomsCategorie", categorieManager.afficherToutesCategories());
 		
 		
@@ -82,21 +91,35 @@ public class AccueilServlet extends HttpServlet {
 
 	}
 	
-	private List<Object> recupererDonneesCartels(String searchText, int i) {
+	private List<Object> recupererDonneesCartels(String searchText, int noCategorie, boolean[] filtre, Utilisateur u) {
 		List<ArticleVendu> articles = articleManager.afficherTousArticles();
 		List<Object> donneesCartels = new ArrayList<Object>();
 		
 		for(ArticleVendu article : articles) {
 			if( /*article.isEtatVente() &&*/ ( searchText == null || searchText.equals("") || article.getNomArticle().toLowerCase().contains(searchText.toLowerCase()) ) &&
-					( i == 0 || article.getCategorieArticle().getNoCategorie() == i ) ) {
-				List<Object> donneesCartel = new ArrayList<Object>();
-				donneesCartel.add(article.getNomArticle());
-				donneesCartel.add(article.getPrixVente());
-				donneesCartel.add(article.getDateFinEncheres());
-				donneesCartel.add(article.getUtilisateur().getPseudo());
-				donneesCartel.add(article.getUtilisateur().getNoUtilisateur());
-				donneesCartel.add(1);//no_enchere
-				donneesCartels.add(donneesCartel);
+					( noCategorie == 0 || article.getCategorieArticle().getNoCategorie() == noCategorie ) ) {
+				if( filtre == null ||
+						filtre[0] == true && 
+							article.getUtilisateur().getNoUtilisateur() != u.getNoUtilisateur() &&  
+								( !filtre[1] && !filtre[2] && !filtre[3] ||
+									filtre[1] == true && article.isEtatVente()/* ||
+										filtre[2] == true && article.getDateDebutEncheres().isBefore(LocalDate.now()) || 
+											filtre[3] == true && article.getDateFinEncheres().isAfter(LocalDate.now())*/ ) ||
+						filtre[0] == false && 
+							article.getUtilisateur().getNoUtilisateur() == u.getNoUtilisateur() && 
+								( !filtre[1] && !filtre[2] && !filtre[3] ||
+									filtre[1] == true && article.isEtatVente() ||
+										filtre[2] == true && article.getDateDebutEncheres().isBefore(LocalDate.now()) || 
+											filtre[3] == true && article.getDateFinEncheres().isBefore(LocalDate.now()) ) ) {
+					List<Object> donneesCartel = new ArrayList<Object>();
+					donneesCartel.add(article.getNomArticle());
+					donneesCartel.add(article.getPrixVente());
+					donneesCartel.add(article.getDateFinEncheres());
+					donneesCartel.add(article.getUtilisateur().getPseudo());
+					donneesCartel.add(article.getUtilisateur().getNoUtilisateur());
+					donneesCartel.add(article.getNoArticle());
+					donneesCartels.add(donneesCartel);
+				}
 			}
 		}
 		

@@ -116,6 +116,8 @@ public class CategorieDAOJdbcImpl implements CategorieDAOInterface{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		cnx.close();
 	}
 
 }
