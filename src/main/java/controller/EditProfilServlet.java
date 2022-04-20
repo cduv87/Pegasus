@@ -20,25 +20,20 @@ import javax.servlet.http.HttpSession;
 public class EditProfilServlet extends HttpServlet {
 
 	private UtilisateurManager userManager = new UtilisateurManager();
-	private Utilisateur utilisateur = new Utilisateur();
-	private Utilisateur connecte = new Utilisateur();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("METHODE GET");
+
 		request.getRequestDispatcher("/WEB-INF/editProfil.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("METHODE POST");
-		System.out.println("connecté debut post : " + connecte);
-		System.out.println("utilisateur debut post : " + utilisateur);
-		
+
+		Utilisateur utilisateur = new Utilisateur();
+		Utilisateur connecte = new Utilisateur();
 		HttpSession session = request.getSession();
-		;
+
 		String messageErreur = null;
 		final int creditsUser = 100;
 		String pseudo = null;
@@ -53,8 +48,6 @@ public class EditProfilServlet extends HttpServlet {
 		String motDePasse2 = null;
 		String motDePasseActu = null;
 
-		System.out.println("pseudonyme : " + request.getParameter("pseudo"));
-
 		pseudo = request.getParameter("pseudo");
 		nom = request.getParameter("nom");
 		prenom = request.getParameter("prenom");
@@ -66,12 +59,6 @@ public class EditProfilServlet extends HttpServlet {
 		motDePasse1 = request.getParameter("mdp1");
 		motDePasse2 = request.getParameter("mdp2");
 		motDePasseActu = request.getParameter("mdpactu");
-		
-		System.out.println("mdp1 : " + motDePasse1 + "/ mdp2 : " + motDePasse2);
-		if (! motDePasse1.equals(motDePasse2)) {
-			request.setAttribute("erreur", "Vous avez inséré des mots de passe différents");
-			this.doGet(request, response);
-		}
 
 		utilisateur.setPseudo(pseudo);
 		utilisateur.setNom(nom);
@@ -82,36 +69,60 @@ public class EditProfilServlet extends HttpServlet {
 		utilisateur.setCodePostal(codePostal);
 		utilisateur.setVille(ville);
 		utilisateur.setMotDePasse(motDePasse1);
-
-		System.out.println("session.gettattribute : " + session.getAttribute("utilisateurConnecte"));
-		if (session.getAttribute("utilisateurConnecte") != null) {
-			connecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
-			System.out.println(connecte);
-			String mdpUser = connecte.getMotDePasse();
-			System.out.println("mdp session actuelle : " +mdpUser);
-			System.out.println("mdp ancien saisie : " +motDePasseActu);
-			if (! mdpUser.equals(motDePasseActu)) {
-				System.out.println("erreur ancien mot de passe mauvais");
-				request.setAttribute("erreur", "Votre ancien mot de passe n'est pas le bon");
-				this.doGet(request, response);
+		
+		//CREER
+		if ((request.getParameter("bouton")).equals("creer")) {
+			if (VerifConform(motDePasse1, motDePasse2)) {
+				utilisateur.setCredit(creditsUser);
+				try {
+					userManager.ajouterUtilisateur(utilisateur);
+					session.setAttribute("utilisateurConnecte", utilisateur);
+					response.sendRedirect("./");
+				} catch (BusinessException | SQLException e) {
+					request.setAttribute("erreur", e.getMessage());
+					e.printStackTrace();
+					this.doGet(request, response);
+				}
+			} else {
+				request.setAttribute("erreur", "Vous avez inséré des mots de passe différents");
+				request.getRequestDispatcher("/WEB-INF/editProfil.jsp").forward(request, response);
 			}
-			utilisateur.setNoUtilisateur(connecte.getNoUtilisateur());
+		}
+		
+		//MODIFIER
+		if ((request.getParameter("bouton")).equals("modifier")) {
+			connecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
+			String mdpUser = connecte.getMotDePasse();
+			if (VerifConform(mdpUser, motDePasseActu) && VerifConform(motDePasse1, motDePasse2)) {
+				utilisateur.setNoUtilisateur(connecte.getNoUtilisateur());
+				try {
+					userManager.modifierUtilisateur(utilisateur);
+					session.setAttribute("utilisateurConnecte", utilisateur);
+					response.sendRedirect("./");
+				} catch (SQLException e) {
+					request.setAttribute("erreur", e.getMessage());
+					e.printStackTrace();
+					this.doGet(request, response);
+				}
+			} else {
+				if (!mdpUser.equals(motDePasseActu)) {
+					request.setAttribute("erreur", "Votre ancien mot de passe n'est pas le bon");
+				}
+				if (!motDePasse1.equals(motDePasse2)) {
+					request.setAttribute("erreur", "Vous avez inséré des mots de passe différents");
+				}
+				request.getRequestDispatcher("/WEB-INF/editProfil.jsp").forward(request, response);
+			}
+		}
+		
+		//SUPPRIMER
+		if ((request.getParameter("bouton")).equals("supprimer")) {
+			connecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
 			try {
-				userManager.modifierUtilisateur(utilisateur);
-				session.setAttribute("utilisateurConnecte", utilisateur);
+				userManager.effacerUnUtilisateur(connecte.getNoUtilisateur());
+				session.removeAttribute("utilisateurConnecte");
 				response.sendRedirect("./");
 			} catch (SQLException e) {
-				request.setAttribute("erreur", e.getMessage());
-				e.printStackTrace();
-				this.doGet(request, response);
-			}
-		} else {
-			try {
-				utilisateur.setCredit(creditsUser);
-				userManager.ajouterUtilisateur(utilisateur);
-				session.setAttribute("utilisateurConnecte", utilisateur);
-				response.sendRedirect("./");
-			} catch (BusinessException | SQLException e) {
 				request.setAttribute("erreur", e.getMessage());
 				e.printStackTrace();
 				this.doGet(request, response);
@@ -119,5 +130,11 @@ public class EditProfilServlet extends HttpServlet {
 		}
 	}
 
-} // final
-
+	public boolean VerifConform(String mdp1, String mdp2) {
+		boolean conform = false;
+		if (mdp1.equals(mdp2)) {
+			conform = true;
+		}
+		return conform;
+	}
+}

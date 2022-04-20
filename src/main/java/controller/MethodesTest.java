@@ -32,12 +32,18 @@ public class MethodesTest {
 	public MethodesTest() {
 	}
 
+	public void testEffacerTousRetraits()throws SQLException, BusinessException {
+		System.out.println("DEBUT test supression tous retraits");
+		retraitManager.effacterTousRetraits();
+		System.out.println("Fin test supression tous retrairs");
+		System.out.println();
+	}
+	
 	public void testEffacerToutesEncheres() throws SQLException {
 		System.out.println("DEBUT suppression de TOUTES les enchere");
 		enchereManager.effacterToutesEncheres();
 		System.out.println("FIN suppression de TOUTES les enchere");
 		System.out.println();
-
 	}
 	
 	public void testEffacerTousArticles() throws SQLException {
@@ -70,16 +76,8 @@ public class MethodesTest {
 			ArrayList<Utilisateur> listeUtilisateurTemp = utilisateurManager.afficherTousUtilisateurs();
 			for (Utilisateur utilisateur : listeUtilisateurTemp) {
 				System.out.println(utilisateur);
-			}
-			;
+			};
 		}
-	
-	public void testEffacerTousRetraits()throws SQLException, BusinessException {
-		System.out.println("DEBUT test supression tous retraits");
-		retraitManager.effacterTousRetraits();
-		System.out.println("Fin test supression tous retrairs");
-		System.out.println();
-	}
 
 	public Boolean testAjouterUnUtilisateur() throws BusinessException {
 		System.out.println("Test ajout de 4 utilisateurs");
@@ -145,8 +143,7 @@ public class MethodesTest {
 
 			System.out.println("FIN Test ajout de 4 utilisateurs");
 			System.out.println();
-
-
+			
 			return true;
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
@@ -189,6 +186,7 @@ public class MethodesTest {
 		article_temp.setMiseAPrix(500);
 		article_temp.setUtilisateur(utilisateurManager.afficherUnUtilisateur(1));
 		article_temp.setCategorieArticle(categorieManager.afficherUneCategorie(1));
+		article_temp.setEtatVente(true);
 		articleManager.ajouterUnArticle(article_temp);
 		System.out.println("FIN Test ajout d'un article");
 		System.out.println();
@@ -196,12 +194,13 @@ public class MethodesTest {
 	
 	public void testAjoutEnchere() throws SQLException {
 		System.out.println("DEBUT Test ajout d'une enchere");
-
 		Enchere enchere_temp = new Enchere();
+		ArticleVendu article_temp = articleManager.afficherUnArticle(1);
+		Utilisateur utilisateur_temp = utilisateurManager.afficherUnUtilisateur(2);
 		enchere_temp.setDateEnchere(LocalDate.of(2022, 04, 01));
 		enchere_temp.setMontant_enchere(100);
-		enchere_temp.setArticle(articleManager.afficherUnArticle(1));
-		enchere_temp.setUtilisateur(utilisateurManager.afficherUnUtilisateur(2));
+		enchere_temp.setArticle(article_temp);
+		enchere_temp.setUtilisateur(utilisateur_temp);
 		enchereManager.ajouterEnchere(enchere_temp);
 		System.out.println("FIN Test ajout d'une enchere");
 		System.out.println();
@@ -210,14 +209,15 @@ public class MethodesTest {
 		public void testAjoutRetrait(int id) throws SQLException {
 			System.out.println("DEBUT Test ajout d'un retrait");
 			ArticleVendu a = articleManager.afficherUnArticle(id);
-			Utilisateur user = utilisateurManager.afficherUnUtilisateur(a.getNoArticle());
+			Utilisateur user = utilisateurManager.afficherUnUtilisateur(a.getUtilisateur().getNoUtilisateur());
 			Retrait retrait_temp = new Retrait();
+			retrait_temp.setArticle(a);
 			retrait_temp.setNo_article(a.getNoArticle());
 			retrait_temp.setRue(user.getRue());
 			retrait_temp.setCode_postal(user.getCodePostal());
 			retrait_temp.setVille(user.getVille());
 			System.out.println(retrait_temp);
-//			retraitManager.ajouterRetrait(retrait_temp);
+			retraitManager.ajouterRetrait(retrait_temp);
 			System.out.println("FIN Test ajout d'un retrait");
 			System.out.println();
 		}
@@ -273,6 +273,17 @@ public class MethodesTest {
 		System.out.println();
 	}
 	
+	public void testAfficherTousRetraits() throws SQLException {
+		System.out.println("DEBUT Affichage de tous les retraits");
+
+		ArrayList<Retrait> listeRetrait = retraitManager.afficherTousRetraits();
+		for (Retrait retrait : listeRetrait) {
+			System.out.println(retrait);
+		}
+		System.out.println("FIN Affichage de tous les retraits");
+		System.out.println();
+	}
+	
 	public Boolean testAfficherUnUtilisateur(int id) throws SQLException {
 		System.out.println("DEBUT Test Affichage d'un utilisateur");
 
@@ -316,6 +327,14 @@ public class MethodesTest {
 		System.out.println("FIN affichage d'une enchere");
 		System.out.println();
 	}
+	
+	public void testAfficherUnRetrait(int id) throws SQLException {
+		System.out.println("DEBUT affichage d'un retrait");
+		Retrait r = retraitManager.afficherUnRetrait(1);
+		System.out.println(r);
+		System.out.println("FIN affichage d'un retrait");
+		System.out.println();
+	}
 
 	public Boolean testModifierUtilisateur(int id) throws SQLException, BusinessException {
 		System.out.println("DEBUT Test modification d'un utilisateur");
@@ -344,23 +363,16 @@ public class MethodesTest {
 	
 	public Boolean testModifierCategorie(int id) throws SQLException, BusinessException {
 		System.out.println("DEBUT Test modification d'une categorie");
-		try {
-			
-			Categorie categorieTest = categorieManager.afficherUneCategorie(id);
-			System.out.println(categorieTest);
-			categorieTest.setLibelle("Litterature");
-			categorieManager.modifierCategorie(categorieTest);
-			System.out.println(categorieTest);
-			
-			System.out.println("FIN Test modification d'une categorie");
-			System.out.println();
+		Categorie categorieTest = categorieManager.afficherUneCategorie(id);
+		System.out.println(categorieTest);
+		categorieTest.setLibelle("Litterature");
+		categorieManager.modifierCategorie(categorieTest);
+		System.out.println(categorieTest);
+		
+		System.out.println("FIN Test modification d'une categorie");
+		System.out.println();
 
-			return true;
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			return false;
-		}
+		return true;
 	}
 	
 	public Boolean testModifierArticle(int id) throws SQLException, BusinessException {
@@ -385,7 +397,7 @@ public class MethodesTest {
 		enchereManager.modifierEnchere(enchereTest);
 		System.out.println(enchereTest);
 		
-		System.out.println("FIN Test modification d'un article");
+		System.out.println("FIN Test modification d'une enchere");
 		System.out.println();
 
 		return true;

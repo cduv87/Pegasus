@@ -16,7 +16,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAOInterface{
 	private final static String SELECT_CATEGORIE = "SELECT * FROM categories where no_categorie=?;";
 	private final static String UPDATE_CATEGORIE = "UPDATE categories SET libelle=? where no_categorie=?;";
 	private final static String DELETE_CATEGORIE = "DELETE FROM categories WHERE no_categorie=?";
-	private final static String TRUNCATE_CATEGORIE = "DELETE FROM categories DBCC CHECKIDENT ('ENCHERES.dbo.CATEGORIES', RESEED, 0)";
+	private final static String TRUNCATE_CATEGORIE = "TRUNCATE TABLE categories";
 
 
 	@Override

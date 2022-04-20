@@ -7,13 +7,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import model.bll.ArticleManager;
+import model.bll.UtilisateurManager;
+import model.bo.ArticleVendu;
+import model.bo.Enchere;
 import model.bo.Retrait;
+import model.bo.Utilisateur;
 
 public class RetraitDAOJdbcImpl implements RetraitDAOInterface {
 	private final static String INSERT_RETRAIT = "INSERT INTO retraits (no_article, rue, code_postal, ville) values(?,?,?,?);";
 	private final static String SELECT_RETRAIT_ALL = "SELECT * FROM retraits;";
 	private final static String SELECT_RETRAIT = "SELECT * FROM retraits WHERE no_enchere=?;";
-	private final static String UPDATE_RETRAIT = "UPDATE retraits SET date_enchere=? , montant_enchere=? WHERE no_enchere=?;";
+	private final static String UPDATE_RETRAIT = "UPDATE retraits SET no_article=? , rue=? , code_postal=? , ville=? WHERE no_enchere=?;";
 	private final static String DELETE_RETRAIT = "DELETE FROM retraits WHERE no_article=?";
 	private final static String TRUNCATE_RETRAIT ="TRUNCATE TABLE ENCHERES.dbo.RETRAITS ";
 	
@@ -33,14 +38,43 @@ public class RetraitDAOJdbcImpl implements RetraitDAOInterface {
 
 	@Override
 	public ArrayList<Retrait> selectAll() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Retrait> listeRetrait = new ArrayList<Retrait>();
+	
+		Connection cnx = ConnectionProvider.getConnection();
+		PreparedStatement pStmt = cnx.prepareStatement(SELECT_RETRAIT_ALL);
+		ResultSet rs = pStmt.executeQuery();
+
+		while (rs.next()) {
+			listeRetrait.add(new Retrait(
+					rs.getInt("no_article"), 
+					rs.getString("rue"),
+					rs.getString("code_postal"),
+					rs.getString("ville")
+					));
+		}
+		cnx.close();
+
+		return listeRetrait;
 	}
 
 	@Override
 	public Retrait selectBy(int id) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	
+		Connection cnx = ConnectionProvider.getConnection();
+		PreparedStatement pStmt = cnx.prepareStatement(SELECT_RETRAIT);
+		pStmt.setInt(1, id);
+		ResultSet rs = pStmt.executeQuery();
+		rs.next();
+
+		Retrait r = new Retrait(
+				rs.getInt("no_article"), 
+				rs.getString("rue"),
+				rs.getString("code_postal"),
+				rs.getString("ville")
+				);
+		cnx.close();
+
+		return r;
 	}
 
 	@Override

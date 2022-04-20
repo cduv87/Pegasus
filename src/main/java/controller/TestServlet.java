@@ -54,6 +54,7 @@ public class TestServlet extends HttpServlet {
 			test.testAfficherToutesCategories();
 			test.testAfficherTousArticles();
 			test.testAfficherToutesEncheres();
+			test.testAfficherTousRetraits();
 
 			test.testAfficherUnUtilisateur(4);
 			test.testAfficherUneCategorie(2);
@@ -66,7 +67,7 @@ public class TestServlet extends HttpServlet {
 			test.testModifierEnchere(1);
 
 //			test.testEffacerUnUtilisateur();
-			
+//			
 //			test.testConnexionUtilisateur();
 //			test.testImport();
 			

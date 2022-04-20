@@ -18,12 +18,12 @@ import model.bo.Utilisateur;
  * Implémentation des fonctionnalités de mon interface RepasDAO avec JDBC (en base de donnée)
  */
 public class ArticleDAOJdbcImpl implements ArticleDAOInterface {
-	private final static String INSERT_ARTICLE = "INSERT INTO articles_vendus (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) values(?,?,?,?,?,?,?,?);";
+	private final static String INSERT_ARTICLE = "INSERT INTO articles_vendus (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) values(?,?,?,?,?,?,?,?,?);";
 	private final static String SELECT_ARTICLE_ALL = "SELECT * FROM articles_vendus;";
 	private final static String SELECT_ARTICLE = "SELECT * FROM articles_vendus where no_article=?;";
 	private final static String UPDATE_ARTICLE = "UPDATE articles_vendus SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=? WHERE no_article=? ;";
 	private final static String DELETE_ARTICLE = "DELETE FROM articles_vendus WHERE no_article=?";
-	private final static String TRUNCATE_ARTICLE = "DELETE FROM articles_vendus DBCC CHECKIDENT ('ENCHERES.dbo.ARTICLES_VENDUS', RESEED, 0)";
+	private final static String TRUNCATE_ARTICLE = "TRUNCATE TABLE articles_vendus";
 	
 	@Override
 	public void add(ArticleVendu a) throws SQLException {
@@ -38,6 +38,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAOInterface {
 		pStmt.setInt(6, a.getPrixVente());
 		pStmt.setInt(7, a.getUtilisateur().getNoUtilisateur());
 		pStmt.setInt(8, a.getCategorieArticle().getNoCategorie());
+		pStmt.setBoolean(9, a.isEtatVente());
 		pStmt.executeUpdate();
 
 		ResultSet rs = pStmt.getGeneratedKeys();
@@ -86,13 +87,14 @@ public class ArticleDAOJdbcImpl implements ArticleDAOInterface {
 	public ArticleVendu selectBy(int id) throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
 		CategorieManager categorieManager = new CategorieManager();
+		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		PreparedStatement pStmt = cnx.prepareStatement(SELECT_ARTICLE);
 		pStmt.setInt(1, id);
 		ResultSet rs = pStmt.executeQuery();
 		rs.next();
 		Categorie c = categorieManager.afficherUneCategorie(rs.getInt("no_categorie"));
-		//Utilisateur u = UtilisateurDAO.getUserById(rs.getInt("no_utilisateur"));
-		Utilisateur u = null;
+		Utilisateur u = utilisateurManager.afficherUnUtilisateur(rs.getInt("no_utilisateur"));
+		//Utilisateur u = null;
 		
 		ArticleVendu a = new ArticleVendu(
 			id,
