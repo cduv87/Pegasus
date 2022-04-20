@@ -70,6 +70,8 @@ public class TestServlet extends HttpServlet {
 //			test.testConnexionUtilisateur();
 //			test.testImport();
 			
+			request.getRequestDispatcher("/WEB-INF/listeVente.jsp").forward(request, response);
+
 			
 		} catch (BusinessException e1) {
 			// TODO Auto-generated catch block
