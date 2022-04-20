@@ -15,7 +15,7 @@
 <h2>Mise a prix : ${article.miseAPrix}</h2>
 <h2>Fin de l enchere : <%-- ${article.dateFinEncheres} --%></h2>
 <h2>Retrait : </h2>
-<h2>Vendeur : ${article.utilisateur.nom}</h2>
+<h2>Vendeur : ${article.utilisateur.prenom} ${article.utilisateur.nom}</h2>
 <h2>Ma proposition :</h2>
 
 <form action="./detailVente" method="">

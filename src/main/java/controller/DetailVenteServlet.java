@@ -44,8 +44,11 @@ public class DetailVenteServlet extends HttpServlet{
 	  
 	  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 
+	  }
 	  
-	  
+	  public void meilleureOffre() {
+		  //Identifie la meilleure offre pour un article
+		  
 	  }
   }
 
