@@ -64,5 +64,8 @@
 		</form> 
 
 
+<form action="./editProfil" method="">
+
+
 </body>
 </html>

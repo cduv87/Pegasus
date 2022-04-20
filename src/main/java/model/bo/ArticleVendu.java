@@ -17,7 +17,7 @@ public class ArticleVendu {
 	private LocalDate dateFinEncheres;
 	private int miseAPrix;
 	private int prixVente;
-	private boolean etatVente;//pas trouvé dans table sql
+	private boolean etatVente;//pas trouvï¿½ dans table sql
 	private Categorie categorieArticle;
 	private Utilisateur utilisateur;
 	
@@ -36,7 +36,21 @@ public class ArticleVendu {
 		this.categorieArticle = categorieArticle;
 		this.utilisateur = utilisateur;
 	}
+	public ArticleVendu(String nomArticle, String description,Categorie categorieArticle,int miseAPrix, LocalDate dateDebutEncheres,
+			LocalDate dateFinEncheres, 
+			Utilisateur utilisateur) {
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.categorieArticle = categorieArticle;
+		this.miseAPrix = miseAPrix;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.utilisateur = utilisateur;
+	}
 	
+	public ArticleVendu() {
+		super();
+	}
 	public int getNoArticle() {
 		return noArticle;
 	}
