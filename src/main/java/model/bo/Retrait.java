@@ -1,6 +1,7 @@
 package model.bo;
 
 public class Retrait {
+	private int no_article;
 	private String rue;
 	private String code_postal;
 	private String ville;
@@ -14,6 +15,19 @@ public class Retrait {
 		this.article = article;
 	}
 	
+	public Retrait(int no_article, String rue, String code_postal, String ville) {
+		super();
+		this.no_article = no_article;
+		this.rue = rue;
+		this.code_postal = code_postal;
+		this.ville = ville;
+	}
+
+
+	public Retrait() {
+		super();
+	}
+
 	public String getRue() {
 		return rue;
 	}
@@ -38,4 +52,20 @@ public class Retrait {
 	public void setArticle(ArticleVendu article) {
 		this.article = article;
 	}
+
+	@Override
+	public String toString() {
+		return "Retrait [rue=" + rue + ", code_postal=" + code_postal + ", ville=" + ville + ", article=" + article
+				+ "]";
+	}
+
+	public int getNo_article() {
+		return no_article;
+	}
+
+	public void setNo_article(int no_article) {
+		this.no_article = no_article;
+	}
+	
+	
 }

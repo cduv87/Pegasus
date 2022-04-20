@@ -27,6 +27,7 @@ public class EditVenteServlet extends HttpServlet {
 	}
 
 
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {			
 			String article = request.getParameter("article");
@@ -35,16 +36,17 @@ public class EditVenteServlet extends HttpServlet {
 			//Categorie categorie =  Integer.valueOf(request.getParameter("categorie"));
 
 			int miseAprix=  Integer.valueOf(request.getParameter("prix"));
+
 		
-			String date = request.getParameter("Début de l'enchère");
-			String date2 =request.getParameter("Fin de l'enchère");
+			String date = request.getParameter("Dï¿½but de l'enchï¿½re");
+			String date2 =request.getParameter("Fin de l'enchï¿½re");
 			LocalDate dateDebutEncheres=LocalDate.parse(date);
 			LocalDate dateFinEncheres=LocalDate.parse(date2);
 
-			// Création d'un constructeur utilisateur (rue,codePostal, ville)?
+			// Crï¿½ation d'un constructeur utilisateur (rue,codePostal, ville)?
 			Utilisateur utilisateur = new Utilisateur () ;// utilisateur.getNoUtilisateur(),
 			
-			// création de l'instance articleVendu
+			// crï¿½ation de l'instance articleVendu
 			ArticleVendu articleVendu= new ArticleVendu (article,description,/*categorie,*/miseAprix,dateDebutEncheres,dateFinEncheres, utilisateur.getNoUtilisateur());
 
 
@@ -61,7 +63,7 @@ public class EditVenteServlet extends HttpServlet {
 		}
 
 
-		// j'enregistre la vente et retour page à la JSP d'acceuil 
+		// j'enregistre la vente et retour page ï¿½ la JSP d'acceuil 
 		request.getRequestDispatcher("/WEB-INF/listeVente.jsp").forward(request, response);
 
 	}

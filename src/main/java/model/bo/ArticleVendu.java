@@ -17,7 +17,7 @@ public class ArticleVendu {
 	private LocalDate dateFinEncheres;
 	private int miseAPrix;
 	private int prixVente;
-	private boolean etatVente;//pas trouvé dans table sql
+	private boolean etatVente;//pas trouvï¿½ dans table sql
 	private Categorie categorieArticle;
 	private Utilisateur utilisateur;
 	
@@ -47,6 +47,7 @@ public class ArticleVendu {
 		this.dateFinEncheres = dateFinEncheres;
 		this.utilisateur = utilisateur;
 	}
+
 	public ArticleVendu(String article, String description, int miseAprix, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres2, int noUtilisateur) {
 		this.nomArticle = nomArticle;
@@ -56,6 +57,7 @@ public class ArticleVendu {
 		this.dateFinEncheres = dateFinEncheres;
 		this.utilisateur = utilisateur;
 		// TODO supprimer ce constructeur
+
 	}
 	public int getNoArticle() {
 		return noArticle;
