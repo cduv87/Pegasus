@@ -35,12 +35,12 @@ import model.bo.Utilisateur;
  * Servlet implementation class Accueil
  */	
 @WebServlet("/")
-public class Accueil extends HttpServlet {
+public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private ArticleManager articleManager = new ArticleManager();
 
-    public Accueil() {
+    public AccueilServlet() {
         super();
     }
     
@@ -60,7 +60,7 @@ public class Accueil extends HttpServlet {
 
 	
 	private List<Object> recupererDonneesCartels(String searchText, String searchCategory) {
-		List<ArticleVendu> articles = this.articleManager.getAll();
+		List<ArticleVendu> articles = this.articleManager.afficherTousArticles();
 		List<Object> donneesCartels = new ArrayList<Object>();
 		
 		for(ArticleVendu article : articles) {
