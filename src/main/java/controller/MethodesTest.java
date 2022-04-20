@@ -189,6 +189,7 @@ public class MethodesTest {
 		article_temp.setMiseAPrix(500);
 		article_temp.setUtilisateur(utilisateurManager.afficherUnUtilisateur(1));
 		article_temp.setCategorieArticle(categorieManager.afficherUneCategorie(1));
+		article_temp.setEtatVente(true);
 		articleManager.ajouterUnArticle(article_temp);
 		System.out.println("FIN Test ajout d'un article");
 		System.out.println();
@@ -210,14 +211,15 @@ public class MethodesTest {
 		public void testAjoutRetrait(int id) throws SQLException {
 			System.out.println("DEBUT Test ajout d'un retrait");
 			ArticleVendu a = articleManager.afficherUnArticle(id);
-			Utilisateur user = utilisateurManager.afficherUnUtilisateur(a.getNoArticle());
+			Utilisateur user = utilisateurManager.afficherUnUtilisateur(a.getUtilisateur().getNoUtilisateur());
 			Retrait retrait_temp = new Retrait();
+			retrait_temp.setArticle(a);
 			retrait_temp.setNo_article(a.getNoArticle());
 			retrait_temp.setRue(user.getRue());
 			retrait_temp.setCode_postal(user.getCodePostal());
 			retrait_temp.setVille(user.getVille());
 			System.out.println(retrait_temp);
-//			retraitManager.ajouterRetrait(retrait_temp);
+			retraitManager.ajouterRetrait(retrait_temp);
 			System.out.println("FIN Test ajout d'un retrait");
 			System.out.println();
 		}
@@ -273,6 +275,17 @@ public class MethodesTest {
 		System.out.println();
 	}
 	
+	public void testAfficherTousRetraits() throws SQLException {
+		System.out.println("DEBUT Affichage de tous les retraits");
+
+		ArrayList<Retrait> listeRetrait = retraitManager.afficherTousRetraits();
+		for (Retrait retrait : listeRetrait) {
+			System.out.println(retrait);
+		}
+		System.out.println("FIN Affichage de tous les retraits");
+		System.out.println();
+	}
+	
 	public Boolean testAfficherUnUtilisateur(int id) throws SQLException {
 		System.out.println("DEBUT Test Affichage d'un utilisateur");
 
@@ -314,6 +327,14 @@ public class MethodesTest {
 		Enchere e = enchereManager.afficherUneEnchere(1);
 		System.out.println(e);
 		System.out.println("FIN affichage d'une enchere");
+		System.out.println();
+	}
+	
+	public void testAfficherUnRetrait(int id) throws SQLException {
+		System.out.println("DEBUT affichage d'un retrait");
+		Retrait r = retraitManager.afficherUnRetrait(1);
+		System.out.println(r);
+		System.out.println("FIN affichage d'un retrait");
 		System.out.println();
 	}
 
@@ -385,7 +406,7 @@ public class MethodesTest {
 		enchereManager.modifierEnchere(enchereTest);
 		System.out.println(enchereTest);
 		
-		System.out.println("FIN Test modification d'un article");
+		System.out.println("FIN Test modification d'une enchere");
 		System.out.println();
 
 		return true;

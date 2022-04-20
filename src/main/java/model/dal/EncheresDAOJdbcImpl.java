@@ -34,9 +34,9 @@ public class EncheresDAOJdbcImpl implements EncheresDAOInterface {
 		pStmt.executeUpdate();
 
 		ResultSet rs = pStmt.getGeneratedKeys();
-		if (rs.next())
+		if (rs.next()) {
 			e.setNoEnchere(rs.getInt(1));
-
+		}
 		cnx.close();
 
 	}
