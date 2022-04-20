@@ -47,7 +47,6 @@ public class ArticleVendu {
 		this.dateFinEncheres = dateFinEncheres;
 		this.utilisateur = utilisateur;
 	}
-	
 	public ArticleVendu(String article, String description, int miseAprix, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres2, int noUtilisateur) {
 		this.nomArticle = nomArticle;

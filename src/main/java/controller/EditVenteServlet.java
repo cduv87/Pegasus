@@ -41,7 +41,7 @@ public class EditVenteServlet extends HttpServlet {
 			LocalDate dateDebutEncheres=LocalDate.parse(date);
 			LocalDate dateFinEncheres=LocalDate.parse(date2);
 
-			// il faut créer un constructeur utilisateur (rue,codePostal, ville)
+			// Création d'un constructeur utilisateur (rue,codePostal, ville)?
 			Utilisateur utilisateur = new Utilisateur () ;// utilisateur.getNoUtilisateur(),
 			
 			// création de l'instance articleVendu
@@ -54,7 +54,7 @@ public class EditVenteServlet extends HttpServlet {
 
 			//Insertion
 			// Message de confirmation d'ajout d'article
-			response.getWriter().println("Nouvel article en vent: "+articleVendu);
+			response.getWriter().println("Nouvel article en vente: "+articleVendu);
 		}
 		catch (BusinessException e){ 
 			request.setAttribute("messageErreur", e.getMessage());
