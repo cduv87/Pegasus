@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -12,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
@@ -39,6 +41,8 @@ import model.bo.Utilisateur;
 public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	private static boolean[] filtre = {false,false,false,false};
+	
 	private ArticleManager articleManager = new ArticleManager();
 	private CategorieManager categorieManager = new CategorieManager();
 
@@ -48,6 +52,20 @@ public class AccueilServlet extends HttpServlet {
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+
+		HttpSession session = request.getSession();
+		if( session.getAttribute("utilisateurConnecte") != null ) {
+			filtre[0] = (request.getParameter("filtre").equals("achats")?true:false);
+			if(filtre[0]) {
+				filtre[1] = (request.getParameter("filtreMesAchatsEncheresOuvertes")==null?false:true);
+				filtre[2] = (request.getParameter("filtreMesAchatsEncheres")==null?false:true);
+				filtre[3] = (request.getParameter("filtreMesAchatsEncheresRemportees")==null?false:true);
+			} else {
+				filtre[1] = (request.getParameter("filtreMesVentesEnCours")==null?false:true);
+				filtre[2] = (request.getParameter("filtreMesVentesNonDebutees")==null?false:true);
+				filtre[3] = (request.getParameter("filtreMesVentesTerminees")==null?false:true);
+			}
+		}
 		
 		request.setAttribute("donneesCartels", recupererDonneesCartels(request.getParameter("filtreTexte"),Integer.parseInt(request.getParameter("filtreCategorie"))));
 		request.setAttribute("nomsCategorie", categorieManager.afficherToutesCategories());
@@ -65,7 +83,7 @@ public class AccueilServlet extends HttpServlet {
 	}
 	
 	private List<Object> recupererDonneesCartels(String searchText, int i) {
-		List<ArticleVendu> articles = this.articleManager.afficherTousArticles();
+		List<ArticleVendu> articles = articleManager.afficherTousArticles();
 		List<Object> donneesCartels = new ArrayList<Object>();
 		
 		for(ArticleVendu article : articles) {
