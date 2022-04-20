@@ -62,8 +62,8 @@
 								</c:otherwise>
 							</c:choose>
 						</fieldset>
-						<br /> <input type="submit" class="btn btn-success m-5" value="Enregistrer" /> <a href="./"
-							class="btn btn-danger m-5">annuler</a>
+						<br /> <input type="submit" class="btn btn-primary m-5" value="Enregistrer" /> 
+						<a href="./" class="btn btn-danger m-5">annuler</a>
 					</form>
 				</div>
 
