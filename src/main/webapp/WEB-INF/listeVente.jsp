@@ -123,7 +123,6 @@
             </c:forEach>
         </div>
     </div>
-	<a href="./editVente" class="btn btn-danger m-5">editVent</a><!-- à supprimer -->
-
+	
 </body>
 </html> 
