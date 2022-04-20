@@ -13,26 +13,25 @@
 <%@ include file="./include/bootstrapAndJSTL.jsp"%>
  
 <script>
-    function verifyAnswer() {
-        var dev = document.getElementById("flexRadioDefault1").checked;
-        if (dev == true) {
-            document.getElementById("a1").disabled = false;
-            document.getElementById("a2").disabled = false;
-            document.getElementById("a3").disabled = false;
-            document.getElementById("b1").disabled = true;
-            document.getElementById("b2").disabled = true;
-            document.getElementById("b3").disabled = true;
-        } else {
-            document.getElementById("a1").disabled = true;
-            document.getElementById("a2").disabled = true;
-            document.getElementById("a3").disabled = true;
-            document.getElementById("b1").disabled = false;
-            document.getElementById("b2").disabled = false;
-            document.getElementById("b3").disabled = false;
-        }
+function verifyAnswer() {
+    var dev = document.getElementById("filtreAchats").checked;
+    if (dev == true) {
+        document.getElementById("filtreMesAchatsEncheresOuvertes").disabled = false;
+        document.getElementById("filtreMesAchatsEncheres").disabled = false;
+        document.getElementById("filtreMesAchatsEncheresRemportees").disabled = false;
+        document.getElementById("filtreMesVentesEnCours").disabled = true;
+        document.getElementById("filtreMesVentesNonDebutees").disabled = true;
+        document.getElementById("filtreMesVentesTerminees").disabled = true;
+    } else {
+        document.getElementById("filtreMesAchatsEncheresOuvertes").disabled = true;
+        document.getElementById("filtreMesAchatsEncheres").disabled = true;
+        document.getElementById("filtreMesAchatsEncheresRemportees").disabled = true;
+        document.getElementById("filtreMesVentesEnCours").disabled = false;
+        document.getElementById("filtreMesVentesNonDebutees").disabled = false;
+        document.getElementById("filtreMesVentesTerminees").disabled = false;
     }
-</script>  
-
+}
+</script>
 </head>
 <body>
 <header>
@@ -49,48 +48,45 @@
                 <div class="col-auto mt-3">
                     <label class="form-label" for="filtreCategorie">Catégorie :</label>
                     <select class="form-select" name="filtreCategorie" id="filtreCategorie">
-                        <option value="all">Toutes</option>
-                        <option value="informatique">Informatique</option>
-                        <option value="ameublement">Ameublement</option>
-                        <option value="vetement">Vêtement</option>
-                        <option value="sportLoisirs">Sport &amp; Loisirs</option>
+                        <option value="0">Toutes</option>
+            			<c:forEach var="nomCategorie" items="${nomsCategorie}">
+                        <option value="${nomCategorie.getNoCategorie()}">${nomCategorie.getLibelle()}</option>
+            			</c:forEach>
                     </select>
                 </div>
                 <c:if test="${utilisateurConnecte!=null}">
-                <div class="col-auto mt-3">
-                    <div class="row">
-                    <div class="col-xl-6 form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onchange="verifyAnswer()" checked/>
-                        <label class="form-check-label" for="flexRadioDefault1">Achats</label>
+                <div class="mt-3 d-flex  justify-content-center">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filtre" id="filtreAchats" onchange="verifyAnswer()" checked/>
+                        <label class="form-check-label" for="filtreAchats">Mes achats</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="a1">
-                            <label class="form-check-label" for="flexCheckDefault21">enchères ouvertes</label>
+                            <input class="form-check-input" type="checkbox" value="" id="filtreMesAchatsEncheresOuvertes">
+                            <label class="form-check-label" for="filtreMesAchatsEncheresOuvertes">mes enchères ouvertes</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="a2">
-                            <label class="form-check-label" for="flexCheckChecked22">mes enchères</label>
+                            <input class="form-check-input" type="checkbox" value="" id="filtreMesAchatsEncheres">
+                            <label class="form-check-label" for="filtreMesAchatsEncheres">mes enchères</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="a3">
-                            <label class="form-check-label" for="flexCheckChecked23">mes enchères remportées</label>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onchange="verifyAnswer()"/>
-                        <label class="form-check-label" for="flexRadioDefault2">Mes ventes</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="b1" disabled>
-                            <label class="form-check-label" for="flexCheckDefault1">mes ventes en cours</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="b2" disabled>
-                            <label class="form-check-label" for="flexCheckChecked2">ventes non débutées</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="b3" disabled>
-                            <label class="form-check-label" for="flexCheckChecked3">ventes terminées</label>
+                            <input class="form-check-input" type="checkbox" value="" id="filtreMesAchatsEncheresRemportees">
+                            <label class="form-check-label" for="filtreMesAchatsEncheresRemportees">mes enchères remportées</label>
                         </div>
                     </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filtre" id="filtreVentes" onchange="verifyAnswer()"/>
+                        <label class="form-check-label" for="filtreVentes">Mes ventes</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="filtreMesVentesEnCours" disabled>
+                            <label class="form-check-label" for="filtreMesVentesEnCours">mes ventes en cours</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="filtreMesVentesNonDebutees" disabled>
+                            <label class="form-check-label" for="filtreMesVentesNonDebutees">mes ventes non débutées</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="filtreMesVentesTerminees" disabled>
+                            <label class="form-check-label" for="filtreMesVentesTerminees">mes ventes terminées</label>
+                        </div>
                     </div>
                 </div>
                 </c:if>

@@ -23,6 +23,7 @@ import model.dal.ConnectionProvider;
 
 import model.bll.ArticleManager;
 import model.bll.BusinessException;
+import model.bll.CategorieManager;
 import model.bo.ArticleVendu;
 import model.bo.Categorie;
 import model.bo.Utilisateur;
@@ -39,33 +40,37 @@ public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private ArticleManager articleManager = new ArticleManager();
+	private CategorieManager categorieManager = new CategorieManager();
 
     public AccueilServlet() {
         super();
     }
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-	
-	
-
-
-		
 		request.setCharacterEncoding("UTF-8");
 		
-		request.setAttribute("donneesCartels", recupererDonneesCartels(request.getParameter("filtreTexte"),request.getParameter("filtreCategorie")));
+		request.setAttribute("donneesCartels", recupererDonneesCartels(request.getParameter("filtreTexte"),Integer.parseInt(request.getParameter("filtreCategorie"))));
+		request.setAttribute("nomsCategorie", categorieManager.afficherToutesCategories());
 		
 		request.getRequestDispatcher("/WEB-INF/listeVente.jsp").forward(request, response);
 	}
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("donneesCartels", recupererDonneesCartels("",0));
+		request.setAttribute("nomsCategorie", categorieManager.afficherToutesCategories());
+		
+		
+		request.getRequestDispatcher("/WEB-INF/listeVente.jsp").forward(request, response);
+
+	}
 	
-	private List<Object> recupererDonneesCartels(String searchText, String searchCategory) {
+	private List<Object> recupererDonneesCartels(String searchText, int i) {
 		List<ArticleVendu> articles = this.articleManager.afficherTousArticles();
 		List<Object> donneesCartels = new ArrayList<Object>();
 		
 		for(ArticleVendu article : articles) {
-			if( /*article.isEtatVente() &&*/ ( searchText == null || searchText.equals("") || article.getNomArticle().contains(searchText) ) &&
-					( searchCategory == null || searchCategory.equals("all") || article.getCategorieArticle().getLibelle().equals(searchCategory) ) ) {
+			if( /*article.isEtatVente() &&*/ ( searchText == null || searchText.equals("") || article.getNomArticle().toLowerCase().contains(searchText.toLowerCase()) ) &&
+					( i == 0 || article.getCategorieArticle().getNoCategorie() == i ) ) {
 				List<Object> donneesCartel = new ArrayList<Object>();
 				donneesCartel.add(article.getNomArticle());
 				donneesCartel.add(article.getPrixVente());
@@ -78,13 +83,6 @@ public class AccueilServlet extends HttpServlet {
 		}
 		
 		return donneesCartels;
-	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("donneesCartels", recupererDonneesCartels("","all"));
-		
-		request.getRequestDispatcher("/WEB-INF/listeVente.jsp").forward(request, response);
-
 	}
 }
 
