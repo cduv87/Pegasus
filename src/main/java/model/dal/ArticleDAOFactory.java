@@ -1,10 +1,10 @@
 package model.dal;
 
-public class DAOFactory {
+public class ArticleDAOFactory {
 	/**
 	 * Cette méthode sert à éviter le : RepasDAO repasDAO = new RepasDAOJdbcImpl() dans la couche BLL
 	 */
-	public static ArticleDAO getArticleDAO() {
+	public static ArticleDAOInterface getArticleDAO() {
 		return new ArticleDAOJdbcImpl();
 	}
 }

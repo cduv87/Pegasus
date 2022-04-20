@@ -3,6 +3,7 @@ package model.bo;
 import java.time.LocalDate;
 
 public class Enchere {
+	private int noEnchere;
 	private LocalDate dateEnchere;
 	private int montant_enchere;
 	private ArticleVendu article;
@@ -16,6 +17,26 @@ public class Enchere {
 		this.utilisateur = utilisateur;
 	}
 	
+	
+	
+	public Enchere(int noEnchere, LocalDate dateEnchere, int montant_enchere, ArticleVendu article,
+			Utilisateur utilisateur) {
+		super();
+		this.noEnchere = noEnchere;
+		this.dateEnchere = dateEnchere;
+		this.montant_enchere = montant_enchere;
+		this.article = article;
+		this.utilisateur = utilisateur;
+	}
+
+
+
+	public Enchere() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public LocalDate getDateEnchere() {
 		return dateEnchere;
 	}
@@ -40,4 +61,22 @@ public class Enchere {
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
+
+	public int getNoEnchere() {
+		return noEnchere;
+	}
+
+	public void setNoEnchere(int noEnchere) {
+		this.noEnchere = noEnchere;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Enchere [noEnchere=" + noEnchere + ", dateEnchere=" + dateEnchere + ", montant_enchere="
+				+ montant_enchere + ", article=" + article + ", utilisateur=" + utilisateur + "]";
+	}
+	
+	
 }
