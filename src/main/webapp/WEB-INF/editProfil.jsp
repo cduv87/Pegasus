@@ -29,14 +29,14 @@
 					<c:choose>
 						<c:when test="${utilisateurConnecte != null}">
 							<label for="motpasse">Mot de passe actuel :</label><br>
-							<input type="text" name="mdpactu" value=""><br>
+							<input type="password" name="mdpactu" value=""><br>
 							<label for="motpasse">Nouveau mot de passe :</label><br>
-							<input type="text" name="mdp1" value=""><br><br>
+							<input type="password" name="mdp1" value=""><br><br>
 							<p><b>Crédit : ${utilisateurConnecte.credit}</b></p> 
 					 	</c:when>
 					 	<c:otherwise>
 							<label for="motpasse">Mot de passe :</label><br>
-					 		<input type="text" name="mdp1" value=""><br>
+					 		<input type="password" name="mdp1" value=""><br>
 						</c:otherwise>
 					</c:choose>
 			  </div>
@@ -50,24 +50,20 @@
 				  <label for="ville">Ville :</label><br>
 				  <input type="text" name="ville" value="${utilisateurConnecte.ville}"><br>
 				  <label for="confirmotpasse">Confirmation mot de passe :</label><br>
-				  <input type="text" name="mdp2" value=""><br><br>
+				  <input type="password" name="mdp2" value=""><br><br>
 			  </div>
 			  <div class="col-2"></div>
 			  	<c:choose>
 						<c:when test="${utilisateurConnecte != null}">
-							<button type="submit" name="modifier" class="btn btn-primary">Modifier</button> 
+							<button type="submit" name="bouton" value="modifier" class="btn btn-primary">Modifier</button>
+							<button type="submit" name="bouton" value="supprimer" class="btn btn-primary">Supprimer mon compte</button> 
 					 	</c:when>
 					 	<c:otherwise>
-							<button type="submit" name="creer" class="btn btn-primary">Créer</button>
+							<button type="submit" name="bouton" value="creer" class="btn btn-primary">Créer</button>
+							<a href="./" id="cancel" name="cancel" class="btn btn-default">Annuler</a>
 						</c:otherwise>
-					</c:choose>		  
-			  <a href="./" id="cancel" name="cancel" class="btn btn-default">Annuler</a>
+					</c:choose>		  	  
 		 </div>
 		</form> 
-
-
-<form action="./editProfil" method="">
-
-
 </body>
 </html>
