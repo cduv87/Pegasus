@@ -21,6 +21,9 @@ public class ArticleVendu {
 	private Categorie categorieArticle;
 	private Utilisateur utilisateur;
 	
+	public ArticleVendu() {
+	}
+	
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, int miseAPrix, int prixVente, boolean etatVente, Categorie categorieArticle,
 			Utilisateur utilisateur) {

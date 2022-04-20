@@ -52,7 +52,7 @@ public class EditVenteServlet extends HttpServlet {
 
 			//Appel de la BLL
 
-			this.articleManager.add(articleVendu);
+			this.articleManager.ajouterUnArticle(articleVendu);
 
 			//Insertion
 			// Message de confirmation d'ajout d'article
