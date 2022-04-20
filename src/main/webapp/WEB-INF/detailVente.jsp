@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Detail Vente</title>
 </head>
 <body>
+
+<form action="./detailVente" method="">
+
 
 </body>
 </html>

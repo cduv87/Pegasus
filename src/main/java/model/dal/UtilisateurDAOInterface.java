@@ -7,7 +7,7 @@ import model.bo.Utilisateur;
 /**
  * Interface : définit les fonctionnalités qu'on cherche à avoir
  */
-public interface UtilisateurDAO {
+public interface UtilisateurDAOInterface {
 	/*
 	 * Je veux pouvoir ajouter un avis
 	 */
@@ -25,7 +25,10 @@ public interface UtilisateurDAO {
 	
 	public Utilisateur selectBy(int id) throws SQLException;
 	
+	public void update(Utilisateur user) throws SQLException;
+	
 	public void delete(int id) throws SQLException;
 	
-	public void update(Utilisateur user) throws SQLException;
+	public void truncate() throws SQLException;
+
 }
