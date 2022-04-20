@@ -10,64 +10,61 @@
 <%@ include file="./include/bootstrapAndJSTL.jsp"%>
 <%@ include file="./include/nav.jsp"%>
 </head>
-<body>
-	<h1>Nouvelle vente</h1>
+		<body>
+				<h1>Nouvelle vente</h1>
 
+				<!-- bloc qui affiche le message de confirmation après validation vente ( succès )-->
+				<p class="message-confirmation">${messageConfirmation}</p>
 
+				<!-- bloc qui affiche l'éventuel message d'erreur -->
 
-	<!-- bloc qui affiche le message de confirmation après validation vente ( succès )-->
-	<p class="message-confirmation">${messageConfirmation}</p>
+				<p class="message-erreur">${messageErreur}</p>
 
-	<!-- bloc qui affiche l'éventuel message d'erreur -->
+				<div class="container bg-white text-center py 5">
 
-	<p class="message-erreur">${messageErreur}</p>
+					<form action="./editVente" method="POST">
+						<label for="article">Article :</label> <input type="text" id="article" name="article" value=""
+							size="20" maxlength="60" /> <br />
+						<br /> <label for="description">Description :</label>
+						<textarea name="description" placeholder="description" cols="20" rows="20"></textarea>
+						<br /> <br />
 
-	<div class="container bg-white text-center py 5">
+						<!-- Combobox pour lister les catégories (ENUM) -->
+						<label for="Categorie">Catégorie :</label> <select name="categorie" id="categorie">
+							<option value="all" selected>Toutes</option>
+							<option value="informatique">Informatique</option>
+							<option value="ameublement">Ameublement</option>
+							<option value="vetement">Vêtement</option>
+							<option value="sportLoisirs">Sport &amp; Loisirs</option>
 
-		<form action="./editVente" method="POST">
-			<label for="article">Article :</label> <input type="text"
-				id="article" name="article" value="" size="20" maxlength="60" /> <br />
-			<br /> <label for="description">Description :</label>
-			<textarea name="description" placeholder="description" cols="20"
-				rows="20"></textarea>
-			<br /> <br />
+						</select> <br /> <br />
+						<label for="prix">Mise à prix:</label> <input type="text" id="prix" name="prix" value=""
+							size="20" maxlength="60" />
+						<br /> <br /> <label>Début de l'enchère : </label> <input type="date" id="debut" name="debut" />
+						<br />
+						<br /> <label>Fin de l'enchère : </label> <input type="date" id="fin" name="fin" /> <br />
 
-			<!-- Combobox pour lister les catégories (ENUM) -->
-			<label for="Categorie">Catégorie :</label> <select name="categorie"
-				id="categorie">
-				<option value="all" selected>Toutes</option>
-				<option value="informatique">Informatique</option>
-				<option value="ameublement">Ameublement</option>
-				<option value="vetement">Vêtement</option>
-				<option value="sportLoisirs">Sport &amp; Loisirs</option>
-				
-			</select> <br /> <br /> <label for="prix">Mise à prix:</label> <input
-				type="text" id="prix" name="prix" value="" size="20" maxlength="60" />
-			<br /> <br /> <label>Début de l'enchère : </label> <input
-				type="date" name="Début de l'enchère" /> <br /> 
-				<br /> <label>Fin de l'enchère : </label> <input type="date" name="Fin de l'enchère" /> <br />
+						<!-- Utilisation de l'EL pour récupérer les informations de l'utilisateur connecté  -->
 
-			<!-- Utilisation de l'EL pour récupérer les informations de l'utilisateur connecté  -->
+						<fieldset>
+							<legend>Retrait</legend>
+							<c:choose>
+								<c:when test="${utilisateurConnecte != null}">
+									Rue : ${utilisateurConnecte.rue}<br />
+									Code Postal : ${utilisateurConnecte.codePostal}<br />
+									Ville : ${utilisateurConnecte.ville}<br />
+								</c:when>
+								<c:otherwise>
+									Rue : ${null} <br />
+									Code Postal : ${null} <br />
+									Ville : ${null} <br />
+								</c:otherwise>
+							</c:choose>
+						</fieldset>
+						<br /> <input type="submit" class="btn btn-success m-5" value="Enregistrer" /> <a href="./"
+							class="btn btn-danger m-5">annuler</a>
+					</form>
+				</div>
 
-			<fieldset>
-				<legend>Retrait</legend>
-				<c:choose>
-					<c:when test="${utilisateurConnecte != null}">	
-				Rue : ${utilisateurConnecte.rue}<br />
-				Code Postal : ${utilisateurConnecte.codePostal}<br />
-				Ville : ${utilisateurConnecte.ville}<br />
-					</c:when>
-					<c:otherwise>
-				Rue : ${null} <br />
-				Code Postal : ${null} <br />
-				Ville : ${null} <br />
-					</c:otherwise>
-				</c:choose>
-			</fieldset>
-			<br /> <input type="submit" class="btn btn-success m-5"
-				value="Enregistrer" /> <a href="./" class="btn btn-danger m-5">annuler</a>
-		</form>
-	</div>
-
-</body>
+			</body>
 </html>
