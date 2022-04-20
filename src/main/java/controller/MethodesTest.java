@@ -365,23 +365,16 @@ public class MethodesTest {
 	
 	public Boolean testModifierCategorie(int id) throws SQLException, BusinessException {
 		System.out.println("DEBUT Test modification d'une categorie");
-		try {
-			
-			Categorie categorieTest = categorieManager.afficherUneCategorie(id);
-			System.out.println(categorieTest);
-			categorieTest.setLibelle("Litterature");
-			categorieManager.modifierCategorie(categorieTest);
-			System.out.println(categorieTest);
-			
-			System.out.println("FIN Test modification d'une categorie");
-			System.out.println();
+		Categorie categorieTest = categorieManager.afficherUneCategorie(id);
+		System.out.println(categorieTest);
+		categorieTest.setLibelle("Litterature");
+		categorieManager.modifierCategorie(categorieTest);
+		System.out.println(categorieTest);
+		
+		System.out.println("FIN Test modification d'une categorie");
+		System.out.println();
 
-			return true;
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			return false;
-		}
+		return true;
 	}
 	
 	public Boolean testModifierArticle(int id) throws SQLException, BusinessException {
