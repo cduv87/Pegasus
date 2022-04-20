@@ -13,6 +13,8 @@
 <form action="./editprofil" method="post">
 		<div class="row m-3 text-center">
 		<h2>Mon Profil</h2>
+		<!-- petit bout de code qui affichait le password dans la jsp pour debug -->
+		<%-- <p><b>mot de passe utilisateur connecté : ${utilisateurConnecte.motDePasse}</b></p>  --%>
 		<p class="erreur text-danger">${erreur}</p>
 		<div class="col-2"></div>
 	  		<div class="col-4">
@@ -47,7 +49,7 @@
 				  <input type="text" name="rue" value="${utilisateurConnecte.rue}"><br>
 				  <label for="ville">Ville :</label><br>
 				  <input type="text" name="ville" value="${utilisateurConnecte.ville}"><br>
-				  <label for="confirmotpasse">Confirmation :</label><br>
+				  <label for="confirmotpasse">Confirmation mot de passe :</label><br>
 				  <input type="text" name="mdp2" value=""><br><br>
 			  </div>
 			  <div class="col-2"></div>
