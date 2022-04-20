@@ -44,8 +44,8 @@
 			</select> <br /> <br /> <label for="prix">Mise à prix:</label> <input
 				type="text" id="prix" name="prix" value="" size="20" maxlength="60" />
 			<br /> <br /> <label>Début de l'enchère : </label> <input
-				type="date" name="Début de l'enchère" /> <br /> 
-				<br /> <label>Fin de l'enchère : </label> <input type="date" name="Fin de l'enchère" /> <br />
+				type="date" id="debut" name="debut" /> <br /> 
+				<br /> <label>Fin de l'enchère : </label> <input type="date"  id="fin" name="fin" /> <br />
 
 			<!-- Utilisation de l'EL pour récupérer les informations de l'utilisateur connecté  -->
 

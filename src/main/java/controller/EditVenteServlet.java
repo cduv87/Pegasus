@@ -38,8 +38,8 @@ public class EditVenteServlet extends HttpServlet {
 			int miseAprix=  Integer.valueOf(request.getParameter("prix"));
 
 		
-			String date = request.getParameter("D�but de l'ench�re");
-			String date2 =request.getParameter("Fin de l'ench�re");
+			String date = request.getParameter("debut");
+			String date2 =request.getParameter("fin");
 			LocalDate dateDebutEncheres=LocalDate.parse(date);
 			LocalDate dateFinEncheres=LocalDate.parse(date2);
 
