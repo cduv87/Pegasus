@@ -54,6 +54,7 @@ public class TestServlet extends HttpServlet {
 			test.testAfficherToutesCategories();
 			test.testAfficherTousArticles();
 			test.testAfficherToutesEncheres();
+			test.testAfficherTousRetraits();
 
 			test.testAfficherUnUtilisateur(4);
 			test.testAfficherUneCategorie(2);
