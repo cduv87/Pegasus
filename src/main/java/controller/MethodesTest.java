@@ -88,9 +88,9 @@ public class MethodesTest {
 
 			Utilisateur userTest = new Utilisateur();
 			userTest.setPseudo("PP");
-			userTest.setNom("Perron");
+			userTest.setNom("Peron");
 			userTest.setPrenom("Phileas");
-			userTest.setEmail("phileas.perron");
+			userTest.setEmail("phileas.peron");
 			userTest.setTelephone("06");
 			userTest.setRue("PP");
 			userTest.setCodePostal("29000");
@@ -158,19 +158,19 @@ public class MethodesTest {
 	public Boolean testAjouterLesCategories() throws BusinessException, SQLException {
 		System.out.println("DEBUT Test ajout des catégories");
 		Categorie c1 = new Categorie();
-		c1.setLibelle("Informatique");
+		c1.setLibelle("informatique");
 		categorieManager.ajouterUneCategorie(c1);
 
 		Categorie c2 = new Categorie();
-		c2.setLibelle("Ameublement");
+		c2.setLibelle("ameublement");
 		categorieManager.ajouterUneCategorie(c2);
 
 		Categorie c3 = new Categorie();
-		c3.setLibelle("Vetement");
+		c3.setLibelle("vetement");
 		categorieManager.ajouterUneCategorie(c3);
 
 		Categorie c4 = new Categorie();
-		c4.setLibelle("Sport&Loisir");
+		c4.setLibelle("sport&loisir");
 		categorieManager.ajouterUneCategorie(c4);
 		System.out.println("FIN Test ajout des catégories");
 		System.out.println();
