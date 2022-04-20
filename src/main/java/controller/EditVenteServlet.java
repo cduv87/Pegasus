@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.bll.ArticleManager;
 import model.bll.BusinessException;
+import model.bll.CategorieManager;
+import model.bll.RetraitManager;
+import model.bll.UtilisateurManager;
 import model.bo.ArticleVendu;
 import model.bo.Categorie;
 import model.bo.Utilisateur;
@@ -19,7 +22,10 @@ import model.bo.Utilisateur;
 public class EditVenteServlet extends HttpServlet {
 	
 	private ArticleManager articleManager = new ArticleManager();
-
+	private UtilisateurManager utilisateurManager = new UtilisateurManager();
+	private RetraitManager retraitManager = new RetraitManager();
+	private CategorieManager categorierManager = new CategorieManager();
+	
 	public EditVenteServlet() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
