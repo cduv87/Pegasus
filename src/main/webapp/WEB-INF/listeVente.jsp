@@ -128,7 +128,7 @@ function verifyAnswer() {
 								</c:when>
 								<c:otherwise>
             					<form action="./affichProfil" method="post">
-								<input type="hidden" name="no_article_parameter" value="${donneesCartel.get(4)}">
+								<input type="hidden" name="user_id" value="${donneesCartel.get(4)}">
                    				<p class="card-text">Vendeur : <button type="submit" class="btn btn-link p-0 m-0">${donneesCartel.get(3)}</button></p>
             					</form>
 								</c:otherwise>
