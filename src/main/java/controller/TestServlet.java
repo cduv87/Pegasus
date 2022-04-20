@@ -47,28 +47,28 @@ public class TestServlet extends HttpServlet {
 			test.testAjouterUnUtilisateur();
 			test.testAjouterLesCategories();
 			test.testAjouterArticleVendu();
-//			test.testAjoutEnchere();
+			test.testAjoutEnchere();
 			test.testAjoutRetrait(1);
 			
 			test.testAfficherTousUtilisateurs();
 			test.testAfficherToutesCategories();
 			test.testAfficherTousArticles();
-//			test.testAfficherToutesEncheres();
+			test.testAfficherToutesEncheres();
 
 			test.testAfficherUnUtilisateur(4);
 			test.testAfficherUneCategorie(2);
 			test.testAfficherUnArticle(1);
-//			test.testAfficherUneEnchere(1);
+			test.testAfficherUneEnchere(1);
 			
 			test.testModifierUtilisateur(2);
 			test.testModifierCategorie(3);
 			test.testModifierArticle(1);
-//			test.testModifierEnchere(1);
+			test.testModifierEnchere(1);
 
-//			test.testEffacerUnUtilisateur();
+			test.testEffacerUnUtilisateur();
 			
-//			test.testConnexionUtilisateur();
-//			test.testImport();
+			test.testConnexionUtilisateur();
+			test.testImport();
 			
 			request.getRequestDispatcher("/WEB-INF/listeVente.jsp").forward(request, response);
 
