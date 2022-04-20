@@ -43,10 +43,18 @@ public class DetailVenteServlet extends HttpServlet{
 	  }
 	  
 	  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 
+		  int meilleureOffre = 0;
+		  /*creation enchere et récupération du montant en post
+		  *Comparaison avec la dernière offre en cours.
+		  *Ajouter la meilleure offre à prixVente de l'article.
+		  */
+		  
 	  }
 	  
-	  public void meilleureOffre() {
+	  public Enchere enchere() {
+		  Enchere enchere_temp = null;
+		  
+		return enchere_temp;
 		  //Identifie la meilleure offre pour un article
 		  
 	  }
