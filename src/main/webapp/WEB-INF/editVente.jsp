@@ -29,15 +29,16 @@
 						<textarea name="description" placeholder="description" cols="20" rows="20"></textarea>
 						<br /> <br />
 
-						<!-- Combobox pour lister les catégories (ENUM) -->
-						<label for="Categorie">Catégorie :</label> <select name="categorie" id="categorie">
-							<option value="all" selected>Toutes</option>
-							<option value="informatique">Informatique</option>
-							<option value="ameublement">Ameublement</option>
-							<option value="vetement">Vêtement</option>
-							<option value="sportLoisirs">Sport &amp; Loisirs</option>
-
-						</select> <br /> <br />
+						<!-- Combobox pour lister les catégories  -->
+						<label for="Categorie">Catégorie :</label> 
+						<select class="form-select" name="filtreCategorie" id="filtreCategorie">
+								<option value="0">Toutes</option>
+								<c:forEach var="nomCategorie" items="${nomsCategorie}">
+									<option value="${nomCategorie.getNoCategorie()}">${nomCategorie.getLibelle()}</option>
+								</c:forEach>
+						</select>
+						<br /> <br />
+						
 						<label for="prix">Mise à prix:</label> <input type="text" id="prix" name="prix" value=""
 							size="20" maxlength="60" />
 						<br /> <br /> <label>Début de l'enchère : </label> <input type="date" id="debut" name="debut" />
