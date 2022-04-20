@@ -11,7 +11,7 @@
 		<ul class="navbar-nav mr-auto my-2 my-lg-0">
 			<c:choose>
 			<c:when test="${utilisateurConnecte != null}">
-				<li class="nav-item"><h6 class="text-white my-auto">Connecté : ${utilisateurConnecte.pseudo}</h6></li>
+				<li class="nav-item"><h6 class="text-white my-auto">Connecté :  </h6></li>
 				<!-- le lien enchère ci dessous est destiné a devenir un post vers listeVenteServlet, rendant le resultat des encheres de l'utilisateur en cours  -->
 				<li class="nav-item"><a href="listeVente" name="encheres" class="btn btn-primary">Enchères</a></li>
 				<li class="nav-item"><a href="editVente" name="creer vente" class="btn btn-primary">Vendre un article</a></li>

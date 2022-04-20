@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
+
+import model.bo.Categorie;
+import model.dal.ConnectionProvider;
 
 
 import model.bll.ArticleManager;
@@ -76,7 +84,7 @@ public class Accueil extends HttpServlet {
 		request.setAttribute("donneesCartels", recupererDonneesCartels("","all"));
 		
 		request.getRequestDispatcher("/WEB-INF/listeVente.jsp").forward(request, response);
-	}
 
+	}
 }
 

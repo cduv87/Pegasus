@@ -100,6 +100,7 @@
             </form>
         </div>
 
+
         <div class="row mt-5">
             <c:forEach var="donneesCartel" items="${donneesCartels}">
             <div class="col-xl-6 my-2" >
@@ -125,4 +126,4 @@
 
 
 </body>
-</html>
+</html> 
