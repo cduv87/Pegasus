@@ -7,6 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 
 
 <title>Page d'accueil</title>
@@ -57,34 +59,34 @@ function verifyAnswer() {
                 <c:if test="${utilisateurConnecte!=null}">
                 <div class="mt-3 d-flex  justify-content-center">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="filtre" id="filtreAchats" onchange="verifyAnswer()" checked/>
+                        <input class="form-check-input" type="radio" name="filtre" value="achats" id="filtreAchats" onchange="verifyAnswer()" checked/>
                         <label class="form-check-label" for="filtreAchats">Mes achats</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="filtreMesAchatsEncheresOuvertes">
+                            <input class="form-check-input" type="checkbox" name="filtreMesAchatsEncheresOuvertes" value="filtreMesAchatsEncheresOuvertes" id="filtreMesAchatsEncheresOuvertes">
                             <label class="form-check-label" for="filtreMesAchatsEncheresOuvertes">mes enchères ouvertes</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="filtreMesAchatsEncheres">
+                            <input class="form-check-input" type="checkbox" name="filtreMesAchatsEncheres" value="filtreMesAchatsEncheres" id="filtreMesAchatsEncheres">
                             <label class="form-check-label" for="filtreMesAchatsEncheres">mes enchères</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="filtreMesAchatsEncheresRemportees">
+                            <input class="form-check-input" type="checkbox" name="filtreMesAchatsEncheresRemportees" value="filtreMesAchatsEncheresRemportees" id="filtreMesAchatsEncheresRemportees">
                             <label class="form-check-label" for="filtreMesAchatsEncheresRemportees">mes enchères remportées</label>
                         </div>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="filtre" id="filtreVentes" onchange="verifyAnswer()"/>
+                        <input class="form-check-input" type="radio" name="filtre" value="ventes" onchange="verifyAnswer()"/>
                         <label class="form-check-label" for="filtreVentes">Mes ventes</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="filtreMesVentesEnCours" disabled>
+                            <input class="form-check-input" type="checkbox" name="filtreMesVentesEnCours" value="filtreMesVentesEnCours" id="filtreMesVentesEnCours" disabled>
                             <label class="form-check-label" for="filtreMesVentesEnCours">mes ventes en cours</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="filtreMesVentesNonDebutees" disabled>
+                            <input class="form-check-input" type="checkbox" name="filtreMesVentesNonDebutees" value="filtreMesVentesNonDebutees" id="filtreMesVentesNonDebutees" disabled>
                             <label class="form-check-label" for="filtreMesVentesNonDebutees">mes ventes non débutées</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="filtreMesVentesTerminees" disabled>
+                            <input class="form-check-input" type="checkbox" name="filtreMesVentesTerminees" value="filtreMesVentesTerminees" id="filtreMesVentesTerminees" disabled>
                             <label class="form-check-label" for="filtreMesVentesTerminees">mes ventes terminées</label>
                         </div>
                     </div>
@@ -102,15 +104,35 @@ function verifyAnswer() {
             <div class="col-xl-6 my-2" >
                 <div class="card mb-3 mx-auto" style="max-width: 540px;">
                     <div class="row g-0">
-                        <div class="col-md-4 d-flex justify-content-center">
+                        <div class="col-4 d-flex justify-content-center">
                             <img src="https://dummyimage.com/100x150/000/fff" class="rounded m-3 text-center" alt="">
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <div class="card-body">
-                                <h5 class="card-title"><a href="./detailVente?noEnchere=${donneesCartel.get(5)}">${donneesCartel.get(0)}</a></h5>
+                                <c:choose>
+								<c:when test="${utilisateurConnecte==null}">
+                                <h5 class="card-title">${donneesCartel.get(0)}</h5>
+								</c:when>
+								<c:otherwise>
+            					<form action="./detailVente" method="post">
+								<input type="hidden" name="no_enchere_parameter" value="${donneesCartel.get(5)}">
+                                <h5 class="card-title"><button type="submit" class="btn btn-link p-0 m-0">${donneesCartel.get(0)}</button></h5>
+            					</form>
+								</c:otherwise>
+								</c:choose>
                                 <p class="card-text">Prix : ${donneesCartel.get(1)} points</p>
                                 <p class="card-text">Fin de l'enchère : ${donneesCartel.get(2)}</p>
-                                <p class="card-text">Vendeur : <a href="./affichProfil?no_utilisateur=${donneesCartel.get(4)}">${donneesCartel.get(3)}</a></p>
+                                <c:choose>
+								<c:when test="${utilisateurConnecte==null}">
+                                <p class="card-text">Vendeur : ${donneesCartel.get(3)}</p>
+								</c:when>
+								<c:otherwise>
+            					<form action="./affichProfil" method="post">
+								<input type="hidden" name="no_article_parameter" value="${donneesCartel.get(4)}">
+                   				<p class="card-text">Vendeur : <button type="submit" class="btn btn-link p-0 m-0">${donneesCartel.get(3)}</button></p>
+            					</form>
+								</c:otherwise>
+								</c:choose>
                             </div>
                         </div>
                     </div>
