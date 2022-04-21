@@ -38,7 +38,7 @@ import model.bo.Utilisateur;
 /**
  * Servlet implementation class Accueil
  */	
-@WebServlet("/")
+@WebServlet("")
 public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
