@@ -56,16 +56,20 @@ public class AccueilServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		HttpSession session = request.getSession();
+		//final String[] params = { request.getParameter("filtre") , request.getParameter("filtreMesAchatsEncheresOuvertes") , request.getParameter("filtreMesAchatsEncheres") , request.getParameter("filtreMesAchatsEncheresRemportees") };
+		
 		if( session.getAttribute("utilisateurConnecte") != null ) {
-			filtre[0] = (request.getParameter("filtre").equals("achats")?true:false);
-			if(filtre[0]) {
-				filtre[1] = (request.getParameter("filtreMesAchatsEncheresOuvertes")==null?false:true);
-				filtre[2] = (request.getParameter("filtreMesAchatsEncheres")==null?false:true);
-				filtre[3] = (request.getParameter("filtreMesAchatsEncheresRemportees")==null?false:true);
-			} else {
-				filtre[1] = (request.getParameter("filtreMesVentesEnCours")==null?false:true);
-				filtre[2] = (request.getParameter("filtreMesVentesNonDebutees")==null?false:true);
-				filtre[3] = (request.getParameter("filtreMesVentesTerminees")==null?false:true);
+			if( request.getParameter("filtre") != null ) {
+				filtre[0] = (request.getParameter("filtre").equals("achats")?true:false);
+				if(filtre[0]) {
+					filtre[1] = (request.getParameter("filtreMesAchatsEncheresOuvertes")==null?false:true);
+					filtre[2] = (request.getParameter("filtreMesAchatsEncheres")==null?false:true);
+					filtre[3] = (request.getParameter("filtreMesAchatsEncheresRemportees")==null?false:true);
+				} else {
+					filtre[1] = (request.getParameter("filtreMesVentesEnCours")==null?false:true);
+					filtre[2] = (request.getParameter("filtreMesVentesNonDebutees")==null?false:true);
+					filtre[3] = (request.getParameter("filtreMesVentesTerminees")==null?false:true);
+				}
 			}
 			for (Boolean f : filtre) {
 				System.out.print(f+",");
