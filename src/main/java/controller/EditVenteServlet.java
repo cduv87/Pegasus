@@ -86,19 +86,7 @@ public class EditVenteServlet extends HttpServlet {
 		catch (BusinessException e){ 
 			request.setAttribute("messageErreur", e.getMessage());
 		}
-			// MESSAGE pour de validation enregistrement nouvel article
-		
-//		if ((request.getParameter("submit")).equals("enregistrer")) {
-//			
-//			request.setAttribute("erreur", "Un nouvel article a été ajouté");
-//			try {
-//				
-//			} catch (SQLException e) {
-//				request.setAttribute("erreur", e.getMessage());
-//				e.printStackTrace();
-//				this.doGet(request, response);
-//			}
-//		}
+			
 	
 		// j'enregistre la vente et retour page ï¿½ la JSP d'acceuil 
 		request.getRequestDispatcher("/WEB-INF/listeVente.jsp").forward(request, response);
