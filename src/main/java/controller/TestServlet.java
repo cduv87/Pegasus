@@ -72,6 +72,8 @@ public class TestServlet extends HttpServlet {
 			test.testModifierCategorie(3);
 			test.testModifierArticle(1);
 			test.testModifierEnchere(1);
+			
+			test.testAjouterArticlesVendusRandom();
 
 //			test.testEffacerUnUtilisateur();
 //			

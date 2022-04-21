@@ -68,7 +68,7 @@ public class AccueilServlet extends HttpServlet {
 			if( request.getParameter("filtre") != null ) {
 				filtres[0] = (request.getParameter("filtre").equals("achats")?true:false);
 				if(filtres[0]) {
-					filtres[1] = (request.getParameter("filtreMesAchatsEncheresOuvertes")==null?false:true);
+					filtres[1] = (request.getParameter("filtreAchatsEncheresOuvertes")==null?false:true);
 					filtres[2] = (request.getParameter("filtreMesAchatsEncheres")==null?false:true);
 					filtres[3] = (request.getParameter("filtreMesAchatsEncheresRemportees")==null?false:true);
 				} else {
@@ -120,6 +120,20 @@ public class AccueilServlet extends HttpServlet {
 		List<Object> donneesCartels = new ArrayList<Object>();
 		
 		for(ArticleVendu article : articles) {
+			/*if(filtres != null && article.getNoArticle()<9) {
+				for (int i = 0; i < 4; i++) {
+					System.out.print(filtres[i]);
+				}
+				System.out.println();
+				System.out.println(article);
+				System.out.println(article.getUtilisateur().getNoUtilisateur());
+				System.out.println(u.getNoUtilisateur());
+				//System.out.println(!filtres[1] && !filtres[2] && !filtres[3]);
+				System.out.println(filtres[1] == true && article.isEtatVente());
+				System.out.println(filtres[1] == true);
+				System.out.println(article.isEtatVente());
+				System.out.println();
+			}*/
 			if( /*article.isEtatVente() &&*/ ( searchText == null || searchText.equals("") || 
 					article.getNomArticle().toLowerCase().contains(searchText.toLowerCase()) ) &&
 					( noCategorie == 0 || article.getCategorieArticle().getNoCategorie() == noCategorie ) ) {

@@ -6,7 +6,7 @@
 	<c:if test="${utilisateurConnecte != null}">
 		<ul class="navbar-nav ms-auto">
 		    <li class="nav-item">
-		        <a class="nav-link">Connecté : ${utilisateurConnecte.pseudo}</a>
+				<a class="nav-link fw-bold text-white"><i class="fa fa-user"></i> ${utilisateurConnecte.pseudo}</a>
 		    </li>
 		</ul>
 	</c:if>
