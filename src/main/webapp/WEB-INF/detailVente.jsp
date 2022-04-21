@@ -19,11 +19,20 @@
 <h2>Retrait : ${article.utilisateur.rue} ${article.utilisateur.codePostal} ${article.utilisateur.ville}</h2>
 <h2>Vendeur : ${article.utilisateur.prenom} ${article.utilisateur.nom}</h2>
 	<p>
-	<form action="./detailVente" method="POST">
-		<label for="nouvelleEnchere">Ma proposition :</label> <input type="text"
-			id="nouvelleEnchere" name="nouvelleEnchere" value="0" size="20"
-			maxlength="60" />
+		<c:choose>
+			<c:when
+				test="${utilisateurConnecte.noUtilisateur == article.utilisateur.noUtilisateur}">
+				<a href="./editVente" class="btn btn-primary m-5">Modifier votre
+					vente</a>
+			</c:when>
+			<c:otherwise>
+					<form action="./detailVente" method="POST">
+						<label for="nouvelleEnchere">Ma proposition :</label> <input
+								type="text" id="nouvelleEnchere" name="nouvelleEnchere" value="0"
+								size="20" maxlength="60" />
+					</form>
+			</c:otherwise>
+		</c:choose>
 
-	</form>
 </body>
 </html>
