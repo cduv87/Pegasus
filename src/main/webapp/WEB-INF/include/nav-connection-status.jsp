@@ -18,7 +18,7 @@
 		                <li class="nav-item">
 							<form class="inline-form" action="./affichProfil" method="post">
 								<input type="hidden" name="user_id" value="${utilisateurConnecte.noUtilisateur}">
-								<button type="submit" class="btn nav-link">Mon Profil</button>
+								<button type="submit" class="btn nav-link border-0">Mon Profil</button>
 							</form>
 		                    <!-- <a class="nav-link" href="affichProfil">Mon Profil</a> -->
 		                </li>
