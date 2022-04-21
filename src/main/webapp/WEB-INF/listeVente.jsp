@@ -40,8 +40,7 @@ function verifyAnswer() {
 <%@ include file="./include/nav-connection-status.jsp"%>
 </header>
     <div class="container mt-5">
-    <p>${message}<p/>
-  
+
         <p class="h1 text-center mb-5"><b>Liste des enchères</b></p>
         <div class="row">
             <form action="./" method="post">
