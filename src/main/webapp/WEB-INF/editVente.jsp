@@ -24,7 +24,7 @@
                  
                  <div class="form-group">
                    <label for="description">Description</label>
-                   <textarea class="form-control" id="description"  name="description" placeholder="Exemple: Blouson miteux jamais lavé aux notes olfactives relevées rappelant les sorties de PMU"></textarea>
+                   <textarea class="form-control" id="description"  name="description" placeholder="Exemple: Blouson miteux jamais lavé, aux notes olfactives relevées rappelant les sorties de PMU"></textarea>
                  </div>
                  
                  <div class="form-group">
@@ -42,15 +42,18 @@
                     <label for="prix">Mise à prix</label>
                     <input type="text" class="form-control" id="prix" name="prix" value="" >
                   </div>
+                  <br /> <br />
                   <div class="form-group">
-                     <label>Début de l'enchère : </label>
+                     <label for="date">Début de l'enchère : </label><br />
                       <input type="date" id="debut" name="debut" />
                     </div>
-                    <div class="form-group">
-                        <label>Fin de l'enchère : </label> 
+                    <br /> 
+                    <div class="form-group ml-2">
+                        <label for="date">Fin de l'enchère : </label> <br />
                         <input type="date" id="fin" name="fin" />
                     </div>
                     <fieldset>
+                    <br /> <br />
                         <legend>Retrait</legend>
                  <div class="form-group">
                     <c:choose>
