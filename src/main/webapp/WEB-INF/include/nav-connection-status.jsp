@@ -17,8 +17,8 @@
 				<li class="nav-item"><a href="editVente" name="creer vente" class="btn btn-primary">Vendre un article</a></li>
 				<!-- ancien lien pour afficher son profil -->
 				<!-- <li class="nav-item"><a href="affichProfil" name="affiche profile" class="btn btn-primary">Mon Profil</a></li> -->
-				<form class="inline-form" action="${pageContext.request.contextPath}/editprofil" method="GET">
-					<li class="nav-item"><button name="MonProfil" type="submit" class="btn btn-primary">Mon Profil</button></li>
+				<form class="inline-form" action="./affichProfil" method="post">
+					<li class="nav-item"><button name="user_id" value="${utilisateurConnecte.noUtilisateur}" type="submit" class="btn btn-primary">Mon Profil</button></li>
 				</form>
 				<form class="inline-form" action="${pageContext.request.contextPath}/deconnexion" method="POST">
 					<li class="nav-item"><button name="deconnecter" type="submit" class="btn btn-danger">Se déconnecter</button></li>

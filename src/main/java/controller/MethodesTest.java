@@ -32,12 +32,18 @@ public class MethodesTest {
 	public MethodesTest() {
 	}
 
+	public void testEffacerTousRetraits()throws SQLException, BusinessException {
+		System.out.println("DEBUT test supression tous retraits");
+		retraitManager.effacterTousRetraits();
+		System.out.println("Fin test supression tous retrairs");
+		System.out.println();
+	}
+	
 	public void testEffacerToutesEncheres() throws SQLException {
 		System.out.println("DEBUT suppression de TOUTES les enchere");
 		enchereManager.effacterToutesEncheres();
 		System.out.println("FIN suppression de TOUTES les enchere");
 		System.out.println();
-
 	}
 	
 	public void testEffacerTousArticles() throws SQLException {
@@ -70,16 +76,8 @@ public class MethodesTest {
 			ArrayList<Utilisateur> listeUtilisateurTemp = utilisateurManager.afficherTousUtilisateurs();
 			for (Utilisateur utilisateur : listeUtilisateurTemp) {
 				System.out.println(utilisateur);
-			}
-			;
+			};
 		}
-	
-	public void testEffacerTousRetraits()throws SQLException, BusinessException {
-		System.out.println("DEBUT test supression tous retraits");
-		retraitManager.effacterTousRetraits();
-		System.out.println("Fin test supression tous retrairs");
-		System.out.println();
-	}
 
 	public Boolean testAjouterUnUtilisateur() throws BusinessException {
 		System.out.println("Test ajout de 4 utilisateurs");
@@ -145,8 +143,7 @@ public class MethodesTest {
 
 			System.out.println("FIN Test ajout de 4 utilisateurs");
 			System.out.println();
-
-
+			
 			return true;
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
@@ -197,12 +194,13 @@ public class MethodesTest {
 	
 	public void testAjoutEnchere() throws SQLException {
 		System.out.println("DEBUT Test ajout d'une enchere");
-
 		Enchere enchere_temp = new Enchere();
+		ArticleVendu article_temp = articleManager.afficherUnArticle(1);
+		Utilisateur utilisateur_temp = utilisateurManager.afficherUnUtilisateur(2);
 		enchere_temp.setDateEnchere(LocalDate.of(2022, 04, 01));
 		enchere_temp.setMontant_enchere(100);
-		enchere_temp.setArticle(articleManager.afficherUnArticle(1));
-		enchere_temp.setUtilisateur(utilisateurManager.afficherUnUtilisateur(2));
+		enchere_temp.setArticle(article_temp);
+		enchere_temp.setUtilisateur(utilisateur_temp);
 		enchereManager.ajouterEnchere(enchere_temp);
 		System.out.println("FIN Test ajout d'une enchere");
 		System.out.println();
@@ -365,23 +363,16 @@ public class MethodesTest {
 	
 	public Boolean testModifierCategorie(int id) throws SQLException, BusinessException {
 		System.out.println("DEBUT Test modification d'une categorie");
-		try {
-			
-			Categorie categorieTest = categorieManager.afficherUneCategorie(id);
-			System.out.println(categorieTest);
-			categorieTest.setLibelle("Litterature");
-			categorieManager.modifierCategorie(categorieTest);
-			System.out.println(categorieTest);
-			
-			System.out.println("FIN Test modification d'une categorie");
-			System.out.println();
+		Categorie categorieTest = categorieManager.afficherUneCategorie(id);
+		System.out.println(categorieTest);
+		categorieTest.setLibelle("Litterature");
+		categorieManager.modifierCategorie(categorieTest);
+		System.out.println(categorieTest);
+		
+		System.out.println("FIN Test modification d'une categorie");
+		System.out.println();
 
-			return true;
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			return false;
-		}
+		return true;
 	}
 	
 	public Boolean testModifierArticle(int id) throws SQLException, BusinessException {

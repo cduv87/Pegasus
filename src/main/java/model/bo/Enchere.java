@@ -18,7 +18,6 @@ public class Enchere {
 	}
 	
 	
-	
 	public Enchere(int noEnchere, LocalDate dateEnchere, int montant_enchere, ArticleVendu article,
 			Utilisateur utilisateur) {
 		super();

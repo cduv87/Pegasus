@@ -18,7 +18,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 	private final static String SELECT_USER = "SELECT * FROM utilisateurs WHERE no_utilisateur = ?";
 	private final static String UPDATE_USER = "UPDATE utilisateurs SET pseudo= ? , nom=? , prenom=? , email=? , telephone=? , rue=? , code_postal=? , ville=? , mot_de_passe=? , credit=? , administrateur=? WHERE no_utilisateur = ? ;";
 	private final static String DELETE_USER = "DELETE FROM utilisateurs WHERE no_utilisateur = ?";
-	private final static String TRUNCATE_USER = "DELETE FROM utilisateurs DBCC CHECKIDENT ('ENCHERES.dbo.UTILISATEURS', RESEED, 0)";
+	private final static String TRUNCATE_USER = "TRUNCTE TABLE utilisateurs";
 	
 	public void add(Utilisateur user) throws SQLException{
 		Connection cnx = ConnectionProvider.getConnection();
@@ -42,6 +42,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 		ResultSet rs = pStmt.getGeneratedKeys();
 		if (rs.next()) {
 			user.setNoUtilisateur(rs.getInt(1));
+			System.out.println("POINT d'ARRET");
 		}
 		
 		cnx.close();

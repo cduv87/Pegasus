@@ -19,13 +19,13 @@ public class EncheresDAOJdbcImpl implements EncheresDAOInterface {
 	private final static String SELECT_ENCHERE = "SELECT * FROM encheres WHERE no_enchere=?;";
 	private final static String UPDATE_ENCHERE = "UPDATE encheres SET date_enchere=? , montant_enchere=? WHERE no_enchere=?;";
 	private final static String DELETE_ENCHERE = "DELETE FROM encheres WHERE no_enchere=?";
-	private final static String TRUNCATE_ENCHERE ="DELETE FROM encheres DBCC CHECKIDENT ('ENCHERES.dbo.ENCHERES', RESEED, 0)";
+	private final static String TRUNCATE_ENCHERE ="TRUNCATE TABLE encheres";
 	
 	@Override
 	public void add(Enchere e) throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
 		PreparedStatement pStmt = cnx.prepareStatement(INSERT_ENCHERE, Statement.RETURN_GENERATED_KEYS);
-
+		
 		pStmt.setDate(1, java.sql.Date.valueOf(e.getDateEnchere()));
 		pStmt.setInt(2, e.getMontant_enchere());
 		pStmt.setInt(3, e.getArticle().getNoArticle());
@@ -37,7 +37,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAOInterface {
 		if (rs.next()) {
 			e.setNoEnchere(rs.getInt(1));
 		}
-		cnx.close();
+//		cnx.close();
 
 	}
 

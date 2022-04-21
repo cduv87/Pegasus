@@ -66,10 +66,10 @@ public class TestServlet extends HttpServlet {
 			test.testModifierArticle(1);
 			test.testModifierEnchere(1);
 
-			test.testEffacerUnUtilisateur();
-			
-			test.testConnexionUtilisateur();
-			test.testImport();
+//			test.testEffacerUnUtilisateur();
+//			
+//			test.testConnexionUtilisateur();
+//			test.testImport();
 			
 			request.getRequestDispatcher("/WEB-INF/listeVente.jsp").forward(request, response);
 
