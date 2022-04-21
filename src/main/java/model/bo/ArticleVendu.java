@@ -17,7 +17,7 @@ public class ArticleVendu {
 	private LocalDate dateFinEncheres;
 	private int miseAPrix;
 	private int prixVente;
-	private boolean etatVente;//pas trouve dans table sql
+	private boolean etatVente;
 	private Categorie categorieArticle;
 	private Utilisateur utilisateur;
 	
