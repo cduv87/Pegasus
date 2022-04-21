@@ -43,15 +43,19 @@
                     <input type="text" class="form-control" id="prix" name="prix" value="" >
                   </div>
                   <br /> <br />
+                  <div class="mt-3 d-flex justify-content-center">
                   <div class="form-group">
                      <label for="date">Début de l'enchère : </label><br />
                       <input type="date" id="debut" name="debut" />
                     </div>
+                    </div>
                     <br /> 
-                    <div class="form-group ml-2">
+                    <div class="mt-1 d-flex justify-content-center">
+                    <div class="form-group">
                         <label for="date">Fin de l'enchère : </label> <br />
                         <input type="date" id="fin" name="fin" />
                     </div>
+                     </div>
                     <fieldset>
                     <br /> <br />
                         <legend>Retrait</legend>
