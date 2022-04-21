@@ -79,7 +79,7 @@ public class EditVenteServlet extends HttpServlet {
 				retrait.setVille(request.getParameter("ville"));
 			this.retraitManager.ajouterRetrait(retrait);
 			
-			 request.setAttribute("message", "Un nouvel article a été ajouté");
+			 request.setAttribute("message", "Un nouvel article a ï¿½tï¿½ ajoutï¿½");
 			// Message de confirmation d'ajout d'article
 			response.getWriter().println("Nouvel article en vente: "+articleVendu);
 		}
@@ -89,7 +89,7 @@ public class EditVenteServlet extends HttpServlet {
 			
 	
 		// j'enregistre la vente et retour page ï¿½ la JSP d'acceuil 
-		request.getRequestDispatcher("/WEB-INF/listeVente.jsp").forward(request, response);
+		request.getRequestDispatcher("").forward(request, response);
 
 	}
 
