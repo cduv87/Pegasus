@@ -10,13 +10,10 @@ import model.dal.RetraitDAOInterface;
 public class RetraitManager {
 private RetraitDAOInterface retraitDAO = RetraitDAOFactory.getRetraitDAO();
 	
-	public void ajouterRetrait(Retrait r) {
-		try {
+	public void ajouterRetrait(Retrait r) throws SQLException {
+		
 			retraitDAO.add(r);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 	}
 	
 	public ArrayList<Retrait> afficherTousRetraits() throws SQLException{
