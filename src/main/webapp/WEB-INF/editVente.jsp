@@ -10,24 +10,25 @@
 <%@ include file="./include/bootstrapAndJSTL.jsp"%>
 <%@ include file="./include/nav.jsp"%>
 </head>
-		<body>
-				<h1>Nouvelle vente</h1>
-
-				
-				<!-- bloc qui affiche l'éventuel message d'erreur -->
-
-				<p class="messageErreur">${messageErreur}</p>
-
-				<div class="container bg-white text-center py 5">
-
-					<form action="./editVente" method="POST">
-						<label for="article">Article :</label> <input type="text" id="article" name="article" value=""
-							size="20" maxlength="60" /> <br />
-						<br /> <label for="description">Description :</label>
-						<textarea name="description" placeholder="description" cols="20" rows="20"></textarea>
-						<br /> <br />
-
-						<!-- Combobox pour lister les catégories  -->
+ <body>
+    <p class="messageErreur text-danger" >${messageErreur}</p>
+         <div class="container">
+             <h1>Nouvelle vente</h1>           	
+             <form action="./editVente" method="POST">
+               <fieldset>
+                
+                 <div class="form-group">
+                   <label for="article">Article</label>
+                   <input type="text" class="form-control" id="article" name="article" value="" placeholder="Exemple: Vieux blouson en daim">
+                 </div>
+                 
+                 <div class="form-group">
+                   <label for="description">Description</label>
+                   <textarea class="form-control" id="description"  name="description" placeholder="Exemple: Blouson miteux jamais lavé aux notes olfactives relevées rappelant les sorties de PMU"></textarea>
+                 </div>
+                 
+                 <div class="form-group">
+                   <!-- Combobox pour lister les catégories  -->
 						<label for="Categorie">Catégorie :</label> 
 						<select class="form-select" name="filtreCategorie" id="filtreCategorie">
 								<option value="0">Toutes</option>
@@ -36,34 +37,41 @@
 								</c:forEach>
 						</select>
 						<br /> <br />
-						
-						<label for="prix">Mise à prix:</label> <input type="text" id="prix" name="prix" value=""
-							size="20" maxlength="60" />
-						<br /> <br /> <label>Début de l'enchère : </label> <input type="date" id="debut" name="debut" />
-						<br />
-						<br /> <label>Fin de l'enchère : </label> <input type="date" id="fin" name="fin" /> <br />
-
-						<!-- Utilisation de l'EL pour récupérer les informations de l'utilisateur connecté  -->
-
-						<fieldset>
-							<legend>Retrait</legend>
-							<c:choose>
-								<c:when test="${utilisateurConnecte != null}">
-									<label>Rue: </label> <input type="text" id="rue" value="${utilisateurConnecte.rue}"/><br />
-									<label>Code Postal: </label><input type="text" id="code_postal" value="${utilisateurConnecte.codePostal}"/><br />
-									<label>Ville : </label><input type="text" id="ville" value="${utilisateurConnecte.ville}"/><br />
-								</c:when>
-								<c:otherwise>
-									Rue : ${null} <br />
-									Code Postal : ${null} <br />
-									Ville : ${null} <br />
-								</c:otherwise>
-							</c:choose>
-						</fieldset>
-						<br /> <input type="submit" class="btn btn-primary m-5" value="Enregistrer" /> 
+                 </div>
+                 <div class="form-group">
+                    <label for="prix">Mise à prix</label>
+                    <input type="text" class="form-control" id="prix" name="prix" value="" >
+                  </div>
+                  <div class="form-group">
+                     <label>Début de l'enchère : </label>
+                      <input type="date" id="debut" name="debut" />
+                    </div>
+                    <div class="form-group">
+                        <label>Fin de l'enchère : </label> 
+                        <input type="date" id="fin" name="fin" />
+                    </div>
+                    <fieldset>
+                        <legend>Retrait</legend>
+                 <div class="form-group">
+                    <c:choose>
+                        <c:when test="${utilisateurConnecte != null}">
+                            <label>Rue: </label> <input type="text" class="form-control" id="rue" value="${utilisateurConnecte.rue}"/><br />
+                            <label>Code Postal: </label><input type="text" class="form-control" id="code_postal" value="${utilisateurConnecte.codePostal}"/><br />
+                            <label>Ville : </label><input type="text" class="form-control" id="ville" value="${utilisateurConnecte.ville}"/><br />
+                        </c:when>
+                        <c:otherwise>
+                            Rue : ${null} <br />
+                            Code Postal : ${null} <br />
+                            Ville : ${null} <br />
+                        </c:otherwise>
+                    </c:choose>
+                 </div>
+                </fieldset>
+               </fieldset>
+               <br />
+               <input type="submit" class="btn btn-primary m-5" value="Enregistrer" /> 
 						<a href="./" class="btn btn-danger m-5">annuler</a>
-					</form>
-				</div>
-
-			</body>
+             </form>
+         </div>
+    </body>
 </html>
