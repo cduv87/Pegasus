@@ -23,7 +23,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAOInterface {
 	private final static String SELECT_ARTICLE = "SELECT * FROM articles_vendus where no_article=?;";
 	private final static String UPDATE_ARTICLE = "UPDATE articles_vendus SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=? WHERE no_article=? ;";
 	private final static String DELETE_ARTICLE = "DELETE FROM articles_vendus WHERE no_article=?";
-	private final static String TRUNCATE_ARTICLE = "TRUNCATE TABLE articles_vendus";
+	private final static String TRUNCATE_ARTICLE = "DELETE FROM articles_vendus DBCC CHECKIDENT ('ENCHERES.dbo.ARTICLES_VENDUS', RESEED, 0) ";
 	
 	@Override
 	public void add(ArticleVendu a) throws SQLException {

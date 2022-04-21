@@ -131,6 +131,7 @@ public class AccueilServlet extends HttpServlet {
 		
 		for(ArticleVendu article : articles) {
 			if( /*article.isEtatVente() &&*/ ( searchText == null || searchText.equals("") || article.getNomArticle().toLowerCase().contains(searchText.toLowerCase()) ) &&
+
 					( noCategorie == 0 || article.getCategorieArticle().getNoCategorie() == noCategorie ) ) {
 				if( filtre == null ||
 						filtre[0] == true && 
