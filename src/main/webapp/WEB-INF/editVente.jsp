@@ -13,7 +13,7 @@
  <body>
     <p class="messageErreur text-danger" >${messageErreur}</p>
          <div class="container">
-             <h1>Nouvelle vente</h1>           	
+             <h1 class="h1 text-center mb-5">Nouvelle vente</h1>           	
              <form action="./editVente" method="POST">
                <fieldset>
                 
