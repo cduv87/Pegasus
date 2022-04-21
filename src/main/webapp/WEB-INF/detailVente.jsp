@@ -9,21 +9,65 @@
 <%@ include file="./include/nav.jsp"%>
 </head>
 <body>
-<h1>Detail vente</h1>
-<h2>Nom article : ${article.nomArticle}</h2>
-<h2>Description : ${article.description}</h2>
-<h2>Categorie : ${article.categorieArticle.libelle}</h2>
-<h2>Meilleure offre : ${article.prixVente}  </h2>
-<h2>Mise a prix : ${article.miseAPrix}</h2>
-<h2>Fin de l enchere : ${article.dateFinEncheres}</h2>
-<h2>Retrait : ${article.utilisateur.rue} ${article.utilisateur.codePostal} ${article.utilisateur.ville}</h2>
-<h2>Vendeur : ${article.utilisateur.prenom} ${article.utilisateur.nom}</h2>
-	<p>
-	<form action="./detailVente" method="POST">
-		<label for="nouvelleEnchere">Ma proposition :</label> <input type="text"
-			id="nouvelleEnchere" name="nouvelleEnchere" value="0" size="20"
-			maxlength="60" />
+    <div class="container mt-5">
+        <p class="h1 text-center mb-5"><b>Detail vente</b></p>
+        <div class="row justify-content-center">
+        <div class="col-auto">
+			<table class="table">
+			  <tbody>
+			    <tr>
+			      <th scope="row">Nom article</th>
+			      <td>${article.nomArticle}</td>
+			    </tr>
+			    <tr>
+			      <th scope="row">Description</th>
+			      <td>${article.description}</td>
+			    </tr>
+			    <tr>
+			      <th scope="row">Categorie</th>
+			      <td colspan="2">${article.categorieArticle.libelle}</td>
+			    </tr>
+			    <tr>
+			      <th scope="row">Meilleure offre</th>
+			      <td colspan="2">${article.prixVente}</td>
+			    </tr>
+			    <tr>
+			      <th scope="row">Mise a prix</th>
+			      <td colspan="2">${article.miseAPrix}</td>
+			    </tr>
+			    <tr>
+			      <th scope="row">Fin de l enchere</th>
+			      <td colspan="2">${article.dateFinEncheres}</td>
+			    </tr>
+			    <tr>
+			      <th scope="row">Retrait</th>
+			      <td colspan="2">${article.utilisateur.rue}<br>${article.utilisateur.codePostal}<br>${article.utilisateur.ville}</td>
+			    </tr>
+			    <tr>
+			      <th scope="row">Vendeur</th>
+			      <td colspan="2">${article.utilisateur.prenom}<br>${article.utilisateur.nom}</td>
+			    </tr>
+			  </tbody>
+			</table>
+		</div>
+		</div>
 
-	</form>
+
+		<div class="row text-center my-3">
+			<div class="d-flex justify-content-center">
+				<c:choose>
+					<c:when test="${utilisateurConnecte.noUtilisateur == article.utilisateur.noUtilisateur}">
+						<a role="button" href="./editVente" class="btn btn-primary m-5">Modifier votre vente</a>
+					</c:when>
+					<c:otherwise>
+						<form action="./detailVente" method="POST">
+							<label class="form-label" for="nouvelleEnchere">Ma proposition :</label>
+							<input class="form-control" type="number" id="nouvelleEnchere" name="nouvelleEnchere" value="0" size="20" maxlength="60" />
+						</form>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

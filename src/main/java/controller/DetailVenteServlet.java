@@ -23,8 +23,8 @@ import model.bo.Utilisateur;
 
 @WebServlet("/detailVente")
 public class DetailVenteServlet extends HttpServlet{
-	 Integer no_article = null;
-	 
+		Integer no_article_temp;
+	
 	  public DetailVenteServlet() {
 		 
 }
@@ -54,9 +54,16 @@ public class DetailVenteServlet extends HttpServlet{
 				e1.printStackTrace();
 			}
 			
-			if (no_article == null) {
+			Integer no_article = null;
+			
+			if(request.getParameter("no_article") != null) {
 				no_article = Integer.parseInt(request.getParameter("no_article"));
+				no_article_temp = no_article;
 			}
+			else {
+				no_article = no_article_temp;
+			}
+
 			article = articleManager.afficherUnArticle(no_article);
 			
 			//TEST pour la contrainte de date
