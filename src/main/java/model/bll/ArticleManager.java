@@ -11,19 +11,48 @@ import model.dal.ArticleDAOFactory;
 public class ArticleManager {
 		private ArticleDAOInterface articleDAOInterface = ArticleDAOFactory.getArticleDAO();
 
-		public void ajouterUnArticle(ArticleVendu article) throws BusinessException {
+		public void ajouterUnArticle(ArticleVendu article) throws BusinessException, SQLException {
 			validation(article);
-			try {
-				this.articleDAOInterface.add(article);
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new BusinessException("erreur SQL lors de l'insertion en base de donnÃ©e");
-			}
+			validationNotNull(article);
+			this.articleDAOInterface.add(article);
 		}
 
 		private void validation(ArticleVendu article) throws BusinessException {
 			if (article.getDateFinEncheres().isBefore(article.getDateDebutEncheres())) {
 				throw new BusinessException("la date du article doit >= a la date du jour");
+			}
+		}
+		
+		private void validationNotNull(ArticleVendu article) throws BusinessException {
+			boolean erreur = false;
+			if (article.getDateDebutEncheres() == null) {
+				if(article.getDescription().isEmpty()) {
+					erreur = true;
+			}
+			}
+			if (article.getDateFinEncheres() != null) {
+				if(article.getDescription().isEmpty()) {
+					erreur = true;
+			}
+			}
+			if (article.getMiseAPrix() ==0 ) {
+				if(article.getDescription().isEmpty()) {
+					erreur = true;
+			}
+			}
+			if (article.getDescription() != null) {
+				if(article.getDescription().isEmpty()) {
+				erreur = true;
+				}
+				
+			}
+			if (article.getNomArticle()!= null) {
+				if(article.getDescription().isEmpty()) {
+				erreur = true;
+				}
+			}
+			if (erreur) {
+				throw new BusinessException("Les champs doivent tous être remplis");
 			}
 		}
 
