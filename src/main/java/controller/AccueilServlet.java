@@ -82,7 +82,10 @@ public class AccueilServlet extends HttpServlet {
 			else
 				request.setAttribute("donneesCartels", recupererDonneesCartels(request.getParameter("filtreTexte"),0,filtre,(Utilisateur)session.getAttribute("utilisateurConnecte")));
 		} else {
-			request.setAttribute("donneesCartels", recupererDonneesCartels(request.getParameter("filtreTexte"),Integer.parseInt(request.getParameter("filtreCategorie")),null,null));
+			if(request.getParameter("filtreCategorie")!=null)
+				request.setAttribute("donneesCartels", recupererDonneesCartels(request.getParameter("filtreTexte"),Integer.parseInt(request.getParameter("filtreCategorie")),null,null));
+			else
+				request.setAttribute("donneesCartels", recupererDonneesCartels(request.getParameter("filtreTexte"),0,null,null));
 		}
 		
 		request.setAttribute("nomsCategorie", categorieManager.afficherToutesCategories());
