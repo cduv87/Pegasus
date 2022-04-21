@@ -99,6 +99,8 @@ public class RetraitDAOJdbcImpl implements RetraitDAOInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		cnx.close();
 	}
 
 }

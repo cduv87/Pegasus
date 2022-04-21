@@ -28,7 +28,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 
 	Integer UserId = 0;
 	Utilisateur utilisateur = new Utilisateur();
-	UserId = Integer.parseInt(request.getParameter("no_article_parameter"));
+	UserId = Integer.parseInt(request.getParameter("user_id"));
 	
 	
 	try {
@@ -38,7 +38,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		e.printStackTrace();
 	}
 	
-	request.setAttribute("Profil", utilisateur);
+	request.setAttribute("profil", utilisateur);
+	request.getRequestDispatcher("/WEB-INF/affichProfil.jsp").forward(request, response);
+
 	
 }
 

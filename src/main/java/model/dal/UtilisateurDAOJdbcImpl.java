@@ -44,6 +44,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 			user.setNoUtilisateur(rs.getInt(1));
 			System.out.println("POINT d'ARRET");
 		}
+		
+		cnx.close();
 	}
 
 	public ArrayList<Utilisateur> selectAll() throws SQLException {
@@ -73,6 +75,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+			
+		cnx.close();
 		return listeUtilisateurs;
 	}
 	
@@ -99,6 +103,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		cnx.close();
 		return user;
 	}
 	
@@ -122,18 +128,17 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		cnx.close();
 	}
 	
 	public void delete(int id) throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
-		try {
+
 			PreparedStatement pStmt = cnx.prepareStatement(DELETE_USER);
 			pStmt.setInt(1, id);
 			pStmt.executeUpdate();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public void truncate() throws SQLException {
@@ -145,12 +150,16 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		cnx.close();
 	}
 	
 	@Override
 	public void seConnecter() throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
 		System.out.println("Connexion reussie a la base de donnees");
+		
+		cnx.close();
 	}
 
 }

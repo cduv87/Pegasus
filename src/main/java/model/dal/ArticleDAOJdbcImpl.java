@@ -164,6 +164,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAOInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		cnx.close();
 	}
 	
 	
