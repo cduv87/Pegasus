@@ -51,9 +51,9 @@
 							<legend>Retrait</legend>
 							<c:choose>
 								<c:when test="${utilisateurConnecte != null}">
-									Rue : ${utilisateurConnecte.rue}<br />
-									Code Postal : ${utilisateurConnecte.codePostal}<br />
-									Ville : ${utilisateurConnecte.ville}<br />
+									<label>Rue: </label> <input type="text" id="rue" value="${utilisateurConnecte.rue}"/><br />
+									<label>Code Postal: </label><input type="text" id="code_postal" value="${utilisateurConnecte.codePostal}"/><br />
+									<label>Ville : </label><input type="text" id="ville" value="${utilisateurConnecte.ville}"/><br />
 								</c:when>
 								<c:otherwise>
 									Rue : ${null} <br />

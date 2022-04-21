@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 import javax.servlet.ServletException;
@@ -69,22 +70,24 @@ public class EditVenteServlet extends HttpServlet {
 			this.articleManager.ajouterUnArticle(articleVendu);
 			//Insertion
 			
-			 Retrait retrait = new Retrait(
-	                    articleVendu.getNoArticle(),
-	                    request.getParameter("rue"),
-	                    request.getParameter("code_postal"),
-	                    request.getParameter("ville")
-	            );
-			 //this.retraitManager.ajouterRetrait(retrait);
+			// Section retrait et ajout dans la bdd
+			Retrait retrait = new Retrait();
+				retrait.setArticle(articleVendu);
+				retrait.setNo_article(articleVendu.getNoArticle()); //articleVendu.getNoArticle()
+				retrait.setRue(request.getParameter("rue"));
+				retrait.setCode_postal(request.getParameter("code_postal"));
+				retrait.setVille(request.getParameter("ville"));
+			this.retraitManager.ajouterRetrait(retrait);
 			
+			 request.setAttribute("message", "Un nouvel article a été ajouté");
 			// Message de confirmation d'ajout d'article
 			response.getWriter().println("Nouvel article en vente: "+articleVendu);
 		}
 		catch (BusinessException e){ 
 			request.setAttribute("messageErreur", e.getMessage());
 		}
-
-
+			
+	
 		// j'enregistre la vente et retour page ï¿½ la JSP d'acceuil 
 		request.getRequestDispatcher("/WEB-INF/listeVente.jsp").forward(request, response);
 
