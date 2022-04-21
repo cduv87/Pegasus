@@ -13,12 +13,10 @@
 		<body>
 				<h1>Nouvelle vente</h1>
 
-				<!-- bloc qui affiche le message de confirmation après validation vente ( succès )-->
-				<p class="message-confirmation">${messageConfirmation}</p>
-
+				
 				<!-- bloc qui affiche l'éventuel message d'erreur -->
 
-				<p class="message-erreur">${messageErreur}</p>
+				<p class="messageErreur">${messageErreur}</p>
 
 				<div class="container bg-white text-center py 5">
 
