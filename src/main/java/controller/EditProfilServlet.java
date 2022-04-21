@@ -29,6 +29,7 @@ public class EditProfilServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 
 		Utilisateur utilisateur = new Utilisateur();
 		Utilisateur connecte = new Utilisateur();
@@ -101,7 +102,7 @@ public class EditProfilServlet extends HttpServlet {
 					session.setAttribute("utilisateurConnecte", utilisateur);
 					request.setAttribute("message", "Utilisateur modifié.");
 					request.getRequestDispatcher("").forward(request, response);
-				} catch (SQLException e) {
+				} catch (SQLException | BusinessException e) {
 					request.setAttribute("erreur", e.getMessage());
 					e.printStackTrace();
 					this.doGet(request, response);

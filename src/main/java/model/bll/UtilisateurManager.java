@@ -26,8 +26,40 @@ public class UtilisateurManager {
 	
 	public void ajouterUtilisateur(Utilisateur user) throws BusinessException, SQLException {
 //		validation(user);
-		
+		validationChampsRemplisUser(user);
 		this.utilisateurDAOInterface.add(user);
+	}
+	
+	public void validationChampsRemplisUser (Utilisateur user) throws BusinessException {
+		boolean erreur = false;
+		if (user.getPseudo() == null || user.getPseudo().isEmpty() || user.getPseudo().trim().isEmpty()) {
+			erreur = true;
+		}
+		if (user.getNom() == null || user.getNom().isEmpty() || user.getNom().trim().isEmpty()) {
+			erreur = true;
+		}
+		if (user.getPrenom() == null || user.getPrenom().isEmpty() || user.getPrenom().trim().isEmpty()) {
+			erreur = true;
+		}
+		if (user.getEmail() == null || user.getEmail().isEmpty() || user.getEmail().trim().isEmpty()) {
+			erreur = true;
+		}
+		if (user.getTelephone() == null || user.getTelephone().isEmpty() || user.getTelephone().trim().isEmpty()) {
+			erreur = true;
+		}
+		if (user.getRue() == null || user.getRue().isEmpty() || user.getRue().trim().isEmpty()) {
+			erreur = true;
+		}
+		if (user.getCodePostal() == null || user.getCodePostal().isEmpty() || user.getCodePostal().trim().isEmpty()) {
+			erreur = true;
+		}
+		if (user.getVille() == null || user.getVille().isEmpty() || user.getVille().trim().isEmpty()) {
+			erreur = true;
+		}
+		
+		if (erreur == true) {
+			throw new BusinessException("Tous les champs doivent être remplis");
+		}
 	}
 	
 	
@@ -49,7 +81,8 @@ public class UtilisateurManager {
 		this.utilisateurDAOInterface.delete(id);
 	}
 	
-	public void modifierUtilisateur(Utilisateur user) throws SQLException {
+	public void modifierUtilisateur(Utilisateur user) throws SQLException, BusinessException {
+		validationChampsRemplisUser(user);
 		this.utilisateurDAOInterface.update(user);
 	}
 	

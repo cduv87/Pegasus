@@ -67,14 +67,14 @@ public class EditVenteServlet extends HttpServlet {
 			LocalDate dateDebutEncheres = LocalDate.parse(date);
 			LocalDate dateFinEncheres = LocalDate.parse(date2);
 
-			// Cr�ation d'un constructeur utilisateur (rue,codePostal, ville)?
+			// Crï¿½ation d'un constructeur utilisateur (rue,codePostal, ville)?
 			//Utilisateur utilisateur = new Utilisateur () ;// utilisateur.getNoUtilisateur(),
 			//Utilisateur utilisateur = utilisateurManager.findByPseudoAndPassword(request.getNoUtilisateur().getNom());
 
 			HttpSession session = request.getSession();
 			Utilisateur u = (Utilisateur) session.getAttribute("utilisateurConnecte");
 
-			// cr�ation de l'instance articleVendu
+			// crï¿½ation de l'instance articleVendu
 
 			ArticleVendu articleVendu= new ArticleVendu(
 			article,description,categorie,miseAprix,dateDebutEncheres,dateFinEncheres,u);
@@ -94,9 +94,10 @@ public class EditVenteServlet extends HttpServlet {
 				retrait.setVille(request.getParameter("ville"));
 				
 				this.retraitManager.ajouterRetrait(retrait);
-				request.setAttribute("message", "Un nouvel article a �t� ajout�");
+				request.setAttribute("message", "Un nouvel article a été ajouté");
 					// Message de confirmation d'ajout d'article
 			
+
 				request.getRequestDispatcher("").forward(request, response);
 				
 				
@@ -105,7 +106,7 @@ public class EditVenteServlet extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/editVente.jsp").forward(request, response);
 			}
 			
-			/*request.setAttribute("messageErreur", "Erreur, tous les champs doivent �tre remplis");
+			/*request.setAttribute("messageErreur", "Erreur, tous les champs doivent être remplis");
 			request.getRequestDispatcher("/WEB-INF/editVente.jsp");*/
 			
 
@@ -118,7 +119,7 @@ public class EditVenteServlet extends HttpServlet {
 		
 		if(aValider == null || aValider.isEmpty() || aValider.trim().isEmpty()) {
 		
-		throw new BusinessException("Les champs doivent tous �tre remplis");
+		throw new BusinessException("Les champs doivent tous être remplis");
 		
 		}
 	}
