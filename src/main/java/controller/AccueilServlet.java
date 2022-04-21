@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,6 +20,7 @@ import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
 import model.bo.Categorie;
+import model.bo.Enchere;
 import model.dal.ConnectionProvider;
 
 
@@ -38,7 +39,7 @@ import model.bo.Utilisateur;
 /**
  * Servlet implementation class Accueil
  */	
-@WebServlet("/")
+@WebServlet("")
 public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -74,9 +75,12 @@ public class AccueilServlet extends HttpServlet {
 			for (Boolean f : filtre) {
 				System.out.print(f+",");
 			}
-			System.out.println();
-			System.out.println(((Utilisateur)session.getAttribute("utilisateurConnecte")).getNoUtilisateur());
-			request.setAttribute("donneesCartels", recupererDonneesCartels(request.getParameter("filtreTexte"),Integer.parseInt(request.getParameter("filtreCategorie")),filtre,(Utilisateur)session.getAttribute("utilisateurConnecte")));
+			//System.out.println();
+			//System.out.println(((Utilisateur)session.getAttribute("utilisateurConnecte")).getNoUtilisateur());
+			if(request.getParameter("filtreCategorie")!=null)
+				request.setAttribute("donneesCartels", recupererDonneesCartels(request.getParameter("filtreTexte"),Integer.parseInt(request.getParameter("filtreCategorie")),filtre,(Utilisateur)session.getAttribute("utilisateurConnecte")));
+			else
+				request.setAttribute("donneesCartels", recupererDonneesCartels(request.getParameter("filtreTexte"),0,filtre,(Utilisateur)session.getAttribute("utilisateurConnecte")));
 		} else {
 			request.setAttribute("donneesCartels", recupererDonneesCartels(request.getParameter("filtreTexte"),Integer.parseInt(request.getParameter("filtreCategorie")),null,null));
 		}
@@ -95,9 +99,32 @@ public class AccueilServlet extends HttpServlet {
 
 	}
 	
+	private boolean isMesEncheres() {
+		try {
+			List<Enchere> encheres = enchereManager.afficherToutesEncheres();
+			
+			for (Enchere enchere : encheres) {
+				//if()
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return true;
+	}
+	
 	private List<Object> recupererDonneesCartels(String searchText, int noCategorie, boolean[] filtre, Utilisateur u) {
 		List<ArticleVendu> articles = articleManager.afficherTousArticles();
 		List<Object> donneesCartels = new ArrayList<Object>();
+		
+		/*try {
+			List<Enchere> encheres = enchereManager.afficherToutesEncheres();
+			encheres.get(0).get
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		
 		for(ArticleVendu article : articles) {
 			if( /*article.isEtatVente() &&*/ ( searchText == null || searchText.equals("") || article.getNomArticle().toLowerCase().contains(searchText.toLowerCase()) ) &&
@@ -106,8 +133,8 @@ public class AccueilServlet extends HttpServlet {
 						filtre[0] == true && 
 							article.getUtilisateur().getNoUtilisateur() != u.getNoUtilisateur() &&  
 								( !filtre[1] && !filtre[2] && !filtre[3] ||
-									filtre[1] == true && article.isEtatVente()/* ||
-										filtre[2] == true && article.getDateDebutEncheres().isBefore(LocalDate.now()) || 
+									filtre[1] == true && article.isEtatVente() ||
+										filtre[2] == true && article.getDateDebutEncheres().isBefore(LocalDate.now())/* || 
 											filtre[3] == true && article.getDateFinEncheres().isAfter(LocalDate.now())*/ ) ||
 						filtre[0] == false && 
 							article.getUtilisateur().getNoUtilisateur() == u.getNoUtilisateur() && 
@@ -117,7 +144,7 @@ public class AccueilServlet extends HttpServlet {
 											filtre[3] == true && article.getDateFinEncheres().isBefore(LocalDate.now()) ) ) {
 					List<Object> donneesCartel = new ArrayList<Object>();
 					donneesCartel.add(article.getNomArticle());
-					donneesCartel.add(article.getPrixVente());
+					donneesCartel.add(article.getMiseAPrix());
 					donneesCartel.add(article.getDateFinEncheres());
 					donneesCartel.add(article.getUtilisateur().getPseudo());
 					donneesCartel.add(article.getUtilisateur().getNoUtilisateur());

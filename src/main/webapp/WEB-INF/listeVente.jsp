@@ -40,7 +40,7 @@ function verifyAnswer() {
 <%@ include file="./include/nav-connection-status.jsp"%>
 </header>
     <div class="container mt-5">
-		<p class="erreur text-danger">${message}</p>
+		<p class="text-center bold">${message}</p>
         <p class="h1 text-center mb-5"><b>Liste des enchères</b></p>
         <div class="row">
             <form action="./" method="post">
@@ -116,7 +116,7 @@ function verifyAnswer() {
 								</c:when>
 								<c:otherwise>
             					<form action="./detailVente" method="post">
-								<input type="hidden" name="article_id" value="${donneesCartel.get(5)}">
+								<input type="hidden" name="no_article" value="${donneesCartel.get(5)}">
                                 <h5 class="card-title"><button type="submit" class="btn btn-link p-0 m-0">${donneesCartel.get(0)}</button></h5>
             					</form>
 								</c:otherwise>
