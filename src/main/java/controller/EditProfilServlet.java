@@ -77,7 +77,8 @@ public class EditProfilServlet extends HttpServlet {
 				try {
 					userManager.ajouterUtilisateur(utilisateur);
 					session.setAttribute("utilisateurConnecte", utilisateur);
-					response.sendRedirect("./");
+					request.setAttribute("message", "Utilisateur crée. Bienvenue !");
+					request.getRequestDispatcher("").forward(request, response);
 				} catch (BusinessException | SQLException e) {
 					request.setAttribute("erreur", e.getMessage());
 					e.printStackTrace();
@@ -98,7 +99,8 @@ public class EditProfilServlet extends HttpServlet {
 				try {
 					userManager.modifierUtilisateur(utilisateur);
 					session.setAttribute("utilisateurConnecte", utilisateur);
-					response.sendRedirect("./");
+					request.setAttribute("message", "Utilisateur modifié.");
+					request.getRequestDispatcher("").forward(request, response);
 				} catch (SQLException e) {
 					request.setAttribute("erreur", e.getMessage());
 					e.printStackTrace();
@@ -121,10 +123,10 @@ public class EditProfilServlet extends HttpServlet {
 			try {
 				userManager.effacerUnUtilisateur(connecte.getNoUtilisateur());
 				session.removeAttribute("utilisateurConnecte");
-				response.sendRedirect("./");
+				request.setAttribute("message", "Utilisateur suppprimé.");
+				request.getRequestDispatcher("").forward(request, response);
 			} catch (SQLException e) {
-				request.setAttribute("erreur", e.getMessage());
-				e.printStackTrace();
+				request.setAttribute("erreur", "Veuillez supprimer vos articles avant de pouvoir supprimer votre compte.");
 				this.doGet(request, response);
 			}
 		}
