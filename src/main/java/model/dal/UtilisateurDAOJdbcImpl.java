@@ -134,14 +134,11 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAOInterface {
 	
 	public void delete(int id) throws SQLException {
 		Connection cnx = ConnectionProvider.getConnection();
-		try {
+
 			PreparedStatement pStmt = cnx.prepareStatement(DELETE_USER);
 			pStmt.setInt(1, id);
 			pStmt.executeUpdate();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public void truncate() throws SQLException {
