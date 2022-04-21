@@ -38,11 +38,20 @@ public class DetailVenteServlet extends HttpServlet{
 
 			ArticleManager articleManager = new ArticleManager();
 			EnchereManager enchereManager = new EnchereManager();
+			UtilisateurManager utilisateurManager = new UtilisateurManager();
+			
 			ArticleVendu article = new ArticleVendu();
-
 			Enchere enchere = new Enchere();
+			utilisateurConnecte.setCredit(2000);
+			try {
+				utilisateurManager.modifierUtilisateur(utilisateurConnecte);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 			if (no_article == null) {
-				no_article = Integer.parseInt(request.getParameter("no_article")); // a lier avec la session?
+				no_article = Integer.parseInt(request.getParameter("no_article"));
 			}
 			article = articleManager.afficherUnArticle(no_article);
 			request.setAttribute("article", article);
@@ -62,22 +71,29 @@ public class DetailVenteServlet extends HttpServlet{
 			if (request.getParameter("nouvelleEnchere") != null) {
 				nouvelleOffre = Integer.parseInt(request.getParameter("nouvelleEnchere"));
 			
-			if (nouvelleOffre > article.getMiseAPrix() && nouvelleOffre > meilleureOffre) {
+			if (nouvelleOffre > article.getMiseAPrix() && nouvelleOffre > meilleureOffre && nouvelleOffre <= utilisateurConnecte.getCredit()) {
 				meilleureOffre = nouvelleOffre;
+				
 				enchere.setArticle(article);
 				enchere.setDateEnchere(LocalDate.now());
 				enchere.setMontant_enchere(meilleureOffre);
 				enchere.setUtilisateur(utilisateurConnecte);
 				article.setPrixVente(meilleureOffre);
-			
+				utilisateurConnecte.setCredit(utilisateurConnecte.getCredit()-meilleureOffre);
+				
 			try {
 				enchereManager.modifierEnchere(enchere);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 			articleManager.modifierUnArticle(article);
+			}
+			try {
+				utilisateurManager.modifierUtilisateur(utilisateurConnecte);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 			request.getRequestDispatcher("/WEB-INF/detailVente.jsp").forward(request, response);
