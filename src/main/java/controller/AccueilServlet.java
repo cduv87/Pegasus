@@ -95,7 +95,7 @@ public class AccueilServlet extends HttpServlet {
 				donneesCartel.add(article.getDateFinEncheres());
 				donneesCartel.add(article.getUtilisateur().getPseudo());
 				donneesCartel.add(article.getUtilisateur().getNoUtilisateur());
-				donneesCartel.add(1);//no_enchere
+				donneesCartel.add(article.getNoArticle());//no_enchere
 				donneesCartels.add(donneesCartel);
 			}
 		}

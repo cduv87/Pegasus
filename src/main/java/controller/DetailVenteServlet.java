@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -14,50 +15,74 @@ import javax.servlet.http.HttpSession;
 import model.bll.ArticleManager;
 import model.bll.CategorieManager;
 import model.bll.EnchereManager;
+import model.bll.UtilisateurManager;
 import model.bo.ArticleVendu;
 import model.bo.Categorie;
 import model.bo.Enchere;
+import model.bo.Utilisateur;
 
 @WebServlet("/detailVente")
 public class DetailVenteServlet extends HttpServlet{
-
+	 Integer no_article = null;
+	 
 	  public DetailVenteServlet() {
+		 
 }
 	  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		  HttpSession session = request.getSession();
-		  ArticleManager articleManager = new ArticleManager();
-		  EnchereManager enchereManager = new EnchereManager();
-		  ArticleVendu article = new ArticleVendu();
-		  Enchere enchere = new Enchere();
-		  article = articleManager.afficherUnArticle(1); //a lier avec la session?
-		  request.setAttribute("article", article);
-
-		  try {
-			enchere = enchereManager.afficherUneEnchere(article.getNoArticle());
-			request.setAttribute("enchere", enchere);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		  request.getRequestDispatcher("/WEB-INF/detailVente.jsp").forward(request, response);
+		 
 	  }
 	  
 	  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		  int meilleureOffre = 0;
-		  /*creation enchere et récupération du montant en post
-		  *Comparaison avec la dernière offre en cours.
-		  *Ajouter la meilleure offre à prixVente de l'article.
-		  */
-		  
-	  }
-	  
-	  public Enchere enchere() {
-		  Enchere enchere_temp = null;
-		  
-		return enchere_temp;
-		  //Identifie la meilleure offre pour un article
-		  
-	  }
-  }
+			HttpSession session = request.getSession();
+			Utilisateur utilisateurConnecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
+
+			ArticleManager articleManager = new ArticleManager();
+			EnchereManager enchereManager = new EnchereManager();
+			ArticleVendu article = new ArticleVendu();
+
+			Enchere enchere = new Enchere();
+			if (no_article == null) {
+				no_article = Integer.parseInt(request.getParameter("no_article")); // a lier avec la session?
+			}
+			article = articleManager.afficherUnArticle(no_article);
+			request.setAttribute("article", article);
+
+			try {
+				enchere = enchereManager.afficherUneEnchere(article.getNoArticle());
+				request.setAttribute("enchere", enchere);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			Integer meilleureOffre = article.getPrixVente();
+
+			Integer nouvelleOffre = null;
+
+			if (request.getParameter("nouvelleEnchere") != null) {
+				nouvelleOffre = Integer.parseInt(request.getParameter("nouvelleEnchere"));
+			
+			if (nouvelleOffre > article.getMiseAPrix() && nouvelleOffre > meilleureOffre) {
+				meilleureOffre = nouvelleOffre;
+				enchere.setArticle(article);
+				enchere.setDateEnchere(LocalDate.now());
+				enchere.setMontant_enchere(meilleureOffre);
+				enchere.setUtilisateur(utilisateurConnecte);
+				article.setPrixVente(meilleureOffre);
+			
+			try {
+				enchereManager.modifierEnchere(enchere);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			articleManager.modifierUnArticle(article);
+			}
+		}
+			request.getRequestDispatcher("/WEB-INF/detailVente.jsp").forward(request, response);
+
+	}
+}
 
 

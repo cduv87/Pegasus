@@ -115,7 +115,7 @@ function verifyAnswer() {
 								</c:when>
 								<c:otherwise>
             					<form action="./detailVente" method="post">
-								<input type="hidden" name="no_enchere_parameter" value="${donneesCartel.get(5)}">
+								<input type="hidden" name="no_article" value="${donneesCartel.get(5)}">
                                 <h5 class="card-title"><button type="submit" class="btn btn-link p-0 m-0">${donneesCartel.get(0)}</button></h5>
             					</form>
 								</c:otherwise>
