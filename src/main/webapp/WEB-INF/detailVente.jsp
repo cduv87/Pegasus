@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Detail Vente</title>
+<%@ include file="./include/bootstrapAndJSTL.jsp"%>
+<%@ include file="./include/nav.jsp"%>
 </head>
 <body>
 <h1>Detail vente</h1>
