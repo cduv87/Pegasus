@@ -42,7 +42,11 @@ public class DetailVenteServlet extends HttpServlet{
 			
 			ArticleVendu article = new ArticleVendu();
 			Enchere enchere = new Enchere();
-			utilisateurConnecte.setCredit(2000);
+			
+			//TEST pour la contrainte de credit
+//			utilisateurConnecte.setCredit(2000);
+			
+			
 			try {
 				utilisateurManager.modifierUtilisateur(utilisateurConnecte);
 			} catch (SQLException e1) {
@@ -54,6 +58,11 @@ public class DetailVenteServlet extends HttpServlet{
 				no_article = Integer.parseInt(request.getParameter("no_article"));
 			}
 			article = articleManager.afficherUnArticle(no_article);
+			
+			//TEST pour la contrainte de date
+//			article.setDateFinEncheres(LocalDate.of(2022, 04, 20));
+//			articleManager.modifierUnArticle(article);
+
 			request.setAttribute("article", article);
 
 			try {
@@ -71,7 +80,7 @@ public class DetailVenteServlet extends HttpServlet{
 			if (request.getParameter("nouvelleEnchere") != null) {
 				nouvelleOffre = Integer.parseInt(request.getParameter("nouvelleEnchere"));
 			
-			if (nouvelleOffre > article.getMiseAPrix() && nouvelleOffre > meilleureOffre && nouvelleOffre <= utilisateurConnecte.getCredit()) {
+			if (nouvelleOffre > article.getMiseAPrix() && nouvelleOffre > meilleureOffre && nouvelleOffre <= utilisateurConnecte.getCredit() && LocalDate.now().isBefore(article.getDateFinEncheres())) {
 				meilleureOffre = nouvelleOffre;
 				
 				enchere.setArticle(article);

@@ -13,7 +13,7 @@
 <h2>Categorie : ${article.categorieArticle.libelle}</h2>
 <h2>Meilleure offre : ${article.prixVente}  </h2>
 <h2>Mise a prix : ${article.miseAPrix}</h2>
-<h2>Fin de l enchere : <%-- ${article.dateFinEncheres} --%></h2>
+<h2>Fin de l enchere : ${article.dateFinEncheres}</h2>
 <h2>Retrait : ${article.utilisateur.rue} ${article.utilisateur.codePostal} ${article.utilisateur.ville}</h2>
 <h2>Vendeur : ${article.utilisateur.prenom} ${article.utilisateur.nom}</h2>
 	<p>

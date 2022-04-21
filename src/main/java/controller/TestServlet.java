@@ -38,11 +38,12 @@ public class TestServlet extends HttpServlet {
 
 		//Creation d'un utilisateur en base de donnee.
 		try {
-			test.testAjouterUnUtilisateur();
-			test.testAjouterLesCategories();
-			test.testAjouterArticleVendu();
-			test.testAjoutEnchere();
-			test.testAjoutRetrait(1);
+//			A decommenter apres recreation de la base pour le premier run de test puis a recommenter.
+//			test.testAjouterUnUtilisateur();
+//			test.testAjouterLesCategories();
+//			test.testAjouterArticleVendu();
+//			test.testAjoutEnchere();
+//			test.testAjoutRetrait(1);
 			
 			test.testEffacerTousRetraits();
 			test.testEffacerToutesEncheres();
