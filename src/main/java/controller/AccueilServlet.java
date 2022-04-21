@@ -54,18 +54,18 @@ public class AccueilServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		HttpSession session = request.getSession();
-//		if( session.getAttribute("utilisateurConnecte") != null ) {
-//			filtre[0] = (request.getParameter("filtre").equals("achats")?true:false);
-//			if(filtre[0]) {
-//				filtre[1] = (request.getParameter("filtreMesAchatsEncheresOuvertes")==null?false:true);
-//				filtre[2] = (request.getParameter("filtreMesAchatsEncheres")==null?false:true);
-//				filtre[3] = (request.getParameter("filtreMesAchatsEncheresRemportees")==null?false:true);
-//			} else {
-//				filtre[1] = (request.getParameter("filtreMesVentesEnCours")==null?false:true);
-//				filtre[2] = (request.getParameter("filtreMesVentesNonDebutees")==null?false:true);
-//				filtre[3] = (request.getParameter("filtreMesVentesTerminees")==null?false:true);
-//			}
-//		}
+		if( session.getAttribute("utilisateurConnecte") != null ) {
+			filtre[0] = (request.getParameter("filtre").equals("achats")?true:false);
+			if(filtre[0]) {
+				filtre[1] = (request.getParameter("filtreMesAchatsEncheresOuvertes")==null?false:true);
+				filtre[2] = (request.getParameter("filtreMesAchatsEncheres")==null?false:true);
+				filtre[3] = (request.getParameter("filtreMesAchatsEncheresRemportees")==null?false:true);
+			} else {
+				filtre[1] = (request.getParameter("filtreMesVentesEnCours")==null?false:true);
+				filtre[2] = (request.getParameter("filtreMesVentesNonDebutees")==null?false:true);
+				filtre[3] = (request.getParameter("filtreMesVentesTerminees")==null?false:true);
+			}
+		}
 		
 		request.setAttribute("donneesCartels", recupererDonneesCartels(request.getParameter("filtreTexte"),Integer.parseInt(request.getParameter("filtreCategorie"))));
 		request.setAttribute("nomsCategorie", categorieManager.afficherToutesCategories());
