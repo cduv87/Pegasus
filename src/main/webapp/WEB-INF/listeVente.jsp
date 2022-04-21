@@ -18,14 +18,14 @@
 function verifyAnswer() {
     var dev = document.getElementById("filtreAchats").checked;
     if (dev == true) {
-        document.getElementById("filtreMesAchatsEncheresOuvertes").disabled = false;
+        document.getElementById("filtreAchatsEncheresOuvertes").disabled = false;
         document.getElementById("filtreMesAchatsEncheres").disabled = false;
         document.getElementById("filtreMesAchatsEncheresRemportees").disabled = false;
         document.getElementById("filtreMesVentesEnCours").disabled = true;
         document.getElementById("filtreMesVentesNonDebutees").disabled = true;
         document.getElementById("filtreMesVentesTerminees").disabled = true;
     } else {
-        document.getElementById("filtreMesAchatsEncheresOuvertes").disabled = true;
+        document.getElementById("filtreAchatsEncheresOuvertes").disabled = true;
         document.getElementById("filtreMesAchatsEncheres").disabled = true;
         document.getElementById("filtreMesAchatsEncheresRemportees").disabled = true;
         document.getElementById("filtreMesVentesEnCours").disabled = false;
@@ -40,6 +40,8 @@ function verifyAnswer() {
 <%@ include file="./include/nav-connection-status.jsp"%>
 </header>
     <div class="container mt-5">
+
+		<p class="text-center bold">${message}</p>
 
         <p class="h1 text-center mb-5"><b>Liste des enchères</b></p>
         <div class="row">
@@ -63,8 +65,8 @@ function verifyAnswer() {
                         <input class="form-check-input" type="radio" name="filtre" value="achats" id="filtreAchats" onchange="verifyAnswer()" checked/>
                         <label class="form-check-label" for="filtreAchats">Mes achats</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="filtreMesAchatsEncheresOuvertes" value="filtreMesAchatsEncheresOuvertes" id="filtreMesAchatsEncheresOuvertes">
-                            <label class="form-check-label" for="filtreMesAchatsEncheresOuvertes">mes enchères ouvertes</label>
+                            <input class="form-check-input" type="checkbox" name="filtreAchatsEncheresOuvertes" value="filtreAchatsEncheresOuvertes" id="filtreAchatsEncheresOuvertes">
+                            <label class="form-check-label" for="filtreAchatsEncheresOuvertes">enchères ouvertes</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="filtreMesAchatsEncheres" value="filtreMesAchatsEncheres" id="filtreMesAchatsEncheres">
@@ -116,7 +118,7 @@ function verifyAnswer() {
 								</c:when>
 								<c:otherwise>
             					<form action="./detailVente" method="post">
-								<input type="hidden" name="no_enchere_parameter" value="${donneesCartel.get(5)}">
+								<input type="hidden" name="no_article" value="${donneesCartel.get(5)}">
                                 <h5 class="card-title"><button type="submit" class="btn btn-link p-0 m-0">${donneesCartel.get(0)}</button></h5>
             					</form>
 								</c:otherwise>
@@ -129,7 +131,7 @@ function verifyAnswer() {
 								</c:when>
 								<c:otherwise>
             					<form action="./affichProfil" method="post">
-								<input type="hidden" name="no_article_parameter" value="${donneesCartel.get(4)}">
+								<input type="hidden" name="user_id" value="${donneesCartel.get(4)}">
                    				<p class="card-text">Vendeur : <button type="submit" class="btn btn-link p-0 m-0">${donneesCartel.get(3)}</button></p>
             					</form>
 								</c:otherwise>
