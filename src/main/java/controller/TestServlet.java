@@ -55,6 +55,7 @@ public class TestServlet extends HttpServlet {
 			test.testAjouterUnUtilisateur();
 			test.testAjouterLesCategories();
 			test.testAjouterArticleVendu();
+			test.testAjouterArticlesVendusRandom();
 			test.testAjoutEnchere();
 			test.testAjoutRetrait(1);
 			

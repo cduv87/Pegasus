@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.bll.ArticleManager;
+import model.bll.BusinessException;
 import model.bll.CategorieManager;
 import model.bll.EnchereManager;
 import model.bll.UtilisateurManager;
@@ -52,6 +53,9 @@ public class DetailVenteServlet extends HttpServlet{
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
 			Integer no_article = null;
@@ -108,6 +112,9 @@ public class DetailVenteServlet extends HttpServlet{
 			try {
 				utilisateurManager.modifierUtilisateur(utilisateurConnecte);
 			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (BusinessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
