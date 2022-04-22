@@ -11,7 +11,6 @@
 <%@ include file="./include/nav.jsp"%>
 </head>
 		<body>
-				<h1>Nouvelle vente</h1>
 
 				
 				<!-- bloc qui affiche l'éventuel message d'erreur -->
@@ -19,6 +18,10 @@
 				<p class="messageErreur">${messageErreur}</p>
 
 				<div class="container bg-white text-center py 5">
+        <div class="text-center row">
+		
+        	<p class="h1 text-center mb-5"><b>Nouvelle vente</b></p>
+       	</div>
 
 					<form action="./editVente" method="POST">
 						<label for="article">Article :</label> <input type="text" id="article" name="article" value=""
