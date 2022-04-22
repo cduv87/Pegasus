@@ -46,16 +46,15 @@ public class TestServlet extends HttpServlet {
 //			test.testAjoutEnchere();
 //			test.testAjoutRetrait(1);
 			
-//			test.testEffacerTousRetraits();
-//			test.testEffacerToutesEncheres();
-//			test.testEffacerTousArticles();
-//			test.testEffacerToutesCategories();
-//			test.testEffacerTousUtilisateurs();
+			test.testEffacerTousRetraits();
+			test.testEffacerToutesEncheres();
+			test.testEffacerTousArticles();
+			test.testEffacerToutesCategories();
+			test.testEffacerTousUtilisateurs();
 
 			test.testAjouterUnUtilisateur();
 			test.testAjouterLesCategories();
 			test.testAjouterArticleVendu();
-			test.testAjouterArticlesVendusRandom();
 			test.testAjoutEnchere();
 			test.testAjoutRetrait(1);
 			
@@ -70,8 +69,8 @@ public class TestServlet extends HttpServlet {
 			test.testAfficherUnArticle(1);
 			test.testAfficherUneEnchere(1);
 			
-			test.testAjouterArticlesVendusRandom();
-			test.testAjouterEncheresVendusRandom();
+//			test.testAjouterArticlesVendusRandom();
+//			test.testAjouterEncheresVendusRandom();
 			
 //			test.testModifierUtilisateur(2);
 //			test.testModifierCategorie(3);
