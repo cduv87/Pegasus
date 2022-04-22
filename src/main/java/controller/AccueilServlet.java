@@ -72,11 +72,7 @@ public class AccueilServlet extends HttpServlet {
 					filtre[3] = (request.getParameter("filtreMesVentesTerminees")==null?false:true);
 				}
 			}
-			for (Boolean f : filtre) {
-				System.out.print(f+",");
-			}
-			//System.out.println();
-			//System.out.println(((Utilisateur)session.getAttribute("utilisateurConnecte")).getNoUtilisateur());
+
 			if(request.getParameter("filtreCategorie")!=null)
 				request.setAttribute("donneesCartels", recupererDonneesCartels(request.getParameter("filtreTexte"),Integer.parseInt(request.getParameter("filtreCategorie")),filtre,(Utilisateur)session.getAttribute("utilisateurConnecte")));
 			else
@@ -102,32 +98,27 @@ public class AccueilServlet extends HttpServlet {
 
 	}
 	
-	private boolean isMesEncheres() {
+	private boolean isMesEncheres(int no_user, int no_article) {
 		try {
 			List<Enchere> encheres = enchereManager.afficherToutesEncheres();
 			
 			for (Enchere enchere : encheres) {
-				//if()
+				if( enchere.getArticle().getNoArticle() == no_article && enchere.getUtilisateur().getNoUtilisateur() == no_user )
+					return true;
 			}
+			
+			return false;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return true;
+		return false;
 	}
 	
 	private List<Object> recupererDonneesCartels(String searchText, int noCategorie, boolean[] filtre, Utilisateur u) {
 		List<ArticleVendu> articles = articleManager.afficherTousArticles();
 		List<Object> donneesCartels = new ArrayList<Object>();
-		
-		/*try {
-			List<Enchere> encheres = enchereManager.afficherToutesEncheres();
-			encheres.get(0).get
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 		
 		for(ArticleVendu article : articles) {
 			if( /*article.isEtatVente() &&*/ ( searchText == null || searchText.equals("") || article.getNomArticle().toLowerCase().contains(searchText.toLowerCase()) ) &&
@@ -138,7 +129,7 @@ public class AccueilServlet extends HttpServlet {
 							article.getUtilisateur().getNoUtilisateur() != u.getNoUtilisateur() &&  
 								( !filtre[1] && !filtre[2] && !filtre[3] ||
 									filtre[1] == true && article.isEtatVente() ||
-										filtre[2] == true && article.getDateDebutEncheres().isBefore(LocalDate.now())/* || 
+										filtre[2] == true && isMesEncheres(article.getNoArticle(),u.getNoUtilisateur())/* || 
 											filtre[3] == true && article.getDateFinEncheres().isAfter(LocalDate.now())*/ ) ||
 						filtre[0] == false && 
 							article.getUtilisateur().getNoUtilisateur() == u.getNoUtilisateur() && 

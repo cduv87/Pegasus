@@ -41,7 +41,7 @@ function verifyAnswer() {
 </header>
     <div class="container mt-5">
 
-		<p class="text-center bold">${message}</p>
+		<p class="text-center fw-bold">${message}</p>
 
         <p class="h1 text-center mb-5"><b>Liste des enchères</b></p>
         <div class="row">
@@ -113,28 +113,28 @@ function verifyAnswer() {
                         <div class="col-8">
                             <div class="card-body">
                                 <c:choose>
-								<c:when test="${utilisateurConnecte==null}">
-                                <h5 class="card-title">${donneesCartel.get(0)}</h5>
-								</c:when>
-								<c:otherwise>
-            					<form action="./detailVente" method="post">
-								<input type="hidden" name="no_article" value="${donneesCartel.get(5)}">
-                                <h5 class="card-title"><button type="submit" class="btn btn-link p-0 m-0">${donneesCartel.get(0)}</button></h5>
-            					</form>
-								</c:otherwise>
+									<c:when test="${utilisateurConnecte==null}">
+	                                	<h5 class="card-title">${donneesCartel.get(0)}</h5>
+									</c:when>
+									<c:otherwise>
+		            					<form action="./detailVente" method="post">
+											<input type="hidden" name="no_article" value="${donneesCartel.get(5)}">
+			                                <h5 class="card-title"><button type="submit" class="btn btn-link p-0 m-0">${donneesCartel.get(0)}</button></h5>
+		            					</form>
+									</c:otherwise>
 								</c:choose>
                                 <p class="card-text">Prix : ${donneesCartel.get(1)} points</p>
                                 <p class="card-text">Fin de l'enchère : ${donneesCartel.get(2)}</p>
                                 <c:choose>
-								<c:when test="${utilisateurConnecte==null}">
-                                <p class="card-text">Vendeur : ${donneesCartel.get(3)}</p>
-								</c:when>
-								<c:otherwise>
-            					<form action="./affichProfil" method="post">
-								<input type="hidden" name="user_id" value="${donneesCartel.get(4)}">
-                   				<p class="card-text">Vendeur : <button type="submit" class="btn btn-link p-0 m-0">${donneesCartel.get(3)}</button></p>
-            					</form>
-								</c:otherwise>
+									<c:when test="${utilisateurConnecte==null}">
+	                                	<p class="card-text">Vendeur : ${donneesCartel.get(3)}</p>
+									</c:when>
+									<c:otherwise>
+		            					<form action="./affichProfil" method="post">
+											<input type="hidden" name="user_id" value="${donneesCartel.get(4)}">
+			                   				<p class="card-text">Vendeur : <button type="submit" class="btn btn-link p-0 m-0">${donneesCartel.get(3)}</button></p>
+		            					</form>
+									</c:otherwise>
 								</c:choose>
                             </div>
                         </div>
