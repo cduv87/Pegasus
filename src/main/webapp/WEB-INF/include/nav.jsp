@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
     <div class="container-fluid">
-	    <a class="navbar-brand" href="/Pegasus/">
+	    <a class="navbar-brand" href="./">
 			ENI ENCHERES
 		</a>
 	<c:if test="${utilisateurConnecte != null}">
