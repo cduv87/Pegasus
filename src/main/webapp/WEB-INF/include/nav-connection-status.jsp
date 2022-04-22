@@ -1,34 +1,44 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	<div class="container-fluid">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container-fluid">
+		<%-- <%@ include file="/WEB-INF/include/nav.jsp"%> --%>
 		<a class="navbar-brand" href="">
-			<h1 class="display-4 text-white">ENI ENCHERES</h1>
+			ENI ENCHERES
 		</a>
-
-		<ul class="navbar-nav mr-auto my-2 my-lg-0">
-			<c:choose>
+		<c:choose>
 			<c:when test="${utilisateurConnecte != null}">
-				<li class="nav-item"><h6 class="text-white my-auto">Connecté : ${utilisateurConnecte.pseudo}  </h6></li>
-				<!-- le lien enchère ci dessous est destiné a devenir un post vers listeVenteServlet, rendant le resultat des encheres de l'utilisateur en cours  -->
-				<li class="nav-item"><a href="listeVente" name="encheres" class="btn btn-primary">Enchères</a></li>
-				<li class="nav-item"><a href="editVente" name="creer vente" class="btn btn-primary">Vendre un article</a></li>
-				<!-- ancien lien pour afficher son profil -->
-				<!-- <li class="nav-item"><a href="affichProfil" name="affiche profile" class="btn btn-primary">Mon Profil</a></li> -->
-				<form class="inline-form" action="./affichProfil" method="post">
-					<li class="nav-item"><button name="user_id" value="${utilisateurConnecte.noUtilisateur}" type="submit" class="btn btn-primary">Mon Profil</button></li>
-				</form>
-				<form class="inline-form" action="${pageContext.request.contextPath}/deconnexion" method="POST">
-					<li class="nav-item"><button name="deconnecter" type="submit" class="btn btn-danger">Se déconnecter</button></li>
-				</form>
+		        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		            <span class="navbar-toggler-icon"></span>
+		        </button>
+		        <div class="collapse navbar-collapse" id="navbarNav">
+		            <ul class="navbar-nav ms-auto">
+		                <li class="nav-item">
+		                    <a class="nav-link" href="editVente">Vendre un article</a>
+		                </li>
+		                <li class="nav-item">
+							<form class="inline-form" action="./affichProfil" method="post">
+								<input type="hidden" name="user_id" value="${utilisateurConnecte.noUtilisateur}">
+								<button type="submit" class="btn nav-link border-0">Mon Profil</button>
+							</form>
+		                    <!-- <a class="nav-link" href="affichProfil">Mon Profil</a> -->
+		                </li>
+		                <li class="nav-item">
+							<form class="inline-form" action="./deconnexion" method="post">
+								<button type="submit" class="btn btn-danger">Se déconnecter</button>
+							</form>
+		                    <!-- <a class="nav-link" href="deconnexion">Se déconnecter</a> -->
+		                </li>
+					<c:if test="${utilisateurConnecte != null}">
+		                <li class="nav-item">
+		                    <a class="nav-link fw-bold text-white"><i class="fa fa-user"></i> ${utilisateurConnecte.pseudo}</a>
+		                </li>
+					</c:if>
+		            </ul>
+		        </div>
 			</c:when>
 			<c:otherwise>
 				<a href="connexion" name="connecter" class="btn btn-primary">Se connecter</a>
 			</c:otherwise>
-			</c:choose>
-		</ul>
-
-	</div>
+		</c:choose>
+    </div>
 </nav>
