@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
 import javax.swing.text.DefaultEditorKit.InsertContentAction;
 
 import model.bll.ArticleManager;
@@ -194,30 +192,6 @@ public class MethodesTest {
 		System.out.println();
 	}
 	
-	public void testAjouterArticlesVendusRandom() throws SQLException, BusinessException {
-		Random rd = new Random();
-		int n = 100;
-		System.out.println("DEBUT Test ajout d'articles random : n="+n);
-		
-
-		for (int i = 0; i < n; i++) {
-			ArticleVendu article_temp = new ArticleVendu();
-			article_temp.setNomArticle("article n°"+String.valueOf(i));
-			article_temp.setDescription("description random n°"+String.valueOf(i));
-			article_temp.setDateDebutEncheres(LocalDate.of(2021+rd.nextInt(3), 1+rd.nextInt(12), 1+rd.nextInt(28)));
-			do
-				article_temp.setDateFinEncheres(LocalDate.of(2021+rd.nextInt(4), 1+rd.nextInt(12), 1+rd.nextInt(28)));
-			while(article_temp.getDateFinEncheres().isBefore(article_temp.getDateDebutEncheres()));
-			article_temp.setMiseAPrix(1+rd.nextInt(100));
-			article_temp.setUtilisateur(utilisateurManager.afficherUnUtilisateur(1+rd.nextInt(4)));
-			article_temp.setCategorieArticle(categorieManager.afficherUneCategorie(1+rd.nextInt(4)));
-			article_temp.setEtatVente(rd.nextBoolean());
-			articleManager.ajouterUnArticle(article_temp);
-		}
-		System.out.println("FIN Test ajout d'un article");
-		System.out.println();
-	}
-	
 	public void testAjoutEnchere() throws SQLException {
 		System.out.println("DEBUT Test ajout d'une enchere");
 		Enchere enchere_temp = new Enchere();
@@ -232,45 +206,21 @@ public class MethodesTest {
 		System.out.println();
 	}
 	
-	public void testAjouterEncheresRandom() throws SQLException, BusinessException {
-		Random rd = new Random();
-		int n = 100;
-		System.out.println("DEBUT Test ajout encheres random : n="+n);
-		
-
-		for (int i = 0; i < n; i++) {
-			ArticleVendu article_temp = new ArticleVendu();
-			article_temp.setNomArticle("article n°"+String.valueOf(i));
-			article_temp.setDescription("description random n°"+String.valueOf(i));
-			article_temp.setDateDebutEncheres(LocalDate.of(2021+rd.nextInt(3), 1+rd.nextInt(12), 1+rd.nextInt(28)));
-			do
-				article_temp.setDateFinEncheres(LocalDate.of(2021+rd.nextInt(4), 1+rd.nextInt(12), 1+rd.nextInt(28)));
-			while(article_temp.getDateFinEncheres().isBefore(article_temp.getDateDebutEncheres()));
-			article_temp.setMiseAPrix(1+rd.nextInt(100));
-			article_temp.setUtilisateur(utilisateurManager.afficherUnUtilisateur(1+rd.nextInt(4)));
-			article_temp.setCategorieArticle(categorieManager.afficherUneCategorie(1+rd.nextInt(4)));
-			article_temp.setEtatVente(rd.nextBoolean());
-			articleManager.ajouterUnArticle(article_temp);
+		public void testAjoutRetrait(int id) throws SQLException {
+			System.out.println("DEBUT Test ajout d'un retrait");
+			ArticleVendu a = articleManager.afficherUnArticle(id);
+			Utilisateur user = utilisateurManager.afficherUnUtilisateur(a.getUtilisateur().getNoUtilisateur());
+			Retrait retrait_temp = new Retrait();
+			retrait_temp.setArticle(a);
+			retrait_temp.setNo_article(a.getNoArticle());
+			retrait_temp.setRue(user.getRue());
+			retrait_temp.setCode_postal(user.getCodePostal());
+			retrait_temp.setVille(user.getVille());
+			System.out.println(retrait_temp);
+			retraitManager.ajouterRetrait(retrait_temp);
+			System.out.println("FIN Test ajout d'un retrait");
+			System.out.println();
 		}
-		System.out.println("FIN Test ajout d'un encheres");
-		System.out.println();
-	}
-	
-	public void testAjoutRetrait(int id) throws SQLException {
-		System.out.println("DEBUT Test ajout d'un retrait");
-		ArticleVendu a = articleManager.afficherUnArticle(id);
-		Utilisateur user = utilisateurManager.afficherUnUtilisateur(a.getUtilisateur().getNoUtilisateur());
-		Retrait retrait_temp = new Retrait();
-		retrait_temp.setArticle(a);
-		retrait_temp.setNo_article(a.getNoArticle());
-		retrait_temp.setRue(user.getRue());
-		retrait_temp.setCode_postal(user.getCodePostal());
-		retrait_temp.setVille(user.getVille());
-		System.out.println(retrait_temp);
-		retraitManager.ajouterRetrait(retrait_temp);
-		System.out.println("FIN Test ajout d'un retrait");
-		System.out.println();
-	}
 
 	public Boolean testAfficherTousUtilisateurs() throws BusinessException {
 		System.out.println("DEBUT Test affichage de TOUS les utilisateurs");
