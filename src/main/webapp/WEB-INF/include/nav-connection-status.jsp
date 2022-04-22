@@ -30,7 +30,7 @@
 		                </li>
 					<c:if test="${utilisateurConnecte != null}">
 		                <li class="nav-item">
-		                    <a class="nav-link">Connecté : ${utilisateurConnecte.pseudo}</a>
+		                    <a class="nav-link fw-bold text-white"><i class="fa fa-user"></i> ${utilisateurConnecte.pseudo}</a>
 		                </li>
 					</c:if>
 		            </ul>

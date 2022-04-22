@@ -71,7 +71,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAOInterface {
 					rs.getDate("date_fin_encheres").toLocalDate(),
 					rs.getInt("prix_initial"),
 					rs.getInt("prix_vente"),
-					false,
+					rs.getBoolean("etat_vente"),
 					c,
 					u
 				)
@@ -104,7 +104,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAOInterface {
 			rs.getDate("date_fin_encheres").toLocalDate(),
 			rs.getInt("prix_initial"),
 			rs.getInt("prix_vente"),
-			false,
+			rs.getBoolean("etat_vente"),
 			c,
 			u
 		);

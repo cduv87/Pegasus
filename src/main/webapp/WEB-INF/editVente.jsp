@@ -10,6 +10,7 @@
 <%@ include file="./include/bootstrapAndJSTL.jsp"%>
 <%@ include file="./include/nav.jsp"%>
 </head>
+
  <body>
     <p class="messageErreur text-danger" >${messageErreur}</p>
          <div class="container">
@@ -29,6 +30,7 @@
                  
                  <div class="form-group">
                    <!-- Combobox pour lister les catégories  -->
+
 						<label for="Categorie">Catégorie :</label> 
 						<select class="form-select" name="filtreCategorie" id="filtreCategorie">
 								<option value="0">Toutes</option>
