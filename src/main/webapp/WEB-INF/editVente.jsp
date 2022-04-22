@@ -12,7 +12,7 @@
 </head>
 
  <body>
-    <p class="messageErreur text-danger" >${messageErreur}</p>
+    <p class="messageErreur text-center text-danger fw-bold" >${messageErreur}</p>
          <div class="container">
              <h1 class="h1 text-center mb-5">Nouvelle vente</h1>           	
              <form action="./editVente" method="POST">

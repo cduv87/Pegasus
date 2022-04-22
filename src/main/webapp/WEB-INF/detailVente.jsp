@@ -11,6 +11,7 @@
 <body>
     <div class="container mt-5">
         <p class="h1 text-center mb-5"><b>Detail vente</b></p>
+        <p class="message text-center text-dark fw-bold">${message}</p>
         <div class="row justify-content-center">
         <div class="col-auto">
 			<table class="table">

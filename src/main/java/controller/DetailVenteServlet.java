@@ -108,6 +108,7 @@ public class DetailVenteServlet extends HttpServlet{
 				e.printStackTrace();
 			}
 			articleManager.modifierUnArticle(article);
+			request.setAttribute("message", "Félicitation, votre enchère est passée !");
 			}
 			try {
 				utilisateurManager.modifierUtilisateur(utilisateurConnecte);
