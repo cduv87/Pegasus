@@ -37,7 +37,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAOInterface {
 		if (rs.next()) {
 			e.setNoEnchere(rs.getInt(1));
 		}
-//		cnx.close();
+		cnx.close();
 
 	}
 

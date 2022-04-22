@@ -506,4 +506,28 @@ public class MethodesTest {
         System.out.println("FIN Test ajout d'un article");
         System.out.println();
     }
+	
+	public void testAjouterEncheresVendusRandom() throws SQLException, BusinessException {
+        Random rd = new Random();
+        int n = 100;
+		List<ArticleVendu> articles_temp = articleManager.afficherTousArticles();
+        System.out.println("DEBUT Test ajout d'ecnhseres random : n="+n);
+        for (int i = 0; i < n; i++) {
+    		Enchere enchere_temp = new Enchere();
+    		ArticleVendu article_temp = articles_temp.get(rd.nextInt(articles_temp.size()));
+    		Utilisateur utilisateur_temp = utilisateurManager.afficherUnUtilisateur(1+rd.nextInt(4));
+            do
+            	enchere_temp.setDateEnchere(LocalDate.of(2021+rd.nextInt(4), 1+rd.nextInt(12), 1+rd.nextInt(28)));
+            while(
+        		enchere_temp.getDateEnchere().isBefore(article_temp.getDateDebutEncheres()) ||
+        		enchere_temp.getDateEnchere().isAfter(article_temp.getDateFinEncheres())
+        	);
+    		enchere_temp.setMontant_enchere(1+rd.nextInt(1000));
+    		enchere_temp.setArticle(article_temp);
+    		enchere_temp.setUtilisateur(utilisateur_temp);
+    		enchereManager.ajouterEnchere(enchere_temp);
+        }
+        System.out.println("FIN Test ajout d'un article");
+        System.out.println();
+    }
 }
