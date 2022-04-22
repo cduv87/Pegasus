@@ -119,7 +119,7 @@ public class EditVenteServlet extends HttpServlet {
 		
 		if(aValider == null || aValider.isEmpty() || aValider.trim().isEmpty()) {
 		
-		throw new BusinessException("Les champs doivent tous Ãªtre remplis");
+		throw new BusinessException("Sauf erreur de ma part, tous les champs n'ont pas été remplis...");
 		
 		}
 	}
