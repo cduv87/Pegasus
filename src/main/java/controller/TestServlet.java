@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.bll.BusinessException;
+import model.bll.MethodesTest;
 
 /**
  * Servlet implementation class TestServlet
@@ -68,10 +69,10 @@ public class TestServlet extends HttpServlet {
 			test.testAfficherUnArticle(1);
 			test.testAfficherUneEnchere(1);
 			
-			test.testModifierUtilisateur(2);
-			test.testModifierCategorie(3);
-			test.testModifierArticle(1);
-			test.testModifierEnchere(1);
+//			test.testModifierUtilisateur(2);
+//			test.testModifierCategorie(3);
+//			test.testModifierArticle(1);
+//			test.testModifierEnchere(1);
 
 //			test.testEffacerUnUtilisateur();
 //			
