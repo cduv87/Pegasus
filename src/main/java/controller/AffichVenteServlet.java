@@ -31,18 +31,12 @@ public class AffichVenteServlet extends HttpServlet{
 			numArticle = Integer.parseInt(request.getParameter("noArticle"));
 			
 			
-			try {
-				articleVendu = articleManager.afficherUnArticle(numArticle);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			articleVendu = articleManager.afficherUnArticle(numArticle);
 			
-			request.setAttribute("profil", utilisateur);
+			request.setAttribute("profil", utilisateurManager);
 			request.getRequestDispatcher("/WEB-INF/affichProfil.jsp").forward(request, response);
 
 			
 		}
 
 		}
-}
